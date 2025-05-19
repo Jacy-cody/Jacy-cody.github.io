@@ -8,55 +8,60 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Poppins', sans-serif; }
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 50; }
-    .modal-content { background: white; margin: 10% auto; padding: 20px; max-width: 600px; border-radius: 8px; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 50; align-items: center; justify-content: center; }
+    .modal-content { background: white; animation: fadeIn .2s; padding: 20px; max-width: 600px; border-radius: 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.24); }
+    @keyframes fadeIn { from { opacity:0; transform: translateY(-40px);} to {opacity:1; transform: translateY(0);} }
     .chatbox { position: fixed; bottom: 20px; right: 20px; width: 300px; background: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 100; }
     .chatbox-header { background: #10B981; color: white; padding: 10px; border-radius: 8px 8px 0 0; }
     .chatbox-body { padding: 10px; max-height: 200px; overflow-y: auto; }
     .chatbox-input { width: 100%; padding: 10px; border-top: 1px solid #e5e7eb; }
+    @media (max-width: 500px) {
+      .modal-content { padding: 10px; }
+      .chatbox { width: 98vw; right: 1vw; }
+    }
   </style>
 </head>
 <body class="bg-gray-100">
   <!-- Header -->
-  <header class="bg-white shadow py-4">
+   <header class="bg-white shadow py-4 sticky top-0 z-20">
     <div class="container mx-auto px-4 flex justify-between items-center">
       <a href="index.html">
-        <img src="img/logo.jpg" alt="Loopy Logo" class="h-[100px] w-[100px] md:h-[150px] md:w-[150px] lg:h-[200px] lg:w-[200px] object-contain transition-all duration-300">
+        <img src="img/logo.jpg" alt="Loopy Logo" class="h-[80px] w-[80px] md:h-[120px] md:w-[120px] object-contain transition-all duration-300 rounded-2xl shadow hover:scale-105">
       </a>
-      <nav class="flex space-x-4">
-        <a href="index.html" class="text-gray-600 hover:text-green-500">Home</a>
-        <a href="shop.html" class="text-gray-600 hover:text-green-500">Shop</a>
-        <a href="swap.html" class="text-gray-600 hover:text-green-500">Swap</a>
-        <a href="dashboard.html" class="text-gray-600 hover:text-green-500">Digital Wardrobe</a>
-        <a href="stats.html" class="text-gray-600 hover:text-green-500">Stats</a>
-        <a href="about.html" class="text-gray-600 hover:text-green-500">About</a>
-        <a href="signup.html" class="bg-green-500 text-white px-4 py-2 rounded-lg">Sign Up</a>
+      <nav class="flex space-x-2 md:space-x-4">
+        <a href="index.html" class="text-gray-600 hover:text-green-500 font-medium transition">Home</a>
+        <a href="shop.html" class="text-gray-600 hover:text-green-500 font-medium transition">Shop</a>
+        <a href="swap.html" class="text-green-600 font-semibold underline">Swap</a>
+        <a href="dashboard.html" class="text-gray-600 hover:text-green-500 font-medium transition">Digital Wardrobe</a>
+        <a href="stats.html" class="text-gray-600 hover:text-green-500 font-medium transition">Stats</a>
+        <a href="chat.html" class="text-gray-600 hover:text-green-600 font-medium transition">Chat</a>
+        <a href="about.html" class="text-gray-600 hover:text-green-500 font-medium transition">About</a>
+        <a href="signup.html" class="bg-green-500 text-white px-4 py-2 rounded-xl shadow hover:bg-green-600 transition font-semibold">Sign Up</a>
       </nav>
     </div>
   </header>
 
   <!-- Swap Section -->
-  <section class="py-16 bg-white">
+  <section class="py-10 md:py-16 bg-white">
     <div class="container mx-auto px-4">
       <h2 class="text-3xl font-bold text-center mb-6">Swap Fashion</h2>
       <p class="text-lg text-center mb-8">Browse other users’ wardrobes and request a swap!</p>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        <!-- Swap Item 1 -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <!-- Add more swap items easily -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
           <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Denim Jacket" class="w-full h-48 object-cover">
           <div class="p-4">
             <h3 class="text-lg font-semibold">Levi’s Denim Jacket</h3>
             <p class="text-gray-600">User: Sarah</p>
-            <button onclick="showSwapDetails(1)" class="mt-4 bg-green-500 text-white px-4 py-2 rounded-lg w-full hover:bg-green-600">Request Swap</button>
+            <button onclick="showSwapDetails(1)" class="mt-4 bg-green-500 text-white px-4 py-2 rounded-lg w-full hover:bg-green-600 transition">Request Swap</button>
           </div>
         </div>
-        <!-- Swap Item 2 -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
           <img src="img/nikeair.jpg" alt="Nike Sneakers" class="w-full h-48 object-cover">
           <div class="p-4">
             <h3 class="text-lg font-semibold">Nike Air Max</h3>
             <p class="text-gray-600">User: Liam</p>
-            <button onclick="showSwapDetails(2)" class="mt-4 bg-green-500 text-white px-4 py-2 rounded-lg w-full hover:bg-green-600">Request Swap</button>
+            <button onclick="showSwapDetails(2)" class="mt-4 bg-green-500 text-white px-4 py-2 rounded-lg w-full hover:bg-green-600 transition">Request Swap</button>
           </div>
         </div>
       </div>
@@ -65,19 +70,24 @@
 
   <!-- Swap Details Modal -->
   <div id="swapModal" class="modal">
-    <div class="modal-content">
+    <div class="modal-content relative">
+      <button onclick="closeModal()" class="absolute right-3 top-3 text-gray-400 hover:text-gray-700 text-lg">&times;</button>
       <div class="flex flex-col md:flex-row gap-6">
         <img id="modalImage" src="" alt="Swap Item" class="w-full md:w-1/2 h-64 object-cover rounded-lg">
         <div class="w-full md:w-1/2">
           <h2 id="modalTitle" class="text-2xl font-bold mb-4"></h2>
           <p><strong>User:</strong> <span id="modalUser"></span></p>
           <p><strong>Condition:</strong> <span id="modalCondition"></span></p>
-          <p><strong>Your Item:</strong> <select id="yourItem" class="border rounded p-2 w-full">
+          <label for="yourItem" class="block mt-4 mb-2 font-semibold">Your Item:</label>
+          <select id="yourItem" class="border rounded p-2 w-full mb-4">
             <option>Zara Dress</option>
             <option>Nike Sneakers</option>
-          </select></p>
-          <button onclick="requestSwap()" class="bg-green-500 text-white px-4 py-2 rounded-lg mt-4 hover:bg-green-600">Send Swap Request</button>
-          <button onclick="closeModal()" class="mt-4 text-gray-600 underline">Close</button>
+          </select>
+          <div id="swapFeedback" class="text-green-600 font-semibold mb-2" style="display:none;"></div>
+          <div class="flex gap-4 mt-2">
+            <button id="swapBtn" onclick="requestSwap()" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">Send Swap Request</button>
+            <a href="#" id="chatLink" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">Chat with Swapper</a>
+          </div>
         </div>
       </div>
     </div>
@@ -96,10 +106,10 @@
   </div>
 
   <!-- Footer -->
-  <footer class="py-12 bg-green-500 text-white text-center">
+  <footer class="py-12 bg-green-500 text-white text-center mt-12 rounded-t-3xl shadow-inner">
     <div class="container mx-auto px-4">
-      <p class="mb-6">Shop sustainably with Loopy. Reduce waste, reuse fashion.</p>
-      <p class="mb-4">Supporting SDGs 8, 12, 13, 14, 15</p>
+      <p class="mb-6 text-lg font-semibold">Shop sustainably with Loopy. Reduce waste, reuse fashion.</p>
+      <p class="mb-4 text-base">Supporting SDGs 8, 12, 13, 14, 15</p>
       <div class="flex justify-center gap-4 mb-4">
         <span class="text-2xl">💼</span>
         <span class="text-2xl">♻️</span>
@@ -107,54 +117,74 @@
         <span class="text-2xl">🌊</span>
         <span class="text-2xl">🌱</span>
       </div>
-      <div class="flex justify-center space-x-4">
-        <a href="about.html" class="text-white hover:text-gray-200">About</a>
-        <a href="faq.html" class="text-white hover:text-gray-200">FAQ</a>
-        <a href="contact.html" class="text-white hover:text-gray-200">Contact</a>
-        <a href="https://instagram.com" class="text-white hover:text-gray-200">Instagram</a>
-        <a href="https://tiktok.com" class="text-white hover:text-gray-200">TikTok</a>
+      <div class="flex justify-center space-x-4 mb-8 mt-8">
+        <a href="https://apps.apple.com/" target="_blank" rel="noopener" class="inline-flex items-center bg-black text-white px-6 py-3 rounded-xl shadow hover:bg-gray-800 transition">
+          <!-- Apple SVG omitted for brevity -->
+          <span class="flex flex-col items-start leading-tight text-left">
+            <span class="text-xs">Download on the</span>
+            <span class="text-base font-semibold">App Store</span>
+          </span>
+        </a>
+        <a href="https://play.google.com/store" target="_blank" rel="noopener" class="inline-flex items-center bg-white text-gray-800 border border-gray-300 px-6 py-3 rounded-xl shadow hover:bg-gray-200 transition">
+          <!-- Google Play SVG omitted for brevity -->
+          <span class="flex flex-col items-start leading-tight text-left">
+            <span class="text-xs">Get it on</span>
+            <span class="text-base font-semibold">Google Play</span>
+          </span>
+        </a>
       </div>
+      <div class="flex justify-center space-x-4 text-base">
+        <a href="about.html" class="text-white hover:text-gray-200 transition">About</a>
+        <a href="faq.html" class="text-white hover:text-gray-200 transition">FAQ</a>
+        <a href="contact.html" class="text-white hover:text-gray-200 transition">Contact</a>
+        <a href="https://instagram.com" class="text-white hover:text-gray-200 transition">Instagram</a>
+        <a href="https://tiktok.com" class="text-white hover:text-gray-200 transition">TikTok</a>
+      </div>
+      <p class="mt-10 text-sm opacity-80">© 2025 Loopy Circular Fashion. All rights reserved.</p>
     </div>
   </footer>
 
   <script>
     // Swap Items Data
     const swapItems = {
-      1: {
-        title: "Levi’s Denim Jacket",
-        image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-        user: "Sarah",
-        condition: "Gently Used"
-      },
-      2: {
-        title: "Nike Air Max",
-        image: "https://images.unsplash.com/photo-1608063615781-e2ef1c73d4c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-        user: "Liam",
-        condition: "Like New"
-      }
+      1: { title: "Levi’s Denim Jacket", image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80", user: "Sarah", condition: "Gently Used" },
+      2: { title: "Nike Air Max", image: "img/nikeair.jpg", user: "Liam", condition: "Like New" }
     };
 
-    // Show Swap Details
     function showSwapDetails(id) {
       const item = swapItems[id];
       document.getElementById('modalImage').src = item.image;
       document.getElementById('modalTitle').textContent = item.title;
       document.getElementById('modalUser').textContent = item.user;
       document.getElementById('modalCondition').textContent = item.condition;
+      document.getElementById('chatLink').href = `chat.html?contact=${encodeURIComponent(item.user)}`;
+      document.getElementById('swapFeedback').style.display = 'none';
+      document.getElementById('swapBtn').disabled = false;
+      document.getElementById('swapBtn').textContent = 'Send Swap Request';
       document.getElementById('swapModal').style.display = 'flex';
+      setTimeout(()=>{document.getElementById('yourItem').focus()},150);
     }
 
-    // Close Modal
     function closeModal() {
       document.getElementById('swapModal').style.display = 'none';
     }
 
-    // Request Swap
     function requestSwap() {
       const selectedItem = document.getElementById('yourItem').value;
-      alert(`Swap request sent for ${selectedItem}!`);
-      closeModal();
+      const feedback = document.getElementById('swapFeedback');
+      feedback.textContent = `Swap request sent for your ${selectedItem}!`;
+      feedback.style.display = 'block';
+      document.getElementById('swapBtn').disabled = true;
+      document.getElementById('swapBtn').textContent = 'Request Sent';
     }
+
+    // Keyboard accessibility (ESC closes modal/chat)
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") {
+        closeModal();
+        document.getElementById('chatbox').style.display = 'none';
+      }
+    });
 
     // Toggle Chatbox
     function toggleChatbox() {

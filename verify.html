@@ -8,29 +8,78 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Poppins', sans-serif; }
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 50; }
-    .modal-content { background: white; margin: 10% auto; padding: 20px; max-width: 600px; border-radius: 8px; }
-    .chatbox { position: fixed; bottom: 20px; right: 20px; width: 300px; background: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 100; }
-    .chatbox-header { background: #10B981; color: white; padding: 10px; border-radius: 8px 8px 0 0; }
-    .chatbox-body { padding: 10px; max-height: 200px; overflow-y: auto; }
-    .chatbox-input { width: 100%; padding: 10px; border-top: 1px solid #e5e7eb; }
+    .modal {
+      display: none;
+      position: fixed; top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.55);
+      z-index: 50;
+      align-items: center; justify-content: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 32px 26px;
+      border-radius: 18px;
+      box-shadow: 0 8px 40px #10b98125;
+      max-width: 440px;
+      width: 90vw;
+      text-align: center;
+      animation: fadeIn 0.28s;
+    }
+    @keyframes fadeIn { from { transform: scale(0.98); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .chatbox {
+      position: fixed; bottom: 24px; right: 24px; width: 320px;
+      background: white; border-radius: 12px; box-shadow: 0 4px 16px #10b98130;
+      z-index: 100; border: 1.5px solid #a7f3d0;
+      animation: floatBox 1.5s infinite alternate;
+    }
+    @keyframes floatBox { from { box-shadow: 0 4px 16px #10b98130; } to { box-shadow: 0 8px 36px #34d39944; } }
+    .chatbox-header {
+      background: linear-gradient(90deg, #10B981 80%, #34D399 100%);
+      color: white; padding: 12px 16px; border-radius: 12px 12px 0 0; font-weight: 600; font-size: 1.08rem;
+      letter-spacing: 0.01em;
+    }
+    .chatbox-body { padding: 14px 16px; max-height: 220px; overflow-y: auto; font-size: 0.99rem;}
+    .chatbox-input { width: 100%; padding: 13px; border-top: 1.5px solid #e5e7eb; border-radius: 0 0 12px 12px;}
+    .file-upload::-webkit-file-upload-button {
+      visibility: hidden;
+    }
+    .file-upload::before {
+      content: 'Select Image';
+      display: inline-block;
+      background: #10b981;
+      color: white;
+      padding: 0.5rem 1.25rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      margin-right: 10px;
+      transition: background 0.14s;
+    }
+    .file-upload:active::before, .file-upload:focus::before { background: #059669; }
+    @media (max-width: 640px) {
+      .chatbox { width: 96vw; right: 2vw;}
+      .modal-content { padding: 18px 6vw; }
+    }
   </style>
 </head>
 <body class="bg-gray-100">
   <!-- Header -->
-  <header class="bg-white shadow py-4">
+   <header class="bg-white shadow py-4 sticky top-0 z-20">
     <div class="container mx-auto px-4 flex justify-between items-center">
       <a href="index.html">
-        <img src="img/logo.jpg" alt="Loopy Logo" class="h-[100px] w-[100px] md:h-[150px] md:w-[150px] lg:h-[200px] lg:w-[200px] object-contain transition-all duration-300">
+        <img src="img/logo.jpg" alt="Loopy Logo" class="h-[80px] w-[80px] md:h-[120px] md:w-[120px] object-contain transition-all duration-300 rounded-2xl shadow hover:scale-105">
       </a>
-      <nav class="flex space-x-4">
-        <a href="index.html" class="text-gray-600 hover:text-green-500">Home</a>
-        <a href="shop.html" class="text-gray-600 hover:text-green-500">Shop</a>
-        <a href="swap.html" class="text-gray-600 hover:text-green-500">Swap</a>
-        <a href="dashboard.html" class="text-gray-600 hover:text-green-500">Digital Wardrobe</a>
-        <a href="stats.html" class="text-gray-600 hover:text-green-500">Stats</a>
-        <a href="about.html" class="text-gray-600 hover:text-green-500">About</a>
-        <a href="signup.html" class="bg-green-500 text-white px-4 py-2 rounded-lg">Sign Up</a>
+      <nav class="flex space-x-2 md:space-x-4">
+        <a href="index.html" class="text-gray-600 hover:text-green-500 font-medium transition">Home</a>
+        <a href="shop.html" class="text-green-600 font-semibold underline">Shop</a>
+        <a href="swap.html" class="text-gray-600 hover:text-green-500 font-medium transition">Swap</a>
+        <a href="dashboard.html" class="text-gray-600 hover:text-green-500 font-medium transition">Digital Wardrobe</a>
+        <a href="stats.html" class="text-gray-600 hover:text-green-500 font-medium transition">Stats</a>
+        <a href="about.html" class="text-gray-600 hover:text-green-500 font-medium transition">About</a>
+        <a href="chat.html" class="text-gray-600 hover:text-green-500 font-medium transition">Chat</a>
+        <a href="signup.html" class="bg-green-500 text-white px-4 py-2 rounded-xl shadow hover:bg-green-600 transition font-semibold">Sign Up</a>
       </nav>
     </div>
   </header>
@@ -38,11 +87,30 @@
   <!-- Verification Section -->
   <section class="py-16 bg-white">
     <div class="container mx-auto px-4 text-center">
-      <h2 class="text-3xl font-bold mb-6">AI Verification</h2>
-      <p class="text-lg mb-8">Upload your item for AI-powered quality check and authentication.</p>
-      <div class="max-w-md mx-auto bg-gray-100 p-6 rounded-lg">
-        <input type="file" disabled class="mb-4 w-full p-2 border rounded">
-        <button onclick="showVerificationResults()" class="bg-green-500 text-white px-4 py-2 rounded-lg w-full hover:bg-green-600">Scan with AI</button>
+      <h2 class="text-3xl font-bold mb-4 text-green-700">AI Verification</h2>
+      <p class="text-lg mb-8 text-gray-600">Upload your item for AI-powered quality check and authentication. Secure, simple, and fast!</p>
+      <div class="max-w-md mx-auto bg-gray-100 p-7 rounded-2xl shadow card">
+        <form id="verifyForm" onsubmit="startVerification(event)">
+          <label class="block mb-3 text-left font-medium text-gray-800">Upload Garment Image</label>
+          <input type="file" id="fileInput" class="file-upload mb-4 w-full p-2 border border-green-200 rounded-lg transition" accept="image/*" required>
+          <div class="flex items-center justify-center gap-4 my-4">
+            <div class="flex flex-col items-center">
+              <span class="text-3xl">📸</span>
+              <span class="text-xs mt-1 text-gray-400">1. Upload</span>
+            </div>
+            <span class="text-green-400 text-2xl font-bold">→</span>
+            <div class="flex flex-col items-center">
+              <span class="text-3xl">🤖</span>
+              <span class="text-xs mt-1 text-gray-400">2. AI Scan</span>
+            </div>
+            <span class="text-green-400 text-2xl font-bold">→</span>
+            <div class="flex flex-col items-center">
+              <span class="text-3xl">✅</span>
+              <span class="text-xs mt-1 text-gray-400">3. Done!</span>
+            </div>
+          </div>
+          <button type="submit" class="bg-green-500 text-white px-5 py-3 rounded-xl w-full font-semibold shadow hover:bg-green-600 hover:scale-105 transition">Scan with AI</button>
+        </form>
       </div>
     </div>
   </section>
@@ -50,13 +118,14 @@
   <!-- Verification Results Modal -->
   <div id="verificationModal" class="modal">
     <div class="modal-content">
-      <h2 class="text-2xl font-bold mb-4">Verification Results</h2>
-      <p><strong>Authenticity:</strong> ✅ Verified</p>
-      <p><strong>Quality:</strong> Excellent</p>
-      <p><strong>Price Suggested:</strong> $35</p>
-      <p><strong>Status:</strong> Listed ✅</p>
-      <a href="shop.html" class="bg-green-500 text-white px-4 py-2 rounded-lg mt-4 inline-block hover:bg-green-600">View in Marketplace</a>
-      <button onclick="closeModal()" class="mt-4 text-gray-600 underline">Close</button>
+      <div class="text-green-500 text-4xl mb-2">🤖</div>
+      <h2 class="text-2xl font-bold mb-3">Verification Results</h2>
+      <p class="mb-2"><span class="font-semibold text-gray-700">Authenticity:</span> <span class="text-green-500 font-semibold">✅ Verified</span></p>
+      <p class="mb-2"><span class="font-semibold text-gray-700">Quality:</span> <span class="text-green-500">Excellent</span></p>
+      <p class="mb-2"><span class="font-semibold text-gray-700">Price Suggested:</span> <span class="text-green-500">$35</span></p>
+      <p class="mb-2"><span class="font-semibold text-gray-700">Status:</span> <span class="text-green-500">Listed</span> <span class="ml-1">✅</span></p>
+      <a href="shop.html" class="bg-green-500 text-white px-4 py-2 rounded-xl mt-5 inline-block hover:bg-green-600 transition">View in Marketplace</a>
+      <button onclick="closeModal()" class="mt-4 text-gray-500 underline hover:text-green-500 font-semibold transition-colors text-base">Close</button>
     </div>
   </div>
 
@@ -64,7 +133,7 @@
   <div id="chatbox" class="chatbox">
     <div class="chatbox-header flex justify-between items-center">
       <span>Chat with Loopy</span>
-      <button onclick="toggleChatbox()" class="text-white">−</button>
+      <button onclick="toggleChatbox()" class="text-white hover:text-green-100 focus:outline-none">−</button>
     </div>
     <div id="chatboxBody" class="chatbox-body">
       <p><strong>Loopy AI:</strong> Hi! Need help with verification or listing? 😊</p>
@@ -73,10 +142,10 @@
   </div>
 
   <!-- Footer -->
-  <footer class="py-12 bg-green-500 text-white text-center">
+  <footer class="py-12 bg-green-500 text-white text-center mt-12 rounded-t-3xl shadow-inner">
     <div class="container mx-auto px-4">
-      <p class="mb-6">Shop sustainably with Loopy. Reduce waste, reuse fashion.</p>
-      <p class="mb-4">Supporting SDGs 8, 12, 13, 14, 15</p>
+      <p class="mb-6 text-lg font-semibold">Shop sustainably with Loopy. Reduce waste, reuse fashion.</p>
+      <p class="mb-4 text-base">Supporting SDGs 8, 12, 13, 14, 15</p>
       <div class="flex justify-center gap-4 mb-4">
         <span class="text-2xl">💼</span>
         <span class="text-2xl">♻️</span>
@@ -84,20 +153,42 @@
         <span class="text-2xl">🌊</span>
         <span class="text-2xl">🌱</span>
       </div>
-      <div class="flex justify-center space-x-4">
-        <a href="about.html" class="text-white hover:text-gray-200">About</a>
-        <a href="faq.html" class="text-white hover:text-gray-200">FAQ</a>
-        <a href="contact.html" class="text-white hover:text-gray-200">Contact</a>
-        <a href="https://instagram.com" class="text-white hover:text-gray-200">Instagram</a>
-        <a href="https://tiktok.com" class="text-white hover:text-gray-200">TikTok</a>
+      <div class="flex justify-center space-x-4 mb-8 mt-8">
+        <a href="https://apps.apple.com/" target="_blank" rel="noopener" class="inline-flex items-center bg-black text-white px-6 py-3 rounded-xl shadow hover:bg-gray-800 transition">
+          <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M17.564 13.217c.014-2.385 1.948-3.52 2.033-3.572-1.109-1.62-2.838-1.843-3.444-1.87-1.47-.148-2.87.87-3.617.87-.749 0-1.895-.846-3.12-.822-1.606.023-3.099.936-3.93 2.387-1.692 2.928-.433 7.246 1.212 9.621.8 1.163 1.744 2.466 2.993 2.419 1.206-.048 1.663-.783 3.126-.783 1.464 0 1.867.783 3.129.758 1.296-.025 2.108-1.186 2.903-2.352.924-1.366 1.306-2.692 1.319-2.76-.029-.014-2.523-.969-2.54-3.846zm-3.012-7.184c.658-.797 1.104-1.91.982-3.033-.95.04-2.097.632-2.782 1.427-.611.707-1.148 1.837-.946 2.922 1.044.08 2.112-.53 2.746-1.316z"/></svg>
+          <span class="flex flex-col items-start leading-tight text-left">
+            <span class="text-xs">Download on the</span>
+            <span class="text-base font-semibold">App Store</span>
+          </span>
+        </a>
+        <a href="https://play.google.com/store" target="_blank" rel="noopener" class="inline-flex items-center bg-white text-gray-800 border border-gray-300 px-6 py-3 rounded-xl shadow hover:bg-gray-200 transition">
+          <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="none"><g><path fill="#34A853" d="M1.79 0l11.19 12L1.79 24z"/><path fill="#4285F4" d="M23 12l-2.21-2.36-5.43 4.23 5.43 4.13z"/><path fill="#FBBC05" d="M1.79 0l14.58 12-2.37 2.36z"/><path fill="#EA4335" d="M1.79 24l14.58-12 2.36 2.35z"/></g></svg>
+          <span class="flex flex-col items-start leading-tight text-left">
+            <span class="text-xs">Get it on</span>
+            <span class="text-base font-semibold">Google Play</span>
+          </span>
+        </a>
       </div>
+      <div class="flex justify-center space-x-4 text-base">
+        <a href="about.html" class="text-white hover:text-gray-200 transition">About</a>
+        <a href="faq.html" class="text-white hover:text-gray-200 transition">FAQ</a>
+        <a href="contact.html" class="text-white hover:text-gray-200 transition">Contact</a>
+        <a href="https://instagram.com" class="text-white hover:text-gray-200 transition">Instagram</a>
+        <a href="https://tiktok.com" class="text-white hover:text-gray-200 transition">TikTok</a>
+      </div>
+      <p class="mt-10 text-sm opacity-80">© 2025 Loopy Circular Fashion. All rights reserved.</p>
     </div>
   </footer>
 
   <script>
-    // Show Verification Results
-    function showVerificationResults() {
-      document.getElementById('verificationModal').style.display = 'flex';
+    // Simulate AI Verification (Demo UX)
+    function startVerification(event) {
+      event.preventDefault();
+      document.querySelector('button[type="submit"]').textContent = "Scanning...";
+      setTimeout(() => {
+        document.querySelector('button[type="submit"]').textContent = "Scan with AI";
+        document.getElementById('verificationModal').style.display = 'flex';
+      }, 1500);
     }
 
     // Close Modal

@@ -7,42 +7,107 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Poppins', sans-serif; }
-    .chatbox { position: fixed; bottom: 20px; right: 20px; width: 300px; background: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 100; }
-    .chatbox-header { background: #10B981; color: white; padding: 10px; border-radius: 8px 8px 0 0; }
-    .chatbox-body { padding: 10px; max-height: 200px; overflow-y: auto; }
-    .chatbox-input { width: 100%; padding: 10px; border-top: 1px solid #e5e7eb; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg,#e6fff8 0%,#f8fafc 100%);
+    }
+    .card {
+      box-shadow: 0 4px 32px #10b98112;
+      transition: box-shadow 0.15s, transform 0.15s;
+    }
+    .card:hover {
+      transform: translateY(-3px) scale(1.012);
+      box-shadow: 0 8px 40px #10b98122;
+    }
+    .divider-or {
+      position: relative;
+      text-align: center;
+      margin: 1.6rem 0 1.4rem 0;
+    }
+    .divider-or span {
+      background: #f4f4f4;
+      padding: 0 14px;
+      position: relative;
+      z-index: 2;
+      font-size: 1rem;
+      color: #6b7280;
+      font-weight: 600;
+    }
+    .divider-or::before {
+      content: "";
+      position: absolute;
+      left: 0; right: 0; top: 50%;
+      border-top: 1.5px solid #e5e7eb;
+      z-index: 1;
+    }
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 1.08rem;
+      transition: background 0.15s, box-shadow 0.14s, transform 0.14s;
+      box-shadow: 0 2px 10px #a7f3d022;
+      border: none;
+    }
+    .social-btn:focus, .social-btn:hover {
+      background: #059669 !important;
+      color: #fff !important;
+      transform: scale(1.025);
+    }
+    .chatbox {
+      position: fixed; bottom: 24px; right: 24px; width: 320px;
+      background: white; border-radius: 12px; box-shadow: 0 4px 16px #10b98130;
+      z-index: 100; border: 1.5px solid #a7f3d0;
+      animation: floatBox 1.5s infinite alternate;
+    }
+    @keyframes floatBox { from { box-shadow: 0 4px 16px #10b98130; } to { box-shadow: 0 8px 36px #34d39944; } }
+    .chatbox-header {
+      background: linear-gradient(90deg, #10B981 80%, #34D399 100%);
+      color: white; padding: 12px 16px; border-radius: 12px 12px 0 0; font-weight: 600; font-size: 1.08rem;
+      letter-spacing: 0.01em;
+    }
+    .chatbox-body { padding: 14px 16px; max-height: 220px; overflow-y: auto; font-size: 0.99rem;}
+    .chatbox-input { width: 100%; padding: 13px; border-top: 1.5px solid #e5e7eb; border-radius: 0 0 12px 12px;}
+    @media (max-width: 640px) {
+      .chatbox { width: 96vw; right: 2vw;}
+      .card { padding: 1.2rem 4vw !important; }
+    }
   </style>
 </head>
-<body class="bg-gray-100">
+<body>
   <!-- Header -->
   <header class="bg-white shadow py-4">
     <div class="container mx-auto px-4 flex justify-between items-center">
-     <a href="index.html">
-        <img src="img/logo.jpg" alt="Loopy Logo" class="h-[100px] w-[100px] md:h-[150px] md:w-[150px] lg:h-[200px] lg:w-[200px] object-contain transition-all duration-300">
+      <a href="index.html">
+        <img src="img/logo.jpg" alt="Loopy Logo" class="h-[72px] w-[72px] md:h-[110px] md:w-[110px] lg:h-[140px] lg:w-[140px] object-contain transition-all duration-300 rounded-2xl shadow hover:scale-105">
       </a>
       <nav class="flex space-x-4">
-        <a href="index.html" class="text-gray-600 hover:text-green-500">Home</a>
-        <a href="shop.html" class="text-gray-600 hover:text-green-500">Shop</a>
-        <a href="swap.html" class="text-gray-600 hover:text-green-500">Swap</a>
-        <a href="dashboard.html" class="text-gray-600 hover:text-green-500">Digital Wardrobe</a>
-        <a href="stats.html" class="text-gray-600 hover:text-green-500">Stats</a>
-        <a href="about.html" class="text-gray-600 hover:text-green-500">About</a>
-        <a href="signup.html" class="bg-green-500 text-white px-4 py-2 rounded-lg">Sign Up</a>
+  
+    
       </nav>
     </div>
   </header>
 
   <!-- Sign Up Section -->
-  <section class="py-16 bg-white">
-    <div class="container mx-auto px-4 text-center">
-      <h2 class="text-3xl font-bold mb-6">Join Loopy</h2>
-      <p class="text-lg mb-8">Create an account or log in to start your sustainable fashion journey.</p>
-      <div class="max-w-md mx-auto bg-gray-100 p-6 rounded-lg">
-        <button onclick="mockSignUp('Google')" class="bg-green-500 text-white px-4 py-2 rounded-lg w-full mb-4 hover:bg-green-600">Sign in with Google</button>
-        <button onclick="mockSignUp('Instagram')" class="bg-green-500 text-white px-4 py-2 rounded-lg w-full mb-4 hover:bg-green-600">Sign in with Instagram</button>
-        <button onclick="mockSignUp('TikTok')" class="bg-green-500 text-white px-4 py-2 rounded-lg w-full mb-4 hover:bg-green-600">Sign in with TikTok</button>
-        <p class="text-sm">By signing up, you agree to our <a href="about.html" class="text-green-500 hover:underline">Terms</a>.</p>
+  <section class="py-16 min-h-[70vh] flex items-center bg-gradient-to-b from-white to-green-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-md mx-auto bg-gray-100 p-8 rounded-2xl card shadow-lg">
+        <h2 class="text-3xl font-bold mb-3 text-green-700">Join Loopy</h2>
+        <p class="text-lg mb-7 text-gray-600">Sign up or log in to start your sustainable fashion journey!</p>
+        <button onclick="mockSignUp('Google')" class="social-btn bg-white border border-green-200 text-gray-800 py-3 rounded-xl w-full mb-3 hover:bg-green-500 hover:text-white">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google" class="w-6 h-6"> Sign in with Google
+        </button>
+        <button onclick="mockSignUp('Instagram')" class="social-btn bg-white border border-pink-100 text-gray-800 py-3 rounded-xl w-full mb-3 hover:bg-green-500 hover:text-white">
+          <img src="img/instagram.svg" alt="Instagram" class="w-6 h-6"> Sign in with Instagram
+        </button>
+        <button onclick="mockSignUp('TikTok')" class="social-btn bg-white border border-gray-200 text-gray-800 py-3 rounded-xl w-full mb-1 hover:bg-green-500 hover:text-white">
+          <img src="img/tiktok.png" alt="TikTok" class="w-6 h-6"> Sign in with TikTok
+        </button>
+        <div class="divider-or"><span>or</span></div>
+        <a href="mailto:support@loopy.com" class="block text-green-500 underline font-semibold text-sm mb-2 hover:text-green-600">Need help signing up?</a>
+        <p class="text-xs text-gray-500">By signing up, you agree to our <a href="about.html" class="text-green-500 hover:underline">Terms</a>.</p>
       </div>
     </div>
   </section>
@@ -51,7 +116,7 @@
   <div id="chatbox" class="chatbox">
     <div class="chatbox-header flex justify-between items-center">
       <span>Chat with Loopy</span>
-      <button onclick="toggleChatbox()" class="text-white">−</button>
+      <button onclick="toggleChatbox()" class="text-white hover:text-green-100 focus:outline-none">−</button>
     </div>
     <div id="chatboxBody" class="chatbox-body">
       <p><strong>Loopy AI:</strong> Hi! Need help signing up or have questions? 😊</p>
@@ -60,10 +125,10 @@
   </div>
 
   <!-- Footer -->
-  <footer class="py-12 bg-green-500 text-white text-center">
+  <footer class="py-12 bg-green-500 text-white text-center mt-12 rounded-t-3xl shadow-inner">
     <div class="container mx-auto px-4">
-      <p class="mb-6">Shop sustainably with Loopy. Reduce waste, reuse fashion.</p>
-      <p class="mb-4">Supporting SDGs 8, 12, 13, 14, 15</p>
+      <p class="mb-6 text-lg font-semibold">Shop sustainably with Loopy. Reduce waste, reuse fashion.</p>
+      <p class="mb-4 text-base">Supporting SDGs 8, 12, 13, 14, 15</p>
       <div class="flex justify-center gap-4 mb-4">
         <span class="text-2xl">💼</span>
         <span class="text-2xl">♻️</span>
@@ -71,13 +136,14 @@
         <span class="text-2xl">🌊</span>
         <span class="text-2xl">🌱</span>
       </div>
-      <div class="flex justify-center space-x-4">
+      <div class="flex justify-center space-x-4 text-base mb-8">
         <a href="about.html" class="text-white hover:text-gray-200">About</a>
         <a href="faq.html" class="text-white hover:text-gray-200">FAQ</a>
         <a href="contact.html" class="text-white hover:text-gray-200">Contact</a>
         <a href="https://instagram.com" class="text-white hover:text-gray-200">Instagram</a>
         <a href="https://tiktok.com" class="text-white hover:text-gray-200">TikTok</a>
       </div>
+      <p class="mt-10 text-sm opacity-80">© 2025 Loopy Circular Fashion. All rights reserved.</p>
     </div>
   </footer>
 
@@ -96,7 +162,6 @@
       "default": "I’m here to help with sign-up or account questions! What’s up?"
     };
 
-    // Send Chat Message
     function sendMessage() {
       const input = document.getElementById('chatInput');
       const message = input.value.toLowerCase().trim();
@@ -106,7 +171,7 @@
       chatBody.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
 
       let reply = responses.default;
-      if (message.includes('sign up') || message.includes('join')) reply = responses.sign;
+      if (message.includes('sign up') || message.includes('join')) reply = responses["sign up"];
       else if (message.includes('login') || message.includes('log in')) reply = responses.login;
       else if (message.includes('terms') || message.includes('policy')) reply = responses.terms;
 

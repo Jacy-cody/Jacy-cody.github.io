@@ -7,136 +7,394 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Poppins', sans-serif; }
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 50; }
-    .modal-content { background: white; margin: 10% auto; padding: 20px; max-width: 600px; border-radius: 8px; }
-    .chatbox { position: fixed; bottom: 20px; right: 20px; width: 300px; background: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 100; }
-    .chatbox-header { background: #10B981; color: white; padding: 10px; border-radius: 8px 8px 0 0; }
-    .chatbox-body { padding: 10px; max-height: 200px; overflow-y: auto; }
-    .chatbox-input { width: 100%; padding: 10px; border-top: 1px solid #e5e7eb; }
+    body { font-family: 'Poppins', sans-serif; background: linear-gradient(135deg,#f0fff4 0%,#f6f6f6 100%); }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.45);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.18s;
+    }
+    .modal-content {
+      background: white;
+      padding: 32px 24px;
+      max-width: 620px;
+      width: 98vw;
+      max-height: 85vh;
+      border-radius: 18px;
+      box-shadow: 0 6px 36px rgba(16,185,129,0.18);
+      overflow-y: auto;
+      position: relative;
+      margin: 0;
+      top: 0;
+      animation: fadeIn 0.2s;
+      transition: transform .18s cubic-bezier(.4,2.3,.3,1);
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .card-hover { transition: transform 0.13s, box-shadow 0.18s; }
+    .card-hover:hover { transform: translateY(-8px) scale(1.03); box-shadow: 0 12px 32px #10b98118; }
+    .modal-close-btn {
+      position: absolute; top: 20px; right: 24px; background: #f3f4f6; border: none; border-radius: 50%; width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; color: #888; cursor: pointer; transition: background .2s;
+    }
+    .modal-close-btn:hover { background: #e6e6e6; color: #10B981; }
+    .chatbox { position: fixed; bottom: 24px; right: 24px; width: 320px; background: white; border-radius: 10px; box-shadow: 0 4px 16px rgba(16,185,129,0.10); z-index: 100; }
+    .chatbox-header { background: #10B981; color: white; padding: 12px 16px; border-radius: 10px 10px 0 0; font-weight: 600; letter-spacing: 0.01em;}
+    .chatbox-body { padding: 12px 16px; max-height: 220px; overflow-y: auto; font-size: 0.98rem;}
+    .chatbox-input { width: 100%; padding: 12px; border-top: 1px solid #e5e7eb; border-radius: 0 0 10px 10px;}
+    .search-bar { display: flex; gap: 10px; align-items: center; margin-bottom: 20px; }
+    .search-bar input { flex: 1; padding: 10px; border: 1px solid #e5e7eb; border-radius: 8px; font-size: 1rem; }
+    .search-bar button { background: #10B981; color: white; padding: 10px 20px; border-radius: 8px; font-weight: 600; transition: background 0.2s; }
+    .search-bar button:hover { background: #059669; }
+    @media (max-width: 768px) {
+      .chatbox { width: 98vw; right: 1vw; }
+      .modal-content { padding: 20px 4vw; }
+      .search-bar { flex-direction: column; }
+      .search-bar input, .search-bar button { width: 100%; }
+    }
   </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 min-h-screen">
+
   <!-- Header -->
-  <header class="bg-white shadow py-4">
+  <header class="bg-white shadow py-4 sticky top-0 z-20">
     <div class="container mx-auto px-4 flex justify-between items-center">
       <a href="index.html">
-        <img src="img/logo.jpg" alt="Loopy Logo" class="h-[100px] w-[100px] md:h-[150px] md:w-[150px] lg:h-[200px] lg:w-[200px] object-contain transition-all duration-300">
+        <img src="img/logo.jpg" alt="Loopy Logo" class="h-[80px] w-[80px] md:h-[120px] md:w-[120px] object-contain transition-all duration-300 rounded-2xl shadow hover:scale-105">
       </a>
-      <nav class="flex space-x-4">
-        <a href="index.html" class="text-gray-600 hover:text-green-500">Home</a>
-        <a href="shop.html" class="text-gray-600 hover:text-green-500">Shop</a>
-        <a href="swap.html" class="text-gray-600 hover:text-green-500">Swap</a>
-        <a href="dashboard.html" class="text-gray-600 hover:text-green-500">Digital Wardrobe</a>
-        <a href="stats.html" class="text-gray-600 hover:text-green-500">Stats</a>
-        <a href="about.html" class="text-gray-600 hover:text-green-500">About</a>
-        <a href="signup.html" class="bg-green-500 text-white px-4 py-2 rounded-lg">Sign Up</a>
+      <nav class="flex space-x-2 md:space-x-4">
+        <a href="index.html" class="text-gray-600 hover:text-green-500 font-medium transition">Home</a>
+        <a href="shop.html" class="text-green-600 font-semibold underline">Shop</a>
+        <a href="swap.html" class="text-gray-600 hover:text-green-500 font-medium transition">Swap</a>
+        <a href="dashboard.html" class="text-gray-600 hover:text-green-500 font-medium transition">Digital Wardrobe</a>
+        <a href="stats.html" class="text-gray-600 hover:text-green-500 font-medium transition">Stats</a>
+        <a href="chat.html" class="text-gray-600 hover:text-green-600 font-medium transition">Chat</a>
+        <a href="about.html" class="text-gray-600 hover:text-green-500 font-medium transition">About</a>
+        <a href="signup.html" class="bg-green-500 text-white px-4 py-2 rounded-xl shadow hover:bg-green-600 transition font-semibold">Sign Up</a>
       </nav>
     </div>
   </header>
 
-  <!-- Categorization Bar -->
-  <section class="py-8 bg-white">
-    <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold mb-6 text-center">Shop Sustainable Fashion</h2>
-      <div class="flex flex-wrap justify-center gap-4 mb-6">
-        <button class="bg-gray-200 hover:bg-green-500 hover:text-white px-4 py-2 rounded-lg">Clothes</button>
-        <button class="bg-gray-200 hover:bg-green-500 hover:text-white px-4 py-2 rounded-lg">Shoes</button>
-        <button class="bg-gray-200 hover:bg-green-500 hover:text-white px-4 py-2 rounded-lg">Bags</button>
-      </div>
-      <div class="flex flex-wrap justify-center gap-4">
-        <button class="bg-gray-200 hover:bg-green-500 hover:text-white px-4 py-2 rounded-lg">Casual</button>
-        <button class="bg-gray-200 hover:bg-green-500 hover:text-white px-4 py-2 rounded-lg">Formal</button>
-        <button class="bg-gray-200 hover:bg-green-500 hover:text-white px-4 py-2 rounded-lg">Vintage</button>
-        <button class="bg-gray-200 hover:bg-green-500 hover:text-white px-4 py-2 rounded-lg">Streetwear</button>
-        <button class="bg-gray-200 hover:bg-green-500 hover:text-white px-4 py-2 rounded-lg">Athleisure</button>
-      </div>
-    </div>
-  </section>
-
   <!-- Product Listings -->
-  <section class="py-16 bg-gray-100">
+  <section class="py-16 bg-gradient-to-br from-green-50 to-white">
     <div class="container mx-auto px-4">
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <h2 class="text-3xl font-bold mb-8 text-center text-green-700">Shop Sustainable Fashion</h2>
+      <!-- Search Bar and Filter Button -->
+      <div class="search-bar">
+        <input id="searchInput" type="text" placeholder="Search products..." oninput="applyFilters()">
+        <button onclick="openFilterModal()">Filter</button>
+      </div>
+      <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
         <!-- Product 1 -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden card-hover" data-category="Clothes" data-style="Casual">
           <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Denim Jacket" class="w-full h-48 object-cover">
-          <div class="p-4">
-            <h3 class="text-lg font-semibold">Levi’s Denim Jacket</h3>
-            <p class="text-gray-600">Clothes - $35</p>
-            <div class="flex items-center mt-2">
-              <span class="text-sm text-green-500">AI-Verified</span>
+          <div class="p-5">
+            <h3 class="text-xl font-semibold mb-2">Levi’s Denim Jacket</h3>
+            <p class="text-gray-600 mb-2">Clothes • <span class="font-semibold">$35</span></p>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded font-medium">AI-Verified</span>
             </div>
-            <button onclick="showProductDetails(1)" class="mt-4 bg-green-500 text-white px-4 py-2 rounded-lg w-full hover:bg-green-600">View Details</button>
+            <button onclick="showProductDetails(1)" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-xl w-full font-semibold shadow hover:bg-green-600 hover:scale-105 transition">View Details</button>
           </div>
         </div>
         <!-- Product 2 -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden card-hover" data-category="Shoes" data-style="Athleisure">
           <img src="img/nikeair.jpg" alt="Nike Sneakers" class="w-full h-48 object-cover">
-          <div class="p-4">
-            <h3 class="text-lg font-semibold">Nike Air Max</h3>
-            <p class="text-gray-600">Shoes - $50</p>
-            <div class="flex items-center mt-2">
-              <span class="text-sm text-green-500">AI-Verified</span>
+          <div class="p-5">
+            <h3 class="text-xl font-semibold mb-2">Nike Air Max</h3>
+            <p class="text-gray-600 mb-2">Shoes • <span class="font-semibold">$50</span></p>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded font-medium">AI-Verified</span>
             </div>
-            <button onclick="showProductDetails(2)" class="mt-4 bg-green-500 text-white px-4 py-2 rounded-lg w-full hover:bg-green-600">View Details</button>
+            <button onclick="showProductDetails(2)" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-xl w-full font-semibold shadow hover:bg-green-600 hover:scale-105 transition">View Details</button>
           </div>
         </div>
         <!-- Product 3 -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Vintage Handbag" class="w-full h-48 object-cover">
-          <div class="p-4">
-            <h3 class="text-lg font-semibold">Vintage Gucci Bag</h3>
-            <p class="text-gray-600">Bags - $120</p>
-            <div class="flex items-center mt-2">
-              <span class="text-sm text-green-500">AI-Verified</span>
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden card-hover" data-category="Bags" data-style="Vintage">
+          <img src="img/guccibag.webp" alt="Vintage Handbag" class="w-full h-48 object-cover">
+          <div class="p-5">
+            <h3 class="text-xl font-semibold mb-2">Vintage Gucci Bag</h3>
+            <p class="text-gray-600 mb-2">Bags • <span class="font-semibold">$120</span></p>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded font-medium">AI-Verified</span>
             </div>
-            <button onclick="showProductDetails(3)" class="mt-4 bg-green-500 text-white px-4 py-2 rounded-lg w-full hover:bg-green-600">View Details</button>
+            <button onclick="showProductDetails(3)" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-xl w-full font-semibold shadow hover:bg-green-600 hover:scale-105 transition">View Details</button>
           </div>
         </div>
         <!-- Product 4 -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden card-hover" data-category="Clothes" data-style="Casual">
           <img src="img/zaradress.jpg" alt="Zara Dress" class="w-full h-48 object-cover">
-          <div class="p-4">
-            <h3 class="text-lg font-semibold">Zara Floral Dress</h3>
-            <p class="text-gray-600">Clothes - $25</p>
-            <div class="flex items-center mt-2">
-              <span class="text-sm text-green-500">AI-Verified</span>
+          <div class="p-5">
+            <h3 class="text-xl font-semibold mb-2">Zara Floral Dress</h3>
+            <p class="text-gray-600 mb-2">Clothes • <span class="font-semibold">$25</span></p>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded font-medium">AI-Verified</span>
             </div>
-            <button onclick="showProductDetails(4)" class="mt-4 bg-green-500 text-white px-4 py-2 rounded-lg w-full hover:bg-green-600">View Details</button>
+            <button onclick="showProductDetails(4)" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-xl w-full font-semibold shadow hover:bg-green-600 hover:scale-105 transition">View Details</button>
+          </div>
+        </div>
+        <!-- Product 5 -->
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden card-hover" data-category="Shoes" data-style="Athleisure">
+          <img src="img/ultraboost.avif" alt="Adidas Sneakers" class="w-full h-48 object-cover">
+          <div class="p-5">
+            <h3 class="text-xl font-semibold mb-2">Adidas Ultraboost</h3>
+            <p class="text-gray-600 mb-2">Shoes • <span class="font-semibold">$45</span></p>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded font-medium">AI-Verified</span>
+            </div>
+            <button onclick="showProductDetails(5)" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-xl w-full font-semibold shadow hover:bg-green-600 hover:scale-105 transition">View Details</button>
+          </div>
+        </div>
+        <!-- Product 6 -->
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden card-hover" data-category="Clothes" data-style="Formal">
+          <img src="img/hmblazer.jpg" alt="H&M Blazer" class="w-full h-48 object-cover">
+          <div class="p-5">
+            <h3 class="text-xl font-semibold mb-2">H&M Formal Blazer</h3>
+            <p class="text-gray-600 mb-2">Clothes • <span class="font-semibold">$40</span></p>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded font-medium">AI-Verified</span>
+            </div>
+            <button onclick="showProductDetails(6)" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-xl w-full font-semibold shadow hover:bg-green-600 hover:scale-105 transition">View Details</button>
+          </div>
+        </div>
+        <!-- Product 7 -->
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden card-hover" data-category="Clothes" data-style="Vintage">
+          <img src="img/dotdress.jpg" alt="Vintage Dress" class="w-full h-48 object-cover">
+          <div class="p-5">
+            <h3 class="text-xl font-semibold mb-2">Vintage Polka Dot Dress</h3>
+            <p class="text-gray-600 mb-2">Clothes • <span class="font-semibold">$30</span></p>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded font-medium">AI-Verified</span>
+            </div>
+            <button onclick="showProductDetails(7)" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-xl w-full font-semibold shadow hover:bg-green-600 hover:scale-105 transition">View Details</button>
+          </div>
+        </div>
+        <!-- Product 8 -->
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden card-hover" data-category="Bags" data-style="Casual">
+          <img src="img/fossilbag.webp" alt="Leather Bag" class="w-full h-48 object-cover">
+          <div class="p-5">
+            <h3 class="text-xl font-semibold mb-2">Fossil Leather Bag</h3>
+            <p class="text-gray-600 mb-2">Bags • <span class="font-semibold">$80</span></p>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded font-medium">AI-Verified</span>
+            </div>
+            <button onclick="showProductDetails(8)" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-xl w-full font-semibold shadow hover:bg-green-600 hover:scale-105 transition">View Details</button>
+          </div>
+        </div>
+        <!-- Product 9 -->
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden card-hover" data-category="Clothes" data-style="Streetwear">
+          <img src="img/supremehoodie.webp" alt="Streetwear Hoodie" class="w-full h-48 object-cover">
+          <div class="p-5">
+            <h3 class="text-xl font-semibold mb-2">Supreme Streetwear Hoodie</h3>
+            <p class="text-gray-600 mb-2">Clothes • <span class="font-semibold">$60</span></p>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded font-medium">AI-Verified</span>
+            </div>
+            <button onclick="showProductDetails(9)" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-xl w-full font-semibold shadow hover:bg-green-600 hover:scale-105 transition">View Details</button>
+          </div>
+        </div>
+        <!-- Product 10 -->
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden card-hover" data-category="Clothes" data-style="Athleisure">
+          <img src="img/legging.jpg" alt="Athleisure Leggings" class="w-full h-48 object-cover">
+          <div class="p-5">
+            <h3 class="text-xl font-semibold mb-2">Lululemon Leggings</h3>
+            <p class="text-gray-600 mb-2">Clothes • <span class="font-semibold">$20</span></p>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded font-medium">AI-Verified</span>
+            </div>
+            <button onclick="showProductDetails(10)" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-xl w-full font-semibold shadow hover:bg-green-600 hover:scale-105 transition">View Details</button>
+          </div>
+        </div>
+        <!-- Product 11 -->
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden card-hover" data-category="Shoes" data-style="Formal">
+          <img src="img/clarks.jpg" alt="Formal Shoes" class="w-full h-48 object-cover">
+          <div class="p-5">
+            <h3 class="text-xl font-semibold mb-2">Clarks Formal Shoes</h3>
+            <p class="text-gray-600 mb-2">Shoes • <span class="font-semibold">$55</span></p>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded font-medium">AI-Verified</span>
+            </div>
+            <button onclick="showProductDetails(11)" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-xl w-full font-semibold shadow hover:bg-green-600 hover:scale-105 transition">View Details</button>
+          </div>
+        </div>
+        <!-- Product 12 -->
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden card-hover" data-category="Clothes" data-style="Casual">
+          <img src="img/uniqloshirt.avif" alt="Casual Shirt" class="w-full h-48 object-cover">
+          <div class="p-5">
+            <h3 class="text-xl font-semibold mb-2">Uniqlo Casual Shirt</h3>
+            <p class="text-gray-600 mb-2">Clothes • <span class="font-semibold">$15</span></p>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded font-medium">AI-Verified</span>
+            </div>
+            <button onclick="showProductDetails(12)" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-xl w-full font-semibold shadow hover:bg-green-600 hover:scale-105 transition">View Details</button>
+          </div>
+        </div>
+        <!-- Product 13 -->
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden card-hover" data-category="Clothes" data-style="Vintage">
+          <img src="img/pleatedskirt.jpg" alt="Vintage Skirt" class="w-full h-48 object-cover">
+          <div class="p-5">
+            <h3 class="text-xl font-semibold mb-2">Vintage Pleated Skirt</h3>
+            <p class="text-gray-600 mb-2">Clothes • <span class="font-semibold">$28</span></p>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded font-medium">AI-Verified</span>
+            </div>
+            <button onclick="showProductDetails(13)" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-xl w-full font-semibold shadow hover:bg-green-600 hover:scale-105 transition">View Details</button>
+          </div>
+        </div>
+        <!-- Product 14 -->
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden card-hover" data-category="Bags" data-style="Casual">
+          <img src="img/herschelbag.jpg" alt="Casual Bag" class="w-full h-48 object-cover">
+          <div class="p-5">
+            <h3 class="text-xl font-semibold mb-2">Herschel Casual Bag</h3>
+            <p class="text-gray-600 mb-2">Bags • <span class="font-semibold">$35</span></p>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded font-medium">AI-Verified</span>
+            </div>
+            <button onclick="showProductDetails(14)" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-xl w-full font-semibold shadow hover:bg-green-600 hover:scale-105 transition">View Details</button>
+          </div>
+        </div>
+        <!-- Product 15 -->
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden card-hover" data-category="Clothes" data-style="Streetwear">
+          <img src="img/carharttpant.webp" alt="Streetwear Pants" class="w-full h-48 object-cover">
+          <div class="p-5">
+            <h3 class="text-xl font-semibold mb-2">Carhartt Streetwear Pants</h3>
+            <p class="text-gray-600 mb-2">Clothes • <span class="font-semibold">$40</span></p>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded font-medium">AI-Verified</span>
+            </div>
+            <button onclick="showProductDetails(15)" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-xl w-full font-semibold shadow hover:bg-green-600 hover:scale-105 transition">View Details</button>
+          </div>
+        </div>
+        <!-- Product 16 -->
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden card-hover" data-category="Clothes" data-style="Athleisure">
+          <img src="img/NikeAthleisure.jpg" alt="Athleisure Top" class="w-full h-48 object-cover">
+          <div class="p-5">
+            <h3 class="text-xl font-semibold mb-2">Nike Athleisure Top</h3>
+            <p class="text-gray-600 mb-2">Clothes • <span class="font-semibold">$22</span></p>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded font-medium">AI-Verified</span>
+            </div>
+            <button onclick="showProductDetails(16)" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-xl w-full font-semibold shadow hover:bg-green-600 hover:scale-105 transition">View Details</button>
+          </div>
+        </div>
+        <!-- Product 17 -->
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden card-hover" data-category="Shoes" data-style="Formal">
+          <img src="img/gucciloafer.jpg" alt="Formal Loafers" class="w-full h-48 object-cover">
+          <div class="p-5">
+            <h3 class="text-xl font-semibold mb-2">Gucci Formal Loafers</h3>
+            <p class="text-gray-600 mb-2">Shoes • <span class="font-semibold">$90</span></p>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded font-medium">AI-Verified</span>
+            </div>
+            <button onclick="showProductDetails(17)" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-xl w-full font-semibold shadow hover:bg-green-600 hover:scale-105 transition">View Details</button>
+          </div>
+        </div>
+        <!-- Product 18 -->
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden card-hover" data-category="Clothes" data-style="Casual">
+          <img src="img/gapjean.jpg" alt="Casual Jeans" class="w-full h-48 object-cover">
+          <div class="p-5">
+            <h3 class="text-xl font-semibold mb-2">Gap Casual Jeans</h3>
+            <p class="text-gray-600 mb-2">Clothes • <span class="font-semibold">$30</span></p>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded font-medium">AI-Verified</span>
+            </div>
+            <button onclick="showProductDetails(18)" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-xl w-full font-semibold shadow hover:bg-green-600 hover:scale-105 transition">View Details</button>
+          </div>
+        </div>
+        <!-- Product 19 -->
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden card-hover" data-category="Bags" data-style="Vintage">
+          <img src="img/coachbag.webp" alt="Vintage Bag" class="w-full h-48 object-cover">
+          <div class="p-5">
+            <h3 class="text-xl font-semibold mb-2">Vintage Coach Bag</h3>
+            <p class="text-gray-600 mb-2">Bags • <span class="font-semibold">$65</span></p>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded font-medium">AI-Verified</span>
+            </div>
+            <button onclick="showProductDetails(19)" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-xl w-full font-semibold shadow hover:bg-green-600 hover:scale-105 transition">View Details</button>
+          </div>
+        </div>
+        <!-- Product 20 -->
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden card-hover" data-category="Clothes" data-style="Streetwear">
+          <img src="img/northface.webp" alt="Streetwear Jacket" class="w-full h-48 object-cover">
+          <div class="p-5">
+            <h3 class="text-xl font-semibold mb-2">North Face Streetwear Jacket</h3>
+            <p class="text-gray-600 mb-2">Clothes • <span class="font-semibold">$70</span></p>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded font-medium">AI-Verified</span>
+            </div>
+            <button onclick="showProductDetails(20)" class="mt-3 bg-green-500 text-white px-4 py-2 rounded-xl w-full font-semibold shadow hover:bg-green-600 hover:scale-105 transition">View Details</button>
           </div>
         </div>
       </div>
+      <!-- Feedback if no products -->
+      <div id="noProductsMsg" style="display:none;" class="text-center text-gray-400 text-lg py-16">No items found for this category. Try another filter!</div>
     </div>
   </section>
 
   <!-- Product Details Modal -->
-  <div id="productModal" class="modal">
+  <div id="productModal" class="modal" style="display:none;">
     <div class="modal-content">
+      <button class="modal-close-btn" onclick="closeModal()" aria-label="Close">×</button>
       <div class="flex flex-col md:flex-row gap-6">
-        <img id="modalImage" src="" alt="Product" class="w-full md:w-1/2 h-64 object-cover rounded-lg">
-        <div class="w-full md:w-1/2">
-          <h2 id="modalTitle" class="text-2xl font-bold mb-4"></h2>
-          <p><strong>Brand:</strong> <span id="modalBrand"></span></p>
-          <p><strong>Size:</strong> <span id="modalSize"></span></p>
-          <p><strong>Condition:</strong> <span id="modalCondition"></span></p>
-          <p><strong>Price:</strong> <span id="modalPrice"></span></p>
-          <p><strong>Eco-Impact:</strong> <span id="modalEcoImpact"></span></p>
-          <div class="flex gap-4 mt-6">
-            <a href="order.html" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Buy Now</a>
-            <a href="swap.html" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Trade</a>
+        <img id="modalImage" src="" alt="Product" class="w-full md:w-1/2 h-64 object-cover rounded-lg shadow-md">
+        <div class="w-full md:w-1/2 flex flex-col">
+          <h2 id="modalTitle" class="text-2xl font-bold mb-2"></h2>
+          <p class="mb-2"><span class="font-semibold text-gray-700">Brand:</span> <span id="modalBrand"></span></p>
+          <p class="mb-2"><span class="font-semibold text-gray-700">Size:</span> <span id="modalSize"></span></p>
+          <p class="mb-2"><span class="font-semibold text-gray-700">Condition:</span> <span id="modalCondition"></span></p>
+          <p class="mb-2"><span class="font-semibold text-gray-700">Price:</span> <span id="modalPrice"></span></p>
+          <p class="mb-2"><span class="font-semibold text-gray-700">Eco-Impact:</span> <span id="modalEcoImpact"></span></p>
+          <div class="flex flex-col sm:flex-row gap-3 mt-4">
+            <a id="buyNowBtn" href="order.html" class="flex-1 text-center bg-green-500 shadow-md hover:bg-green-600 text-white font-semibold px-5 py-3 rounded-xl transition-all duration-150 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-200">Buy Now</a>
+            <a id="tradeBtn" href="swap.html" class="flex-1 text-center bg-gray-700 shadow-md hover:bg-gray-800 text-white font-semibold px-5 py-3 rounded-xl transition-all duration-150 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-300">Trade</a>
+            <a id="chatBtn" href="chat.html?contact=Sarah" class="flex-1 text-center bg-blue-500 shadow-md hover:bg-blue-600 text-white font-semibold px-5 py-3 rounded-xl transition-all duration-150 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-200">Chat with Seller</a>
           </div>
-          <button onclick="closeModal()" class="mt-4 text-gray-600 underline">Close</button>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Filter Modal -->
+  <div id="filterModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <button class="modal-close-btn" onclick="closeFilterModal()" aria-label="Close">×</button>
+      <h2 class="text-2xl font-bold mb-4 text-green-700">Filter Products</h2>
+      <div class="flex flex-col gap-4">
+        <div>
+          <label for="categoryFilter" class="block text-gray-700 font-semibold mb-2">Category</label>
+          <select id="categoryFilter" onchange="applyFilters()" class="w-full p-2 border rounded">
+            <option value="">All Categories</option>
+            <option value="Clothes">Clothes</option>
+            <option value="Shoes">Shoes</option>
+            <option value="Bags">Bags</option>
+          </select>
+        </div>
+        <div>
+          <label for="styleFilter" class="block text-gray-700 font-semibold mb-2">Style</label>
+          <select id="styleFilter" onchange="applyFilters()" class="w-full p-2 border rounded">
+            <option value="">All Styles</option>
+            <option value="Casual">Casual</option>
+            <option value="Formal">Formal</option>
+            <option value="Vintage">Vintage</option>
+            <option value="Streetwear">Streetwear</option>
+            <option value="Athleisure">Athleisure</option>
+          </select>
+        </div>
+        <button onclick="closeFilterModal()" class="mt-4 bg-green-500 text-white px-4 py-2 rounded-xl font-semibold hover:bg-green-600">Apply Filters</button>
+      </div>
+    </div>
+  </div>
+
   <!-- AI Assistant Chatbox -->
-  <div id="chatbox" class="chatbox">
+  <div id="chatbox" class="chatbox shadow-xl">
     <div class="chatbox-header flex justify-between items-center">
       <span>Chat with Loopy</span>
-      <button onclick="toggleChatbox()" class="text-white">−</button>
+      <button onclick="toggleChatbox()" class="text-white hover:text-green-100 focus:outline-none">−</button>
     </div>
     <div id="chatboxBody" class="chatbox-body">
       <p><strong>Loopy AI:</strong> Hi! Need styling tips or help with your order? 😊</p>
@@ -145,10 +403,10 @@
   </div>
 
   <!-- Footer -->
-  <footer class="py-12 bg-green-500 text-white text-center">
+  <footer class="py-12 bg-green-500 text-white text-center mt-16 rounded-t-3xl shadow-inner">
     <div class="container mx-auto px-4">
-      <p class="mb-6">Shop sustainably with Loopy. Reduce waste, reuse fashion.</p>
-      <p class="mb-4">Supporting SDGs 8, 12, 13, 14, 15</p>
+      <p class="mb-6 text-lg font-semibold">Shop sustainably with Loopy. Reduce waste, reuse fashion.</p>
+      <p class="mb-4 text-base">Supporting SDGs 8, 12, 13, 14, 15</p>
       <div class="flex justify-center gap-4 mb-4">
         <span class="text-2xl">💼</span>
         <span class="text-2xl">♻️</span>
@@ -156,7 +414,7 @@
         <span class="text-2xl">🌊</span>
         <span class="text-2xl">🌱</span>
       </div>
-      <div class="flex justify-center space-x-4">
+      <div class="flex justify-center space-x-4 text-base mb-8">
         <a href="about.html" class="text-white hover:text-gray-200">About</a>
         <a href="faq.html" class="text-white hover:text-gray-200">FAQ</a>
         <a href="contact.html" class="text-white hover:text-gray-200">Contact</a>
@@ -176,7 +434,10 @@
         size: "Medium",
         condition: "Gently Used",
         price: "$35",
-        ecoImpact: "Saves 5kg CO2"
+        ecoImpact: "Saves 5kg CO2",
+        seller: "Sarah",
+        category: "Clothes",
+        style: "Casual"
       },
       2: {
         title: "Nike Air Max",
@@ -185,7 +446,10 @@
         size: "US 9",
         condition: "Like New",
         price: "$50",
-        ecoImpact: "Saves 3kg CO2"
+        ecoImpact: "Saves 3kg CO2",
+        seller: "Sarah",
+        category: "Shoes",
+        style: "Athleisure"
       },
       3: {
         title: "Vintage Gucci Bag",
@@ -194,7 +458,10 @@
         size: "One Size",
         condition: "Gently Used",
         price: "$120",
-        ecoImpact: "Saves 7kg CO2"
+        ecoImpact: "Saves 7kg CO2",
+        seller: "Sarah",
+        category: "Bags",
+        style: "Vintage"
       },
       4: {
         title: "Zara Floral Dress",
@@ -203,7 +470,202 @@
         size: "Small",
         condition: "Like New",
         price: "$25",
-        ecoImpact: "Saves 4kg CO2"
+        ecoImpact: "Saves 4kg CO2",
+        seller: "Sarah",
+        category: "Clothes",
+        style: "Casual"
+      },
+      5: {
+        title: "Adidas Ultraboost",
+        image: "https://images.unsplash.com/photo-1588097230150-2ed0b4d5d87e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        brand: "Adidas",
+        size: "US 8",
+        condition: "Like New",
+        price: "$45",
+        ecoImpact: "Saves 3kg CO2",
+        seller: "Liam",
+        category: "Shoes",
+        style: "Athleisure"
+      },
+      6: {
+        title: "H&M Formal Blazer",
+        image: "https://images.unsplash.com/photo-1591337676887-a217a3fca0ed?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        brand: "H&M",
+        size: "Large",
+        condition: "Gently Used",
+        price: "$40",
+        ecoImpact: "Saves 4kg CO2",
+        seller: "Emma",
+        category: "Clothes",
+        style: "Formal"
+      },
+      7: {
+        title: "Vintage Polka Dot Dress",
+        image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        brand: "Unknown",
+        size: "Medium",
+        condition: "Good",
+        price: "$30",
+        ecoImpact: "Saves 3kg CO2",
+        seller: "Olivia",
+        category: "Clothes",
+        style: "Vintage"
+      },
+      8: {
+        title: "Fossil Leather Bag",
+        image: "https://images.unsplash.com/photo-1605408499391-6368c628ef42?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        brand: "Fossil",
+        size: "One Size",
+        condition: "Like New",
+        price: "$80",
+        ecoImpact: "Saves 6kg CO2",
+        seller: "Noah",
+        category: "Bags",
+        style: "Casual"
+      },
+      9: {
+        title: "Supreme Streetwear Hoodie",
+        image: "https://images.unsplash.com/photo-1594633312681-863f1114425e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        brand: "Supreme",
+        size: "Large",
+        condition: "Gently Used",
+        price: "$60",
+        ecoImpact: "Saves 4kg CO2",
+        seller: "Ava",
+        category: "Clothes",
+        style: "Streetwear"
+      },
+      10: {
+        title: "Lululemon Leggings",
+        image: "https://images.unsplash.com/photo-1602293589930-45aad59ba90c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        brand: "Lululemon",
+        size: "Small",
+        condition: "Like New",
+        price: "$20",
+        ecoImpact: "Saves 2kg CO2",
+        seller: "Ethan",
+        category: "Clothes",
+        style: "Athleisure"
+      },
+      11: {
+        title: "Clarks Formal Shoes",
+        image: "https://images.unsplash.com/photo-1603808033192-0c4a239892ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        brand: "Clarks",
+        size: "US 10",
+        condition: "Good",
+        price: "$55",
+        ecoImpact: "Saves 4kg CO2",
+        seller: "Mia",
+        category: "Shoes",
+        style: "Formal"
+      },
+      12: {
+        title: "Uniqlo Casual Shirt",
+        image: "https://images.unsplash.com/photo-1601562189853-72b288c1e90e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        brand: "Uniqlo",
+        size: "Medium",
+        condition: "Like New",
+        price: "$15",
+        ecoImpact: "Saves 2kg CO2",
+        seller: "Lucas",
+        category: "Clothes",
+        style: "Casual"
+      },
+      13: {
+        title: "Vintage Pleated Skirt",
+        image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        brand: "Unknown",
+        size: "Medium",
+        condition: "Good",
+        price: "$28",
+        ecoImpact: "Saves 3kg CO2",
+        seller: "Sophia",
+        category: "Clothes",
+        style: "Vintage"
+      },
+      14: {
+        title: "Herschel Casual Bag",
+        image: "https://images.unsplash.com/photo-1605408499391-6368c628ef42?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        brand: "Herschel",
+        size: "One Size",
+        condition: "Like New",
+        price: "$35",
+        ecoImpact: "Saves 3kg CO2",
+        seller: "James",
+        category: "Bags",
+        style: "Casual"
+      },
+      15: {
+        title: "Carhartt Streetwear Pants",
+        image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        brand: "Carhartt",
+        size: "Large",
+        condition: "Gently Used",
+        price: "$40",
+        ecoImpact: "Saves 4kg CO2",
+        seller: "Isabella",
+        category: "Clothes",
+        style: "Streetwear"
+      },
+      16: {
+        title: "Nike Athleisure Top",
+        image: "https://images.unsplash.com/photo-1602293589930-45aad59ba90c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        brand: "Nike",
+        size: "Medium",
+        condition: "Like New",
+        price: "$22",
+        ecoImpact: "Saves 2kg CO2",
+        seller: "Mason",
+        category: "Clothes",
+        style: "Athleisure"
+      },
+      17: {
+        title: "Gucci Formal Loafers",
+        image: "https://images.unsplash.com/photo-1603808033192-0c4a239892ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        brand: "Gucci",
+        size: "US 9",
+        condition: "Gently Used",
+        price: "$90",
+        ecoImpact: "Saves 6kg CO2",
+        seller: "Charlotte",
+        category: "Shoes",
+        style: "Formal"
+      },
+      18: {
+        title: "Gap Casual Jeans",
+        image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        brand: "Gap",
+        size: "Medium",
+        condition: "Good",
+        price: "$30",
+        ecoImpact: "Saves 3kg CO2",
+        seller: "Alexander",
+        category: "Clothes",
+        style: "Casual"
+      },
+      19: {
+        title: "Vintage Coach Bag",
+        image: "https://images.unsplash.com/photo-1605408499391-6368c628ef42?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        brand: "Coach",
+        size: "One Size",
+        condition: "Like New",
+        price: "$65",
+        ecoImpact: "Saves 5kg CO2",
+        seller: "Amelia",
+        category: "Bags",
+        style: "Vintage"
+      },
+      20: {
+        title: "North Face Streetwear Jacket",
+        image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        brand: "North Face",
+        size: "Large",
+        condition: "Gently Used",
+        price: "$70",
+        ecoImpact: "Saves 5kg CO2",
+        seller: "Henry",
+        category: "Clothes",
+        style: "Streetwear"
       }
     };
 
@@ -217,15 +679,56 @@
       document.getElementById('modalCondition').textContent = product.condition;
       document.getElementById('modalPrice').textContent = product.price;
       document.getElementById('modalEcoImpact').textContent = product.ecoImpact;
+      document.getElementById('chatBtn').href = `chat.html?contact=${encodeURIComponent(product.seller)}`;
       document.getElementById('productModal').style.display = 'flex';
+      setTimeout(() => { document.getElementById('buyNowBtn').focus(); }, 200);
     }
 
-    // Close Modal
+    // Close Product Modal
     function closeModal() {
       document.getElementById('productModal').style.display = 'none';
     }
 
-    // Toggle Chatbox
+    // Open Filter Modal
+    function openFilterModal() {
+      document.getElementById('filterModal').style.display = 'flex';
+    }
+
+    // Close Filter Modal
+    function closeFilterModal() {
+      document.getElementById('filterModal').style.display = 'none';
+      applyFilters();
+    }
+
+    // Apply Filters and Search
+    function applyFilters() {
+      const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+      const categoryFilter = document.getElementById('categoryFilter').value;
+      const styleFilter = document.getElementById('styleFilter').value;
+      const productGrid = document.getElementById('productGrid');
+      const noProductsMsg = document.getElementById('noProductsMsg');
+      const productCards = productGrid.children;
+      let visibleProducts = 0;
+
+      for (let i = 0; i < productCards.length; i++) {
+        const productId = i + 1;
+        const product = products[productId];
+        const matchesSearch = product.title.toLowerCase().includes(searchQuery);
+        const matchesCategory = !categoryFilter || product.category === categoryFilter;
+        const matchesStyle = !styleFilter || product.style === styleFilter;
+
+        if (matchesSearch && matchesCategory && matchesStyle) {
+          productCards[i].style.display = 'block';
+          visibleProducts++;
+        } else {
+          productCards[i].style.display = 'none';
+        }
+      }
+
+      noProductsMsg.style.display = visibleProducts === 0 ? 'block' : 'none';
+    }
+
+    // Chatbox Toggle
     function toggleChatbox() {
       const chatbox = document.getElementById('chatbox');
       chatbox.style.display = chatbox.style.display === 'none' ? 'block' : 'none';
@@ -238,26 +741,20 @@
       "order": "For order issues, check your account or contact support. Want to track a purchase?",
       "default": "I’m here to help with styling, sizing, or orders! What’s on your mind?"
     };
-
-    // Send Chat Message
     function sendMessage() {
       const input = document.getElementById('chatInput');
       const message = input.value.toLowerCase().trim();
       if (!message) return;
-
       const chatBody = document.getElementById('chatboxBody');
       chatBody.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
-
       let reply = responses.default;
       if (message.includes('style') || message.includes('styling')) reply = responses.style;
       else if (message.includes('size') || message.includes('fit')) reply = responses.size;
       else if (message.includes('order') || message.includes('track')) reply = responses.order;
-
       setTimeout(() => {
         chatBody.innerHTML += `<p><strong>Loopy AI:</strong> ${reply}</p>`;
         chatBody.scrollTop = chatBody.scrollHeight;
       }, 500);
-
       input.value = '';
     }
   </script>

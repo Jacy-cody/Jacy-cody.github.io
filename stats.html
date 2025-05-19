@@ -9,99 +9,161 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Poppins', sans-serif; }
-    .chatbox { position: fixed; bottom: 20px; right: 20px; width: 300px; background: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 100; }
-    .chatbox-header { background: #10B981; color: white; padding: 10px; border-radius: 8px 8px 0 0; }
-    .chatbox-body { padding: 10px; max-height: 200px; overflow-y: auto; }
-    .chatbox-input { width: 100%; padding: 10px; border-top: 1px solid #e5e7eb; }
-    canvas { max-height: 200px !important; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg,#e6fff8 0%,#f8fafc 100%);
+    }
+    .card {
+      transition: transform 0.12s, box-shadow 0.18s;
+    }
+    .card:hover {
+      transform: translateY(-7px) scale(1.03);
+      box-shadow: 0 10px 24px #10b98115;
+      background: #f5fefb;
+    }
+    .stats-badge {
+      display: inline-flex;
+      align-items: center;
+      background: #e6faf3;
+      color: #10b981;
+      font-weight: 600;
+      border-radius: 20px;
+      padding: 0.25rem 0.75rem;
+      margin-right: 0.5rem;
+      font-size: 1.08rem;
+      box-shadow: 0 1px 4px #10b98110;
+      margin-bottom: 0.6rem;
+    }
+    .chatbox {
+      position: fixed; bottom: 24px; right: 24px; width: 320px;
+      background: white; border-radius: 12px; box-shadow: 0 4px 16px #10b98130;
+      z-index: 100; border: 1.5px solid #a7f3d0;
+      animation: floatBox 1.5s infinite alternate;
+    }
+    @keyframes floatBox { from { box-shadow: 0 4px 16px #10b98130; } to { box-shadow: 0 8px 36px #34d39944; } }
+    .chatbox-header {
+      background: linear-gradient(90deg, #10B981 80%, #34D399 100%);
+      color: white; padding: 12px 16px;
+      border-radius: 12px 12px 0 0; font-weight: 600; font-size: 1.08rem;
+      letter-spacing: 0.02em;
+    }
+    .chatbox-body { padding: 14px 16px; max-height: 220px; overflow-y: auto; font-size: 0.99rem;}
+    .chatbox-input { width: 100%; padding: 13px; border-top: 1.5px solid #e5e7eb; border-radius: 0 0 12px 12px;}
+    canvas { max-height: 210px !important; }
+    .chart-container { min-height: 240px; }
+    @media (max-width: 768px) {
+      .chatbox { width: 95vw; right: 2vw;}
+      .card { padding: 18px 8vw !important;}
+    }
   </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 min-h-screen">
+
   <!-- Header -->
-  <header class="bg-white shadow py-4">
+  <header class="bg-white shadow py-2 sticky top-0 z-30">
     <div class="container mx-auto px-4 flex justify-between items-center">
       <a href="index.html">
-        <img src="img/logo.jpg" alt="Loopy Logo" class="h-[100px] w-[100px] md:h-[150px] md:w-[150px] lg:h-[200px] lg:w-[200px] object-contain transition-all duration-300">
+        <img src="img/logo.jpg" alt="Loopy Logo" class="h-[60px] w-[60px] rounded-2xl shadow hover:scale-105 transition">
       </a>
-      <nav class="flex space-x-4">
-        <a href="index.html" class="text-gray-600 hover:text-green-500">Home</a>
-        <a href="shop.html" class="text-gray-600 hover:text-green-500">Shop</a>
-        <a href="swap.html" class="text-gray-600 hover:text-green-500">Swap</a>
-        <a href="dashboard.html" class="text-gray-600 hover:text-green-500">Digital Wardrobe</a>
-        <a href="stats.html" class="text-gray-600 hover:text-green-500">Stats</a>
-        <a href="about.html" class="text-gray-600 hover:text-green-500">About</a>
-        <a href="signup.html" class="bg-green-500 text-white px-4 py-2 rounded-lg">Sign Up</a>
+      <nav class="hidden md:flex space-x-2 md:space-x-4">
+        <a href="index.html" class="text-gray-600 hover:text-green-500 font-medium transition">Home</a>
+        <a href="shop.html" class="text-gray-600 hover:text-green-500 font-medium transition">Shop</a>
+        <a href="swap.html" class="text-gray-600 hover:text-green-500 font-medium transition">Swap</a>
+        <a href="dashboard.html" class="text-gray-600 hover:text-green-500 font-medium transition">Digital Wardrobe</a>
+        <a href="stats.html" class="text-green-600 font-semibold underline">Stats</a>
+        <a href="chat.html" class="text-gray-600 hover:text-green-600 font-medium transition">Chat</a>
+        <a href="about.html" class="text-gray-600 hover:text-green-500 font-medium transition">About</a>
+        <a href="signup.html" class="bg-green-500 text-white px-4 py-2 rounded-xl shadow hover:bg-green-600 transition font-semibold">Sign Up</a>
       </nav>
     </div>
   </header>
 
   <!-- Stats Section -->
-  <section class="py-16 bg-white">
+  <section class="py-16 bg-gradient-to-b from-white to-green-50 min-h-[80vh]">
     <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-6">Your Wardrobe Stats</h2>
-      <p class="text-center mb-8">Track your fashion habits and embrace slow fashion with personalized insights.</p>
+      <div class="flex flex-col items-center mb-8">
+        <img src="img/logo.jpg" alt="User Avatar" class="w-24 h-24 rounded-full shadow-lg mb-3 border-4 border-green-100">
+        <h2 class="text-3xl md:text-4xl font-bold text-center text-green-700 mb-2">Your Wardrobe Stats</h2>
+        <p class="text-center mb-2 text-lg text-gray-500">Track your fashion habits and embrace slow fashion with personalized insights.</p>
+        <div>
+          <span class="stats-badge">👗 65% worn</span>
+          <span class="stats-badge">💵 $850 value</span>
+          <span class="stats-badge">🟦 Blue is your most-worn color</span>
+        </div>
+      </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <!-- Percentage Worn -->
-        <div class="bg-gray-100 p-6 rounded-lg">
-          <h3 class="text-xl font-semibold mb-4">Percentage Worn</h3>
-          <p class="text-2xl font-bold text-green-500">65%</p>
-          <p>You’ve worn 65% of your wardrobe. Try styling your lesser-worn items!</p>
+        <div class="bg-gray-100 p-7 rounded-2xl card shadow-sm flex flex-col items-center">
+          <h3 class="text-xl font-semibold mb-3">Percentage Worn</h3>
+          <p class="text-3xl font-bold text-green-500 mb-2">65%</p>
+          <p class="text-center">You’ve worn 65% of your wardrobe.<br>Try styling your lesser-worn items!</p>
         </div>
         <!-- Cost Per Wear -->
-        <div class="bg-gray-100 p-6 rounded-lg">
-          <h3 class="text-xl font-semibold mb-4">Cost Per Wear</h3>
-          <table class="w-full text-sm">
-            <thead><tr><th>Item</th><th>Cost</th><th>Wears</th><th>Cost/Wear</th></tr></thead>
-            <tbody>
-              <tr><td>Levi’s Jacket</td><td>$35</td><td>10</td><td>$3.50</td></tr>
-              <tr><td>Nike Sneakers</td><td>$50</td><td>15</td><td>$3.33</td></tr>
-              <tr><td>Zara Dress</td><td>$25</td><td>2</td><td>$12.50</td></tr>
-            </tbody>
-          </table>
+        <div class="bg-gray-100 p-7 rounded-2xl card shadow-sm">
+          <h3 class="text-xl font-semibold mb-3">Cost Per Wear</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm rounded-xl border-collapse">
+              <thead class="bg-green-50">
+                <tr>
+                  <th class="p-2 font-medium text-left">Item</th>
+                  <th class="p-2 font-medium">Cost</th>
+                  <th class="p-2 font-medium">Wears</th>
+                  <th class="p-2 font-medium">Cost/Wear</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="p-2">Levi’s Jacket</td><td class="p-2">$35</td><td class="p-2">10</td><td class="p-2">$3.50</td></tr>
+                <tr><td class="p-2">Nike Sneakers</td><td class="p-2">$50</td><td class="p-2">15</td><td class="p-2">$3.33</td></tr>
+                <tr><td class="p-2">Zara Dress</td><td class="p-2">$25</td><td class="p-2">2</td><td class="p-2">$12.50</td></tr>
+              </tbody>
+            </table>
+          </div>
           <p class="mt-2">Wear high-cost items more to maximize value!</p>
         </div>
         <!-- Total Wardrobe Value -->
-        <div class="bg-gray-100 p-6 rounded-lg">
-          <h3 class="text-xl font-semibold mb-4">Total Wardrobe Value</h3>
-          <p class="text-2xl font-bold text-green-500">$850</p>
+        <div class="bg-gray-100 p-7 rounded-2xl card shadow-sm flex flex-col items-center">
+          <h3 class="text-xl font-semibold mb-3">Total Wardrobe Value</h3>
+          <p class="text-3xl font-bold text-green-500 mb-2">$850</p>
           <p>Your wardrobe is worth $850 based on resale values.</p>
         </div>
         <!-- Items Per Category -->
-        <div class="bg-gray-100 p-6 rounded-lg">
-          <h3 class="text-xl font-semibold mb-4">Items Per Category</h3>
+        <div class="bg-gray-100 p-7 rounded-2xl card shadow-sm chart-container">
+          <h3 class="text-xl font-semibold mb-3">Items Per Category</h3>
           <canvas id="categoryChart" aria-label="Pie chart showing wardrobe items by category"></canvas>
-          <p class="mt-2">Clothes dominate your wardrobe. Consider diversifying!</p>
+          <p class="mt-3 text-center">Clothes dominate your wardrobe. Consider diversifying!</p>
         </div>
         <!-- Most Worn Colors -->
-        <div class="bg-gray-100 p-6 rounded-lg">
-          <h3 class="text-xl font-semibold mb-4">Most Worn Colors</h3>
+        <div class="bg-gray-100 p-7 rounded-2xl card shadow-sm chart-container">
+          <h3 class="text-xl font-semibold mb-3">Most Worn Colors</h3>
           <canvas id="colorChart" aria-label="Bar chart showing most worn colors"></canvas>
-          <p class="mt-2">Blue is your go-to! Try mixing in other hues.</p>
+          <p class="mt-3 text-center">Blue is your go-to! Try mixing in other hues.</p>
         </div>
         <!-- Most/Least Worn Items -->
-        <div class="bg-gray-100 p-6 rounded-lg">
-          <h3 class="text-xl font-semibold mb-4">Most/Least Worn Items</h3>
-          <p><strong>Most:</strong> Nike Sneakers (15 wears)</p>
-          <p><strong>Least:</strong> Zara Dress (2 wears)</p>
+        <div class="bg-gray-100 p-7 rounded-2xl card shadow-sm">
+          <h3 class="text-xl font-semibold mb-3">Most/Least Worn Items</h3>
+          <div class="flex items-center gap-4 mb-1">
+            <span class="stats-badge bg-green-100 text-green-700">🏆 Most: Nike Sneakers (15 wears)</span>
+            <span class="stats-badge bg-gray-200 text-gray-700">😴 Least: Zara Dress (2 wears)</span>
+          </div>
           <p class="mt-2">Give your least-worn items some love or swap them!</p>
         </div>
         <!-- Outfits Worn -->
-        <div class="bg-gray-100 p-6 rounded-lg">
-          <h3 class="text-xl font-semibold mb-4">Outfits Worn</h3>
-          <p class="text-2xl font-bold text-green-500">70%</p>
+        <div class="bg-gray-100 p-7 rounded-2xl card shadow-sm flex flex-col items-center">
+          <h3 class="text-xl font-semibold mb-3">Outfits Worn</h3>
+          <p class="text-3xl font-bold text-green-500 mb-2">70%</p>
           <p>You’ve worn 70% of your created outfits. Keep experimenting!</p>
         </div>
         <!-- Tag Usage -->
-        <div class="bg-gray-100 p-6 rounded-lg">
-          <h3 class="text-xl font-semibold mb-4">Tag Usage</h3>
-          <p class="text-2xl font-bold text-green-500">80%</p>
+        <div class="bg-gray-100 p-7 rounded-2xl card shadow-sm flex flex-col items-center">
+          <h3 class="text-xl font-semibold mb-3">Tag Usage</h3>
+          <p class="text-3xl font-bold text-green-500 mb-2">80%</p>
           <p>You’ve worn 80% of your ‘Favorite’ tagged items. Explore other tags!</p>
         </div>
       </div>
-      <div class="mt-12 bg-gray-100 p-6 rounded-lg text-center">
-        <h3 class="text-xl font-semibold mb-4">Slow Fashion Tips</h3>
-        <p>Swap your least-worn items to refresh your style sustainably. Try styling your Zara Dress with sneakers for a casual look!</p>
+      <div class="mt-12 bg-green-50 border border-green-100 p-7 rounded-2xl text-center shadow-md">
+        <h3 class="text-xl font-semibold mb-3">🌿 Slow Fashion Tip</h3>
+        <p class="text-green-900">Swap your least-worn items to refresh your style sustainably.<br>
+          Try styling your Zara Dress with sneakers for a casual look!</p>
       </div>
     </div>
   </section>
@@ -110,7 +172,7 @@
   <div id="chatbox" class="chatbox" aria-label="Loopy AI Assistant Chatbox">
     <div class="chatbox-header flex justify-between items-center">
       <span>Chat with Loopy</span>
-      <button onclick="toggleChatbox()" class="text-white" aria-label="Toggle chatbox">−</button>
+      <button onclick="toggleChatbox()" class="text-white hover:text-green-100 focus:outline-none" aria-label="Toggle chatbox">−</button>
     </div>
     <div id="chatboxBody" class="chatbox-body">
       <p><strong>Loopy AI:</strong> Hi! Want help understanding your stats or slow fashion tips? 😊</p>
@@ -119,10 +181,10 @@
   </div>
 
   <!-- Footer -->
-  <footer class="py-12 bg-green-500 text-white text-center">
+  <footer class="py-12 bg-green-500 text-white text-center mt-16 rounded-t-3xl shadow-inner">
     <div class="container mx-auto px-4">
-      <p class="mb-6">Track your fashion sustainably with Loopy. Reuse fashion, reduce waste.</p>
-      <p class="mb-4">Supporting SDGs 8, 12, 13, 14, 15</p>
+      <p class="mb-6 text-lg font-semibold">Track your fashion sustainably with Loopy. Reuse fashion, reduce waste.</p>
+      <p class="mb-4 text-base">Supporting SDGs 8, 12, 13, 14, 15</p>
       <div class="flex justify-center gap-4 mb-4">
         <span class="text-2xl" aria-label="SDG 8">💼</span>
         <span class="text-2xl" aria-label="SDG 12">♻️</span>
@@ -130,13 +192,14 @@
         <span class="text-2xl" aria-label="SDG 14">🌊</span>
         <span class="text-2xl" aria-label="SDG 15">🌱</span>
       </div>
-      <div class="flex justify-center space-x-4">
+      <div class="flex justify-center space-x-4 text-base mb-8">
         <a href="about.html" class="text-white hover:text-gray-200">About</a>
         <a href="faq.html" class="text-white hover:text-gray-200">FAQ</a>
         <a href="contact.html" class="text-white hover:text-gray-200">Contact</a>
         <a href="https://instagram.com" class="text-white hover:text-gray-200">Instagram</a>
         <a href="https://tiktok.com" class="text-white hover:text-gray-200">TikTok</a>
       </div>
+      <p class="mt-10 text-sm opacity-80">© 2025 Loopy Circular Fashion. All rights reserved.</p>
     </div>
   </footer>
 
@@ -156,26 +219,21 @@
       "default": "I’m here to help with stats, tags, or slow fashion! What’s on your mind?"
     };
 
-    // Send Chat Message
     function sendMessage() {
       const input = document.getElementById('chatInput');
       const message = input.value.toLowerCase().trim();
       if (!message) return;
-
       const chatBody = document.getElementById('chatboxBody');
       chatBody.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
-
       let reply = responses.default;
       if (message.includes('stats') || message.includes('data')) reply = responses.stats;
       else if (message.includes('cost') || message.includes('wear')) reply = responses.cost;
-      else if (message.includes('slow') || message.includes('fashion')) reply = responses.slow;
+      else if (message.includes('slow') || message.includes('fashion')) reply = responses["slow fashion"];
       else if (message.includes('tag') || message.includes('tags')) reply = responses.tag;
-
       setTimeout(() => {
         chatBody.innerHTML += `<p><strong>Loopy AI:</strong> ${reply}</p>`;
         chatBody.scrollTop = chatBody.scrollHeight;
       }, 500);
-
       input.value = '';
     }
 
@@ -199,7 +257,8 @@
         labels: ['Blue', 'Black', 'White', 'Other'],
         datasets: [{
           data: [40, 30, 20, 10],
-          backgroundColor: '#10B981'
+          backgroundColor: ['#3b82f6', '#1f2937', '#f9fafb', '#a7f3d0'],
+          borderRadius: 8
         }]
       },
       options: {
