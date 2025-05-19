@@ -8,12 +8,32 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Poppins', sans-serif; }
+    .fade-section {
+      min-height: 100vh;
+      opacity: 0;
+      transform: translateY(40px) scale(0.98);
+      transition: opacity 0.6s cubic-bezier(.4,0,.2,1), transform 0.6s cubic-bezier(.4,0,.2,1);
+      will-change: opacity, transform;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     .hero-bg {
       background-image: linear-gradient(rgba(16,185,129,0.8), rgba(0,0,0,0.2)), url('img/banner.jpg');
       background-size: cover; background-position: center;
+      color: white;
     }
-    /* For smooth scrolling on anchor links */
+    .feedback {
+      background-image: linear-gradient(rgba(16,185,129,0.8), rgba(0,0,0,0.2)), url('img/banner1.jpg');
+      background-size: cover; background-position: center;
+    }
     html { scroll-behavior: smooth; }
+    /* Ensure testimonials section overlay remains above fade effect */
+    .feedback .container { position: relative; z-index: 1; }
+    .feedback .absolute { z-index: 0; }
+    /* Remove top margin for each section for better flow */
+    .fade-section > .container { margin-top: 0; margin-bottom: 0; }
   </style>
 </head>
 <body class="bg-gray-100">
@@ -35,155 +55,162 @@
       </nav>
     </div>
   </header>
+  <main>
+    <!-- Hero Section -->
+    <section class="fade-section hero-bg text-white py-24 flex items-center min-h-[50vh] relative overflow-hidden">
+      <div class="container mx-auto px-4 text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-6 drop-shadow-lg">Loopy: Where Your Clothes Get a Second Spin.</h1>
+        <p class="text-lg md:text-2xl mb-8 drop-shadow-md">Say goodbye to closet chaos and hello to Loopy—your AI-powered fashion sidekick! Swap or sell your clothes in a snap with instant, secure authentication that checks condition, quality, and keeps the fakes out. It’s fast, fun, and fabulously eco-friendly. Dress smart, waste less, and let your wardrobe do the world some good!</p>
+        <a href="shop.html" class="bg-white text-green-600 font-semibold py-3 px-8 rounded-2xl shadow-xl text-lg hover:bg-green-500 hover:text-white transition transform hover:scale-105">Start Swapping Now</a>
+      </div>
+    </section>
 
-  <!-- Hero Section -->
-  <section class="hero-bg text-white py-24 flex items-center min-h-[50vh] relative overflow-hidden">
-    <div class="container mx-auto px-4 text-center">
-      <h1 class="text-4xl md:text-5xl font-extrabold mb-6 drop-shadow-lg animate-fadeInUp">Loopy: Where Your Clothes Get a Second Spin.</h1>
-      <p class="text-lg md:text-2xl mb-8 drop-shadow-md animate-fadeInUp delay-75">Say goodbye to closet chaos and hello to Loopy—your AI-powered fashion sidekick! Swap or sell your clothes in a snap with instant, secure authentication that checks condition, quality, and keeps the fakes out. It’s fast, fun, and fabulously eco-friendly. Dress smart, waste less, and let your wardrobe do the world some good!</p>
-      <a href="shop.html" class="bg-white text-green-600 font-semibold py-3 px-8 rounded-2xl shadow-xl text-lg hover:bg-green-500 hover:text-white transition transform hover:scale-105 animate-bounce">Start Swapping Now</a>
-    </div>
-  </section>
+    <!-- Features Section -->
+    <section class="fade-section py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">Why Choose Loopy?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="text-center bg-gray-50 p-6 rounded-2xl shadow hover:shadow-lg transition">
+            <div class="text-5xl mb-4">🤖</div>
+            <h3 class="text-xl font-semibold mb-2">AI-Powered Trust</h3>
+            <p>Loopy AI is your personal stylist and guide, delivering tailored experiences while verifying every item for quality, origin, and authenticity—no fakes, no fuss.</p>
+          </div>
+          <div class="text-center bg-gray-50 p-6 rounded-2xl shadow hover:shadow-lg transition">
+            <div class="text-5xl mb-4">👗</div>
+            <h3 class="text-xl font-semibold mb-2">Digital Wardrobe</h3>
+            <p>Style, swap, and track every wear with your smart virtual closet—then share your looks with the Loopy community!</p>
+          </div>
+          <div class="text-center bg-gray-50 p-6 rounded-2xl shadow hover:shadow-lg transition">
+            <div class="text-5xl mb-4">🌍</div>
+            <h3 class="text-xl font-semibold mb-2">Eco-Impact Tracking</h3>
+            <p>Track how much CO2 and water you save with every swap, sale, or extra wear—your wardrobe’s impact, made visible!</p>
+          </div>
+          <div class="text-center bg-gray-50 p-6 rounded-2xl shadow hover:shadow-lg transition">
+            <div class="text-5xl mb-4">🤝</div>
+            <h3 class="text-xl font-semibold mb-2">Brand Partnerships</h3>
+            <p>See your favourite brands? They’re our partners—because they believe in the Loopy vision too! Shop their authenticated pieces and keep fashion stylish, sustainable, and circular. Last season? Please, we call that vintage.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <!-- Features Section -->
-  <section class="py-16 bg-white">
-    <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12">Why Choose Loopy?</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="text-center bg-gray-50 p-6 rounded-2xl shadow hover:shadow-lg transition">
-          <div class="text-5xl mb-4">🤖</div>
-          <h3 class="text-xl font-semibold mb-2">AI-Powered Trust</h3>
-          <p>Loopy AI is your personal stylist and guide, delivering tailored experiences while verifying every item for quality, origin, and authenticity—no fakes, no fuss.</p>
+    <!-- How It Works Section -->
+    <section class="fade-section py-16 bg-green-50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">Get Started in 3 Easy Steps</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="text-center bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition">
+            <div class="bg-green-500 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">1</div>
+            <h3 class="text-xl font-semibold mb-2">Scan & List</h3>
+            <p>Scan your item, add a few details—AI Loopy handles quality-check, verification and pricing instantly. Ready to be listed!.</p>
+          </div>
+          <div class="text-center bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition">
+            <div class="bg-green-500 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">2</div>
+            <h3 class="text-xl font-semibold mb-2">Swap or Sell</h3>
+            <p>Scan your items to upload them to your virtual wardrobe—AI Loopy helps you style with ease! Want to sell? List them on the market and let AI Loopy verify the condition, check authenticity, and instantly suggest the best price.</p>
+          </div>
+          <div class="text-center bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition">
+            <div class="bg-green-500 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">3</div>
+            <h3 class="text-xl font-semibold mb-2">Track Your Impact</h3>
+            <p>Monitor your wardrobe’s usage and eco-savings in your digital profile.</p>
+          </div>
         </div>
-        <div class="text-center bg-gray-50 p-6 rounded-2xl shadow hover:shadow-lg transition">
-          <div class="text-5xl mb-4">👗</div>
-          <h3 class="text-xl font-semibold mb-2">Digital Wardrobe</h3>
-          <p>Style, swap, and track every wear with your smart virtual closet—then share your looks with the Loopy community!</p>
-        </div>
-        <div class="text-center bg-gray-50 p-6 rounded-2xl shadow hover:shadow-lg transition">
-          <div class="text-5xl mb-4">🌍</div>
-          <h3 class="text-xl font-semibold mb-2">Eco-Impact Tracking</h3>
-          <p>Track how much CO2 and water you save with every swap, sale, or extra wear—your wardrobe’s impact, made visible!</p>
-        </div>
-        <div class="text-center bg-gray-50 p-6 rounded-2xl shadow hover:shadow-lg transition">
-          <div class="text-5xl mb-4">🤝</div>
-          <h3 class="text-xl font-semibold mb-2">Brand Partnerships</h3>
-          <p>See your favourite brands? They’re our partners—because they believe in the Loopy vision too! Shop their authenticated pieces and keep fashion stylish, sustainable, and circular. Last season? Please, we call that vintage.</p>
+        <div class="text-center mt-10">
+          <a href="signup.html" class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-xl shadow-lg text-lg transition transform hover:scale-105">Join Now</a>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- How It Works Section -->
-  <section class="py-16 bg-green-50">
-    <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12">Get Started in 3 Easy Steps</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="text-center bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition">
-          <div class="bg-green-500 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">1</div>
-          <h3 class="text-xl font-semibold mb-2">Scan & List</h3>
-          <p>Scan your item, add a few details—AI Loopy handles quality-check, verification and pricing instantly. Ready to be listed!.</p>
+    <!-- Sustainability Impact Section -->
+    <section class="fade-section py-16 bg-white">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-12">Make a Difference with Every Swap</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+          <div class="bg-green-50 p-8 rounded-xl shadow-md flex flex-col justify-center items-center">
+            <p class="text-3xl font-bold text-green-600 mb-2">92M Tons</p>
+            <p class="text-gray-700">Textile waste reduced annually.</p>
+          </div>
+          <div class="bg-green-50 p-8 rounded-xl shadow-md flex flex-col justify-center items-center">
+            <p class="text-3xl font-bold text-green-600 mb-2">12.6M L</p>
+            <p class="text-gray-700">Litres of water saved through reuse and resale on Loopy.</p>
+          </div>
+          <div class="bg-green-50 p-8 rounded-xl shadow-md flex flex-col justify-center items-center">
+            <p class="text-3xl font-bold text-green-600 mb-2">84,000 kg</p>
+            <p class="text-gray-700">CO₂ emissions prevented by giving clothes a second life.</p>
+          </div>
+          <div class="bg-green-50 p-8 rounded-xl shadow-md flex flex-col justify-center items-center">
+            <p class="text-3xl font-bold text-green-600 mb-2">Circular Fashion</p>
+            <p class="text-gray-700">Every swap supports a more sustainable economy.</p>
+          </div>
         </div>
-        <div class="text-center bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition">
-          <div class="bg-green-500 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">2</div>
-          <h3 class="text-xl font-semibold mb-2">Swap or Sell</h3>
-          <p>Scan your items to upload them to your virtual wardrobe—AI Loopy helps you style with ease! Want to sell? List them on the market and let AI Loopy verify the condition, check authenticity, and instantly suggest the best price.</p>
-        </div>
-        <div class="text-center bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition">
-          <div class="bg-green-500 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">3</div>
-          <h3 class="text-xl font-semibold mb-2">Track Your Impact</h3>
-          <p>Monitor your wardrobe’s usage and eco-savings in your digital profile.</p>
-        </div>
+        <p class="mt-10 text-lg text-gray-700 font-medium">Loopy empowers you to fight fast fashion’s waste, one swap at a time.</p>
       </div>
-      <div class="text-center mt-10">
-        <a href="signup.html" class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-xl shadow-lg text-lg transition transform hover:scale-105">Join Now</a>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Sustainability Impact Section -->
- <section class="py-16 bg-white">
-  <div class="container mx-auto px-4 text-center">
-    <h2 class="text-3xl font-bold mb-12">Make a Difference with Every Swap</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-      <div class="bg-green-50 p-8 rounded-xl shadow-md flex flex-col justify-center items-center">
-        <p class="text-3xl font-bold text-green-600 mb-2">92M Tons</p>
-        <p class="text-gray-700">Textile waste reduced annually.</p>
+    <!-- Testimonials Section -->
+    <section class="fade-section py-20 bg-gray-100 relative overflow-hidden feedback">
+      <div class="absolute inset-0 w-full h-full z-0 opacity-20 bg-center bg-cover"
+           style="background-image: url('img/banner1.jpg');"></div>
+      <div class="container mx-auto px-4 relative z-10">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-12 text-white drop-shadow-[0_3px_10px_#10b981] tracking-wid">What Loopies Are Saying</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl flex flex-col justify-center border border-green-100 hover:scale-105 hover:shadow-2xl transition">
+            <svg class="w-8 h-8 text-green-500 mb-2" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+                 d="M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2h-2m-4 0H7a2 2 0 01-2-2v-8a2 2 0 012-2h2"></path></svg>
+            <p class="italic mb-4 text-lg">“Loopy’s AI made selling my old jeans a breeze, and I love seeing my CO2 savings!”</p>
+            <p class="font-semibold text-green-700">– Sarah, Sydney</p>
+          </div>
+          <div class="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl flex flex-col justify-center border border-green-100 hover:scale-105 hover:shadow-2xl transition">
+            <svg class="w-8 h-8 text-green-500 mb-2" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+                 d="M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2h-2m-4 0H7a2 2 0 01-2-2v-8a2 2 0 012-2h2"></path></svg>
+            <p class="italic mb-4 text-lg">“Swapping on Loopy feels like shopping, but guilt-free. My wardrobe’s never been fresher!”</p>
+            <p class="font-semibold text-green-700">– Liam, Melbourne</p>
+          </div>
+        </div>
       </div>
-      <div class="bg-green-50 p-8 rounded-xl shadow-md flex flex-col justify-center items-center">
-        <p class="text-3xl font-bold text-green-600 mb-2">12.6M L</p>
-        <p class="text-gray-700">Litres of water saved through reuse and resale on Loopy.</p>
-      </div>
-      <div class="bg-green-50 p-8 rounded-xl shadow-md flex flex-col justify-center items-center">
-        <p class="text-3xl font-bold text-green-600 mb-2">84,000 kg</p>
-        <p class="text-gray-700">CO₂ emissions prevented by giving clothes a second life.</p>
-      </div>
-      <div class="bg-green-50 p-8 rounded-xl shadow-md flex flex-col justify-center items-center">
-        <p class="text-3xl font-bold text-green-600 mb-2">Circular Fashion</p>
-        <p class="text-gray-700">Every swap supports a more sustainable economy.</p>
-      </div>
-    </div>
-    <p class="mt-10 text-lg text-gray-700 font-medium">Loopy empowers you to fight fast fashion’s waste, one swap at a time.</p>
-  </div>
-</section>
+    </section>
 
-
-  <!-- Testimonials Section -->
-  <section class="py-16 bg-gray-100">
-    <div class="container mx-auto px-4">
-      <h2 class="text-3xl font-bold text-center mb-12">What Loopies Are Saying</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="bg-white p-8 rounded-2xl shadow-xl flex flex-col justify-center hover:shadow-2xl transition">
-          <p class="italic mb-4 text-lg">“Loopy’s AI made selling my old jeans a breeze, and I love seeing my CO2 savings!”</p>
-          <p class="font-semibold text-green-700">– Sarah, Sydney</p>
+    <!-- SDGs Section -->
+    <section class="fade-section py-16 bg-white">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-12">Loopy’s Commitment to Global Goals</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
+          <div class="text-center bg-green-50 p-6 rounded-xl shadow-md">
+            <div class="text-4xl mb-4">💼</div>
+            <h3 class="text-lg font-semibold mb-2">SDG 8: Decent Work</h3>
+            <p>Partnering with brands to promote fair labor practices.</p>
+          </div>
+          <div class="text-center bg-green-50 p-6 rounded-xl shadow-md">
+            <div class="text-4xl mb-4">♻️</div>
+            <h3 class="text-lg font-semibold mb-2">SDG 12: Responsible Consumption</h3>
+            <p>Encouraging reuse to reduce overconsumption.</p>
+          </div>
+          <div class="text-center bg-green-50 p-6 rounded-xl shadow-md">
+            <div class="text-4xl mb-4">🌍</div>
+            <h3 class="text-lg font-semibold mb-2">SDG 13: Climate Action</h3>
+            <p>Cutting CO2 emissions by extending garment lifespans.</p>
+          </div>
+          <div class="text-center bg-green-50 p-6 rounded-xl shadow-md">
+            <div class="text-4xl mb-4">🌊</div>
+            <h3 class="text-lg font-semibold mb-2">SDG 14: Life Below Water</h3>
+            <p>Less clothes being produced is reducing water usage, microplastic and chemical pollution.</p>
+          </div>
+          <div class="text-center bg-green-50 p-6 rounded-xl shadow-md">
+            <div class="text-4xl mb-4">🌱</div>
+            <h3 class="text-lg font-semibold mb-2">SDG 15: Life on Land</h3>
+            <p>With every reuse items, meaning decreased textile waste to protect biodiversity.</p>
+          </div>
         </div>
-        <div class="bg-white p-8 rounded-2xl shadow-xl flex flex-col justify-center hover:shadow-2xl transition">
-          <p class="italic mb-4 text-lg">“Swapping on Loopy feels like shopping, but guilt-free. My wardrobe’s never been fresher!”</p>
-          <p class="font-semibold text-green-700">– Liam, Melbourne</p>
-        </div>
+        <p class="mt-8 text-lg text-gray-700">Together, we’re building a sustainable future for fashion.</p>
       </div>
-    </div>
-  </section>
-
-  <!-- SDGs Section -->
-  <section class="py-16 bg-white">
-    <div class="container mx-auto px-4 text-center">
-      <h2 class="text-3xl font-bold mb-12">Loopy’s Commitment to Global Goals</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
-        <div class="text-center bg-green-50 p-6 rounded-xl shadow-md">
-          <div class="text-4xl mb-4">💼</div>
-          <h3 class="text-lg font-semibold mb-2">SDG 8: Decent Work</h3>
-          <p>Partnering with brands to promote fair labor practices.</p>
-        </div>
-        <div class="text-center bg-green-50 p-6 rounded-xl shadow-md">
-          <div class="text-4xl mb-4">♻️</div>
-          <h3 class="text-lg font-semibold mb-2">SDG 12: Responsible Consumption</h3>
-          <p>Encouraging reuse to reduce overconsumption.</p>
-        </div>
-        <div class="text-center bg-green-50 p-6 rounded-xl shadow-md">
-          <div class="text-4xl mb-4">🌍</div>
-          <h3 class="text-lg font-semibold mb-2">SDG 13: Climate Action</h3>
-          <p>Cutting CO2 emissions by extending garment lifespans.</p>
-        </div>
-        <div class="text-center bg-green-50 p-6 rounded-xl shadow-md">
-          <div class="text-4xl mb-4">🌊</div>
-          <h3 class="text-lg font-semibold mb-2">SDG 14: Life Below Water</h3>
-          <p>Reducing microplastic pollution from synthetics.</p>
-        </div>
-        <div class="text-center bg-green-50 p-6 rounded-xl shadow-md">
-          <div class="text-4xl mb-4">🌱</div>
-          <h3 class="text-lg font-semibold mb-2">SDG 15: Life on Land</h3>
-          <p>Decreasing textile waste to protect biodiversity.</p>
-        </div>
-      </div>
-      <p class="mt-8 text-lg text-gray-700">Together, we’re building a sustainable future for fashion.</p>
-    </div>
-  </section>
-
+    </section>
+  </main>
   <!-- Footer -->
-  <footer class="py-12 bg-green-500 text-white text-center mt-12 rounded-t-3xl shadow-inner">
+  <footer class="py-12 bg-gradient-to-tr from-green-700 to-emerald-900 text-white text-center mt-16 rounded-t-3xl shadow-inner">
     <div class="container mx-auto px-4">
-      <p class="mb-6 text-lg font-semibold">Shop sustainably with Loopy. Reduce waste, reuse fashion.</p>
+      <p class="mb-6 text-lg font-semibold">Don't toss it. Loop it!</p>
       <p class="mb-4 text-base">Supporting SDGs 8, 12, 13, 14, 15</p>
       <div class="flex justify-center gap-4 mb-4">
         <span class="text-2xl">💼</span>
@@ -218,16 +245,22 @@
       <p class="mt-10 text-sm opacity-80">© 2025 Loopy Circular Fashion. All rights reserved.</p>
     </div>
   </footer>
-
-  <!-- FadeIn animations for hero text (optional) -->
+  <!-- Fade/slide effect on scroll for each section -->
   <script>
-    // Animate fade-in-up for hero text on load
-    document.querySelectorAll('.animate-fadeInUp').forEach((el, i) => {
-      setTimeout(() => {
-        el.classList.add('opacity-100', 'translate-y-0');
-      }, 250 + i * 150);
-      el.classList.add('opacity-0', 'translate-y-8', 'transition', 'duration-1000');
-    });
+    function fadeSectionsOnScroll() {
+      const sections = document.querySelectorAll('.fade-section');
+      const vh = window.innerHeight;
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        const visiblePx = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
+        const ratio = Math.max(0, Math.min(visiblePx / vh, 1));
+        section.style.opacity = ratio;
+        section.style.transform = `translateY(${40 - ratio * 40}px) scale(${0.98 + ratio*0.02})`;
+      });
+    }
+    window.addEventListener('scroll', fadeSectionsOnScroll, { passive: true });
+    window.addEventListener('resize', fadeSectionsOnScroll);
+    window.addEventListener('DOMContentLoaded', fadeSectionsOnScroll);
   </script>
 </body>
 </html>

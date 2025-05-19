@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loopy - Smooth Fade Scroll Demo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .fade-section {
+      min-height: 100vh;
+      opacity: 0;
+      transform: translateY(40px) scale(0.98);
+      transition: opacity 0.6s cubic-bezier(.4,0,.2,1), transform 0.6s cubic-bezier(.4,0,.2,1);
+      will-change: opacity, transform;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-bg {
+      background-image: linear-gradient(rgba(16,185,129,0.7), rgba(0,0,0,0.25)), url('img/banner.jpg');
+      background-size: cover;
+      background-position: center;
+      color: white;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <header class="bg-white shadow py-4 sticky top-0 z-30">
+    <div class="container mx-auto px-4 flex flex-wrap justify-between items-center">
+      <a href="index.html">
+        <img src="img/logo.jpg" alt="Loopy Logo" class="h-[70px] w-[70px] md:h-[100px] md:w-[100px] object-contain transition-all duration-300 rounded-2xl shadow-lg hover:scale-105">
+      </a>
+      <nav class="flex flex-wrap space-x-2 md:space-x-4 mt-3 md:mt-0">
+        <!-- nav links... -->
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="fade-section hero-bg">
+      <div class="container mx-auto text-center">
+        <h1 class="text-4xl font-extrabold mb-6">Loopy: Where Your Clothes Get a Second Spin.</h1>
+        <p class="text-lg mb-8">Eco-friendly, easy, fun. Try now!</p>
+        <a href="shop.html" class="bg-white text-green-600 py-3 px-8 rounded-2xl shadow-xl text-lg hover:bg-green-500 hover:text-white transition transform hover:scale-105">Start Swapping Now</a>
+      </div>
+    </section>
+    <section class="fade-section">
+      <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-12">Why Choose Loopy?</h2>
+        <p>Every swap saves CO2, water, and your wallet. AI-verified for peace of mind.</p>
+      </div>
+    </section>
+    <section class="fade-section">
+      <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-12">How It Works</h2>
+        <p>Scan. Swap. Track your eco-impact. All with Loopy.</p>
+      </div>
+    </section>
+    <!-- Add more fade-section as needed -->
+  </main>
+  <footer class="py-12 bg-gradient-to-tr from-green-700 to-emerald-900 text-white text-center mt-16 rounded-t-3xl shadow-inner">
+    <div class="container mx-auto px-4">
+      <p class="mb-6 text-lg font-semibold">Don't toss it. Loop it!</p>
+    </div>
+  </footer>
+  <script>
+    function fadeSectionsOnScroll() {
+      const sections = document.querySelectorAll('.fade-section');
+      const vh = window.innerHeight;
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        const visiblePx = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
+        const ratio = Math.max(0, Math.min(visiblePx / vh, 1));
+        section.style.opacity = ratio;
+        section.style.transform = `translateY(${40 - ratio * 40}px) scale(${0.98 + ratio*0.02})`;
+      });
+    }
+    window.addEventListener('scroll', fadeSectionsOnScroll, { passive: true });
+    window.addEventListener('resize', fadeSectionsOnScroll);
+    window.addEventListener('DOMContentLoaded', fadeSectionsOnScroll);
+  </script>
+</body>
+</html>

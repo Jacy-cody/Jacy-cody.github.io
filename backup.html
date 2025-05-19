@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loopy - Sustainable Fashion Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .hero-bg {
+      background-image: linear-gradient(rgba(16,185,129,0.8), rgba(0,0,0,0.2)), url('img/banner.jpg');
+      background-size: cover; background-position: center;
+    }
+    .feedback {
+      background-image: linear-gradient(rgba(16,185,129,0.8), rgba(0,0,0,0.2)), url('img/banner1.jpg');
+      background-size: cover; background-position: center;
+    }
+    /* For smooth scrolling on anchor links */
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <!-- Header -->
+  <header class="bg-white shadow py-4 sticky top-0 z-30">
+    <div class="container mx-auto px-4 flex flex-wrap justify-between items-center">
+      <a href="index.html">
+        <img src="img/logo.jpg" alt="Loopy Logo" class="h-[70px] w-[70px] md:h-[100px] md:w-[100px] object-contain transition-all duration-300 rounded-2xl shadow-lg hover:scale-105">
+      </a>
+      <nav class="flex flex-wrap space-x-2 md:space-x-4 mt-3 md:mt-0">
+        <a href="index.html" class="text-gray-600 hover:text-green-600 font-medium transition">Home</a>
+        <a href="shop.html" class="text-gray-600 hover:text-green-600 font-medium transition">Shop</a>
+        <a href="swap.html" class="text-gray-600 hover:text-green-600 font-medium transition">Swap</a>
+        <a href="dashboard.html" class="text-gray-600 hover:text-green-600 font-medium transition">Digital Wardrobe</a>
+        <a href="stats.html" class="text-gray-600 hover:text-green-600 font-medium transition">Stats</a>
+        <a href="chat.html" class="text-gray-600 hover:text-green-600 font-medium transition">Chat</a>
+        <a href="about.html" class="text-gray-600 hover:text-green-600 font-medium transition">About</a>
+        <a href="signup.html" class="bg-green-500 text-white px-4 py-2 rounded-xl shadow hover:bg-green-600 transition font-semibold">Sign Up</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-bg text-white py-24 flex items-center min-h-[50vh] relative overflow-hidden">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-6 drop-shadow-lg animate-fadeInUp">Loopy: Where Your Clothes Get a Second Spin.</h1>
+      <p class="text-lg md:text-2xl mb-8 drop-shadow-md animate-fadeInUp delay-75">Say goodbye to closet chaos and hello to Loopy—your AI-powered fashion sidekick! Swap or sell your clothes in a snap with instant, secure authentication that checks condition, quality, and keeps the fakes out. It’s fast, fun, and fabulously eco-friendly. Dress smart, waste less, and let your wardrobe do the world some good!</p>
+      <a href="shop.html" class="bg-white text-green-600 font-semibold py-3 px-8 rounded-2xl shadow-xl text-lg hover:bg-green-500 hover:text-white transition transform hover:scale-105 animate-bounce">Start Swapping Now</a>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Why Choose Loopy?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="text-center bg-gray-50 p-6 rounded-2xl shadow hover:shadow-lg transition">
+          <div class="text-5xl mb-4">🤖</div>
+          <h3 class="text-xl font-semibold mb-2">AI-Powered Trust</h3>
+          <p>Loopy AI is your personal stylist and guide, delivering tailored experiences while verifying every item for quality, origin, and authenticity—no fakes, no fuss.</p>
+        </div>
+        <div class="text-center bg-gray-50 p-6 rounded-2xl shadow hover:shadow-lg transition">
+          <div class="text-5xl mb-4">👗</div>
+          <h3 class="text-xl font-semibold mb-2">Digital Wardrobe</h3>
+          <p>Style, swap, and track every wear with your smart virtual closet—then share your looks with the Loopy community!</p>
+        </div>
+        <div class="text-center bg-gray-50 p-6 rounded-2xl shadow hover:shadow-lg transition">
+          <div class="text-5xl mb-4">🌍</div>
+          <h3 class="text-xl font-semibold mb-2">Eco-Impact Tracking</h3>
+          <p>Track how much CO2 and water you save with every swap, sale, or extra wear—your wardrobe’s impact, made visible!</p>
+        </div>
+        <div class="text-center bg-gray-50 p-6 rounded-2xl shadow hover:shadow-lg transition">
+          <div class="text-5xl mb-4">🤝</div>
+          <h3 class="text-xl font-semibold mb-2">Brand Partnerships</h3>
+          <p>See your favourite brands? They’re our partners—because they believe in the Loopy vision too! Shop their authenticated pieces and keep fashion stylish, sustainable, and circular. Last season? Please, we call that vintage.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="py-16 bg-green-50">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Get Started in 3 Easy Steps</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition">
+          <div class="bg-green-500 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">1</div>
+          <h3 class="text-xl font-semibold mb-2">Scan & List</h3>
+          <p>Scan your item, add a few details—AI Loopy handles quality-check, verification and pricing instantly. Ready to be listed!.</p>
+        </div>
+        <div class="text-center bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition">
+          <div class="bg-green-500 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">2</div>
+          <h3 class="text-xl font-semibold mb-2">Swap or Sell</h3>
+          <p>Scan your items to upload them to your virtual wardrobe—AI Loopy helps you style with ease! Want to sell? List them on the market and let AI Loopy verify the condition, check authenticity, and instantly suggest the best price.</p>
+        </div>
+        <div class="text-center bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition">
+          <div class="bg-green-500 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">3</div>
+          <h3 class="text-xl font-semibold mb-2">Track Your Impact</h3>
+          <p>Monitor your wardrobe’s usage and eco-savings in your digital profile.</p>
+        </div>
+      </div>
+      <div class="text-center mt-10">
+        <a href="signup.html" class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-xl shadow-lg text-lg transition transform hover:scale-105">Join Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sustainability Impact Section -->
+ <section class="py-16 bg-white">
+  <div class="container mx-auto px-4 text-center">
+    <h2 class="text-3xl font-bold mb-12">Make a Difference with Every Swap</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+      <div class="bg-green-50 p-8 rounded-xl shadow-md flex flex-col justify-center items-center">
+        <p class="text-3xl font-bold text-green-600 mb-2">92M Tons</p>
+        <p class="text-gray-700">Textile waste reduced annually.</p>
+      </div>
+      <div class="bg-green-50 p-8 rounded-xl shadow-md flex flex-col justify-center items-center">
+        <p class="text-3xl font-bold text-green-600 mb-2">12.6M L</p>
+        <p class="text-gray-700">Litres of water saved through reuse and resale on Loopy.</p>
+      </div>
+      <div class="bg-green-50 p-8 rounded-xl shadow-md flex flex-col justify-center items-center">
+        <p class="text-3xl font-bold text-green-600 mb-2">84,000 kg</p>
+        <p class="text-gray-700">CO₂ emissions prevented by giving clothes a second life.</p>
+      </div>
+      <div class="bg-green-50 p-8 rounded-xl shadow-md flex flex-col justify-center items-center">
+        <p class="text-3xl font-bold text-green-600 mb-2">Circular Fashion</p>
+        <p class="text-gray-700">Every swap supports a more sustainable economy.</p>
+      </div>
+    </div>
+    <p class="mt-10 text-lg text-gray-700 font-medium">Loopy empowers you to fight fast fashion’s waste, one swap at a time.</p>
+  </div>
+</section>
+
+
+  <!-- Testimonials Section -->
+  <section class="py-20 bg-gray-100 relative overflow-hidden feedback">
+  <!-- Background Image (banner1.jpg) -->
+  <div class="absolute inset-0 w-full h-full z-0 opacity-20 bg-center bg-cover"
+       style="background-image: url('img/banner1.jpg');"></div>
+  <div class="container mx-auto px-4 relative z-10">
+    <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-12 text-white drop-shadow-[0_3px_10px_#10b981] tracking-wid">What Loopies Are Saying</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Testimonial 1 -->
+      <div class="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl flex flex-col justify-center border border-green-100 hover:scale-105 hover:shadow-2xl transition">
+        <svg class="w-8 h-8 text-green-500 mb-2" fill="none" stroke="currentColor" stroke-width="2"
+             viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+             d="M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2h-2m-4 0H7a2 2 0 01-2-2v-8a2 2 0 012-2h2"></path></svg>
+        <p class="italic mb-4 text-lg">“Loopy’s AI made selling my old jeans a breeze, and I love seeing my CO2 savings!”</p>
+        <p class="font-semibold text-green-700">– Sarah, Sydney</p>
+      </div>
+      <!-- Testimonial 2 -->
+      <div class="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl flex flex-col justify-center border border-green-100 hover:scale-105 hover:shadow-2xl transition">
+        <svg class="w-8 h-8 text-green-500 mb-2" fill="none" stroke="currentColor" stroke-width="2"
+             viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+             d="M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2h-2m-4 0H7a2 2 0 01-2-2v-8a2 2 0 012-2h2"></path></svg>
+        <p class="italic mb-4 text-lg">“Swapping on Loopy feels like shopping, but guilt-free. My wardrobe’s never been fresher!”</p>
+        <p class="font-semibold text-green-700">– Liam, Melbourne</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- SDGs Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-12">Loopy’s Commitment to Global Goals</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
+        <div class="text-center bg-green-50 p-6 rounded-xl shadow-md">
+          <div class="text-4xl mb-4">💼</div>
+          <h3 class="text-lg font-semibold mb-2">SDG 8: Decent Work</h3>
+          <p>Partnering with brands to promote fair labor practices.</p>
+        </div>
+        <div class="text-center bg-green-50 p-6 rounded-xl shadow-md">
+          <div class="text-4xl mb-4">♻️</div>
+          <h3 class="text-lg font-semibold mb-2">SDG 12: Responsible Consumption</h3>
+          <p>Encouraging reuse to reduce overconsumption.</p>
+        </div>
+        <div class="text-center bg-green-50 p-6 rounded-xl shadow-md">
+          <div class="text-4xl mb-4">🌍</div>
+          <h3 class="text-lg font-semibold mb-2">SDG 13: Climate Action</h3>
+          <p>Cutting CO2 emissions by extending garment lifespans.</p>
+        </div>
+        <div class="text-center bg-green-50 p-6 rounded-xl shadow-md">
+          <div class="text-4xl mb-4">🌊</div>
+          <h3 class="text-lg font-semibold mb-2">SDG 14: Life Below Water</h3>
+          <p>Less clothes being produced is reducing water usage, microplastic and chemical pollution.</p>
+        </div>
+        <div class="text-center bg-green-50 p-6 rounded-xl shadow-md">
+          <div class="text-4xl mb-4">🌱</div>
+          <h3 class="text-lg font-semibold mb-2">SDG 15: Life on Land</h3>
+          <p>With every reuse items, meaning decreased textile waste to protect biodiversity.</p>
+        </div>
+      </div>
+      <p class="mt-8 text-lg text-gray-700">Together, we’re building a sustainable future for fashion.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 bg-gradient-to-tr from-green-700 to-emerald-900 text-white text-center mt-16 rounded-t-3xl shadow-inner">
+    <div class="container mx-auto px-4">
+      <p class="mb-6 text-lg font-semibold">Don't toss it. Loop it!</p>
+      <p class="mb-4 text-base">Supporting SDGs 8, 12, 13, 14, 15</p>
+      <div class="flex justify-center gap-4 mb-4">
+        <span class="text-2xl">💼</span>
+        <span class="text-2xl">♻️</span>
+        <span class="text-2xl">🌍</span>
+        <span class="text-2xl">🌊</span>
+        <span class="text-2xl">🌱</span>
+      </div>
+      <div class="flex justify-center space-x-4 mb-8 mt-8">
+        <a href="https://apps.apple.com/" target="_blank" rel="noopener" class="inline-flex items-center bg-black text-white px-6 py-3 rounded-xl shadow hover:bg-gray-800 transition">
+          <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M17.564 13.217c.014-2.385 1.948-3.52 2.033-3.572-1.109-1.62-2.838-1.843-3.444-1.87-1.47-.148-2.87.87-3.617.87-.749 0-1.895-.846-3.12-.822-1.606.023-3.099.936-3.93 2.387-1.692 2.928-.433 7.246 1.212 9.621.8 1.163 1.744 2.466 2.993 2.419 1.206-.048 1.663-.783 3.126-.783 1.464 0 1.867.783 3.129.758 1.296-.025 2.108-1.186 2.903-2.352.924-1.366 1.306-2.692 1.319-2.76-.029-.014-2.523-.969-2.54-3.846zm-3.012-7.184c.658-.797 1.104-1.91.982-3.033-.95.04-2.097.632-2.782 1.427-.611.707-1.148 1.837-.946 2.922 1.044.08 2.112-.53 2.746-1.316z"/></svg>
+          <span class="flex flex-col items-start leading-tight text-left">
+            <span class="text-xs">Download on the</span>
+            <span class="text-base font-semibold">App Store</span>
+          </span>
+        </a>
+        <a href="https://play.google.com/store" target="_blank" rel="noopener" class="inline-flex items-center bg-white text-gray-800 border border-gray-300 px-6 py-3 rounded-xl shadow hover:bg-gray-200 transition">
+          <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="none"><g><path fill="#34A853" d="M1.79 0l11.19 12L1.79 24z"/><path fill="#4285F4" d="M23 12l-2.21-2.36-5.43 4.23 5.43 4.13z"/><path fill="#FBBC05" d="M1.79 0l14.58 12-2.37 2.36z"/><path fill="#EA4335" d="M1.79 24l14.58-12 2.36 2.35z"/></g></svg>
+          <span class="flex flex-col items-start leading-tight text-left">
+            <span class="text-xs">Get it on</span>
+            <span class="text-base font-semibold">Google Play</span>
+          </span>
+        </a>
+      </div>
+      <div class="flex justify-center space-x-4 text-base">
+        <a href="about.html" class="text-white hover:text-gray-200 transition">About</a>
+        <a href="faq.html" class="text-white hover:text-gray-200 transition">FAQ</a>
+        <a href="contact.html" class="text-white hover:text-gray-200 transition">Contact</a>
+        <a href="https://instagram.com" class="text-white hover:text-gray-200 transition">Instagram</a>
+        <a href="https://tiktok.com" class="text-white hover:text-gray-200 transition">TikTok</a>
+      </div>
+      <p class="mt-10 text-sm opacity-80">© 2025 Loopy Circular Fashion. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- FadeIn animations for hero text (optional) -->
+  <script>
+    // Animate fade-in-up for hero text on load
+    document.querySelectorAll('.animate-fadeInUp').forEach((el, i) => {
+      setTimeout(() => {
+        el.classList.add('opacity-100', 'translate-y-0');
+      }, 250 + i * 150);
+      el.classList.add('opacity-0', 'translate-y-8', 'transition', 'duration-1000');
+    });
+  </script>
+</body>
+</html>
