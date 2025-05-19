@@ -1,0 +1,209 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loopy - Sustainable Fashion Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .hero-bg { background-image: url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <!-- Hero Section -->
+  <section class="hero-bg text-white py-20">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Swap, Sell, Sustain: Redefine Fashion with Loopy</h1>
+      <p class="text-lg md:text-xl mb-6">Join the circular fashion revolution. Use AI to resell or swap clothes effortlessly, reduce waste, and track your eco-impact.</p>
+      <a href="#signup" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg">Start Swapping Now</a>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Why Choose Loopy?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="text-center">
+          <div class="text-4xl mb-4">🤖</div>
+          <h3 class="text-xl font-semibold mb-2">AI-Powered Trust</h3>
+          <p>Our AI verifies authenticity and quality, eliminating fraud and counterfeits.</p>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl mb-4">👗</div>
+          <h3 class="text-xl font-semibold mb-2">Digital Wardrobe</h3>
+          <p>Style, swap, and track your clothes’ usage with your virtual closet.</p>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl mb-4">🌍</div>
+          <h3 class="text-xl font-semibold mb-2">Eco-Impact Tracking</h3>
+          <p>See how much CO2 and water you save with every swap or sale.</p>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl mb-4">🤝</div>
+          <h3 class="text-xl font-semibold mb-2">Brand Partnerships</h3>
+          <p>Shop verified last-season pieces from top brands, keeping fashion circular.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="py-16 bg-gray-100">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Get Started in 3 Easy Steps</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="bg-green-500 text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4">1</div>
+          <h3 class="text-xl font-semibold mb-2">Scan & List</h3>
+          <p>Use AI to scan your clothes, get quality checks, and list them instantly.</p>
+        </div>
+        <div class="text-center">
+          <div class="bg-green-500 text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4">2</div>
+          <h3 class="text-xl font-semibold mb-2">Swap or Sell</h3>
+          <p>Connect with buyers or swappers; our logistics partners handle shipping.</p>
+        </div>
+        <div class="text-center">
+          <div class="bg-green-500 text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4">3</div>
+          <h3 class="text-xl font-semibold mb-2">Track Your Impact</h3>
+          <p>Monitor your wardrobe’s usage and eco-savings in your digital profile.</p>
+        </div>
+      </div>
+      <div class="text-center mt-8">
+        <a href="#signup" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg">Join Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sustainability Impact Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-12">Make a Difference with Every Swap</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <p class="text-2xl font-bold text-green-500">92M Tons</p>
+          <p>Textile waste reduced annually.</p>
+        </div>
+        <div>
+          <p class="text-2xl font-bold text-green-500">CO2 & Water</p>
+          <p>Saved with every reused garment.</p>
+        </div>
+        <div>
+          <p class="text-2xl font-bold text-green-500">Circular Fashion</p>
+          <p>Support a sustainable economy.</p>
+        </div>
+      </div>
+      <p class="mt-8 text-lg">Loopy empowers you to fight fast fashion’s waste, one swap at a time.</p>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="py-16 bg-gray-100">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">What Loopers Are Saying</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <p class="italic mb-4">“Loopy’s AI made selling my old jeans a breeze, and I love seeing my CO2 savings!”</p>
+          <p class="font-semibold">– Sarah, Sydney</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <p class="italic mb-4">“Swapping on Loopy feels like shopping, but guilt-free. My wardrobe’s never been fresher!”</p>
+          <p class="font-semibold">– Liam, Melbourne</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SDGs Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-12">Loopy’s Commitment to Global Goals</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
+        <div class="text-center">
+          <div class="text-4xl mb-4">💼</div>
+          <h3 class="text-lg font-semibold mb-2">SDG 8: Decent Work</h3>
+          <p>Partnering with brands to promote fair labor practices.</p>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl mb-4">♻️</div>
+          <h3 class="text-lg font-semibold mb-2">SDG 12: Responsible Consumption</h3>
+          <p>Encouraging reuse to reduce overconsumption.</p>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl mb-4">🌍</div>
+          <h3 class="text-lg font-semibold mb-2">SDG 13: Climate Action</h3>
+          <p>Cutting CO2 emissions by extending garment lifespans.</p>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl mb-4">🌊</div>
+          <h3 class="text-lg font-semibold mb-2">SDG 14: Life Below Water</h3>
+          <p>Reducing microplastic pollution from synthetics.</p>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl mb-4">🌱</div>
+          <h3 class="text-lg font-semibold mb-2">SDG 15: Life on Land</h3>
+          <p>Decreasing textile waste to protect biodiversity.</p>
+        </div>
+      </div>
+      <p class="mt-8 text-lg">Together, we’re building a sustainable future for fashion.</p>
+    </div>
+  </section>
+
+  <!-- Footer CTA -->
+  <section class="py-12 bg-green-500 text-white text-center">
+    <div class="container mx-auto px-4">
+      <h2 class="text-2xl font-bold mb-4">Ready to Rethink Fashion?</h2>
+      <p class="mb-6">Join Loopy and start your sustainable style journey today.</p>
+      <a href="#signup" class="bg-white text-green-500 font-semibold py-3 px-6 rounded-lg hover:bg-gray-200">Sign Up Free</a>
+      <div class="mt-8 flex justify-center space-x-4">
+        <a href="#" class="text-white hover:text-gray-200">About</a>
+        <a href="#" class="text-white hover:text-gray-200">FAQ</a>
+        <a href="#" class="text-white hover:text-gray-200">Contact</a>
+        <a href="#" class="text-white hover:text-gray-200">Instagram</a>
+        <a href="#" class="text-white hover:text-gray-200">TikTok</a>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

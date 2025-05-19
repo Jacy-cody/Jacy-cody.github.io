@@ -1,0 +1,301 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop - Loopy Sustainable Fashion</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 50; }
+    .modal-content { background: white; margin: 10% auto; padding: 20px; max-width: 600px; border-radius: 8px; }
+    .chatbox { position: fixed; bottom: 20px; right: 20px; width: 300px; background: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 100; }
+    .chatbox-header { background: #10B981; color: white; padding: 10px; border-radius: 8px 8px 0 0; }
+    .chatbox-body { padding: 10px; max-height: 200px; overflow-y: auto; }
+    .chatbox-input { width: 100%; padding: 10px; border-top: 1px solid #e5e7eb; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <!-- Header -->
+  <header class="bg-white shadow py-4">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-green-500">Loopy</h1>
+      <nav class="flex space-x-4">
+        <a href="index.html" class="text-gray-600 hover:text-green-500">Home</a>
+        <a href="#" class="text-gray-600 hover:text-green-500">Shop</a>
+        <a href="#" class="text-gray-600 hover:text-green-500">Swap</a>
+        <a href="#" class="text-gray-600 hover:text-green-500">Digital Wardrobe</a>
+        <a href="#" class="text-gray-600 hover:text-green-500">About</a>
+        <a href="#" class="bg-green-500 text-white px-4 py-2 rounded-lg">Sign Up</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Categorization Bar -->
+  <section class="py-8 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-6 text-center">Shop Sustainable Fashion</h2>
+      <div class="flex flex-wrap justify-center gap-4 mb-6">
+        <button class="bg-gray-200 hover:bg-green-500 hover:text-white px-4 py-2 rounded-lg">Clothes</button>
+        <button class="bg-gray-200 hover:bg-green-500 hover:text-white px-4 py-2 rounded-lg">Shoes</button>
+        <button class="bg-gray-200 hover:bg-green-500 hover:text-white px-4 py-2 rounded-lg">Bags</button>
+      </div>
+      <div class="flex flex-wrap justify-center gap-4">
+        <button class="bg-gray-200 hover:bg-green-500 hover:text-white px-4 py-2 rounded-lg">Casual</button>
+        <button class="bg-gray-200 hover:bg-green-500 hover:text-white px-4 py-2 rounded-lg">Formal</button>
+        <button class="bg-gray-200 hover:bg-green-500 hover:text-white px-4 py-2 rounded-lg">Vintage</button>
+        <button class="bg-gray-200 hover:bg-green-500 hover:text-white px-4 py-2 rounded-lg">Streetwear</button>
+        <button class="bg-gray-200 hover:bg-green-500 hover:text-white px-4 py-2 rounded-lg">Athleisure</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Listings -->
+  <section class="py-16 bg-gray-100">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <!-- Product 1 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Denim Jacket" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <h3 class="text-lg font-semibold">Levi’s Denim Jacket</h3>
+            <p class="text-gray-600">Clothes - $35</p>
+            <div class="flex items-center mt-2">
+              <span class="text-sm text-green-500">AI-Verified</span>
+            </div>
+            <button onclick="showProductDetails(1)" class="mt-4 bg-green-500 text-white px-4 py-2 rounded-lg w-full hover:bg-green-600">View Details</button>
+          </div>
+        </div>
+        <!-- Product 2 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1608063615781-e2ef1c73d4c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Nike Sneakers" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <h3 class="text-lg font-semibold">Nike Air Max</h3>
+            <p class="text-gray-600">Shoes - $50</p>
+            <div class="flex items-center mt-2">
+              <span class="text-sm text-green-500">AI-Verified</span>
+            </div>
+            <button onclick="showProductDetails(2)" class="mt-4 bg-green-500 text-white px-4 py-2 rounded-lg w-full hover:bg-green-600">View Details</button>
+          </div>
+        </div>
+        <!-- Product 3 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Vintage Handbag" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <h3 class="text-lg font-semibold">Vintage Gucci Bag</h3>
+            <p class="text-gray-600">Bags - $120</p>
+            <div class="flex items-center mt-2">
+              <span class="text-sm text-green-500">AI-Verified</span>
+            </div>
+            <button onclick="showProductDetails(3)" class="mt-4 bg-green-500 text-white px-4 py-2 rounded-lg w-full hover:bg-green-600">View Details</button>
+          </div>
+        </div>
+        <!-- Product 4 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1578933443204-7cd262a08d33?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Zara Dress" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <h3 class="text-lg font-semibold">Zara Floral Dress</h3>
+            <p class="text-gray-600">Clothes - $25</p>
+            <div class="flex items-center mt-2">
+              <span class="text-sm text-green-500">AI-Verified</span>
+            </div>
+            <button onclick="showProductDetails(4)" class="mt-4 bg-green-500 text-white px-4 py-2 rounded-lg w-full hover:bg-green-600">View Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Details Modal -->
+  <div id="productModal" class="modal">
+    <div class="modal-content">
+      <div class="flex flex-col md:flex-row gap-6">
+        <img id="modalImage" src="" alt="Product" class="w-full md:w-1/2 h-64 object-cover rounded-lg">
+        <div class="w-full md:w-1/2">
+          <h2 id="modalTitle" class="text-2xl font-bold mb-4"></h2>
+          <p><strong>Brand:</strong> <span id="modalBrand"></span></p>
+          <p><strong>Size:</strong> <span id="modalSize"></span></p>
+          <p><strong>Condition:</strong> <span id="modalCondition"></span></p>
+          <p><strong>Price:</strong> <span id="modalPrice"></span></p>
+          <p><strong>Eco-Impact:</strong> <span id="modalEcoImpact"></span></p>
+          <div class="flex gap-4 mt-6">
+            <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Buy Now</button>
+            <a href="#swap" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Trade</a>
+          </div>
+          <button onclick="closeModal()" class="mt-4 text-gray-600 underline">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Assistant Chatbox -->
+  <div id="chatbox" class="chatbox">
+    <div class="chatbox-header flex justify-between items-center">
+      <span>Chat with Loopy</span>
+      <button onclick="toggleChatbox()" class="text-white">−</button>
+    </div>
+    <div id="chatboxBody" class="chatbox-body">
+      <p><strong>Loopy AI:</strong> Hi! Need styling tips or help with your order? 😊</p>
+    </div>
+    <input id="chatInput" class="chatbox-input" type="text" placeholder="Ask about styling or orders..." onkeypress="if(event.key === 'Enter') sendMessage()">
+  </div>
+
+  <!-- Footer -->
+  <footer class="py-12 bg-green-500 text-white text-center">
+    <div class="container mx-auto px-4">
+      <p class="mb-6">Shop sustainably with Loopy. Reduce waste, reuse fashion.</p>
+      <p class="mb-4">Supporting SDGs 8, 12, 13, 14, 15</p>
+      <div class="flex justify-center gap-4 mb-4">
+        <span class="text-2xl">💼</span>
+        <span class="text-2xl">♻️</span>
+        <span class="text-2xl">🌍</span>
+        <span class="text-2xl">🌊</span>
+        <span class="text-2xl">🌱</span>
+      </div>
+      <div class="flex justify-center space-x-4">
+        <a href="#" class="text-white hover:text-gray-200">About</a>
+        <a href="#" class="text-white hover:text-gray-200">FAQ</a>
+        <a href="#" class="text-white hover:text-gray-200">Contact</a>
+        <a href="#" class="text-white hover:text-gray-200">Instagram</a>
+        <a href="#" class="text-white hover:text-gray-200">TikTok</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Product Details Data
+    const products = {
+      1: {
+        title: "Levi’s Denim Jacket",
+        image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        brand: "Levi’s",
+        size: "Medium",
+        condition: "Gently Used",
+        price: "$35",
+        ecoImpact: "Saves 5kg CO2"
+      },
+      2: {
+        title: "Nike Air Max",
+        image: "https://images.unsplash.com/photo-1608063615781-e2ef1c73d4c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        brand: "Nike",
+        size: "US 9",
+        condition: "Like New",
+        price: "$50",
+        ecoImpact: "Saves 3kg CO2"
+      },
+      3: {
+        title: "Vintage Gucci Bag",
+        image: "https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        brand: "Gucci",
+        size: "One Size",
+        condition: "Gently Used",
+        price: "$120",
+        ecoImpact: "Saves 7kg CO2"
+      },
+      4: {
+        title: "Zara Floral Dress",
+        image: "https://images.unsplash.com/photo-1578933443204-7cd262a08d33?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        brand: "Zara",
+        size: "Small",
+        condition: "Like New",
+        price: "$25",
+        ecoImpact: "Saves 4kg CO2"
+      }
+    };
+
+    // Show Product Details
+    function showProductDetails(id) {
+      const product = products[id];
+      document.getElementById('modalImage').src = product.image;
+      document.getElementById('modalTitle').textContent = product.title;
+      document.getElementById('modalBrand').textContent = product.brand;
+      document.getElementById('modalSize').textContent = product.size;
+      document.getElementById('modalCondition').textContent = product.condition;
+      document.getElementById('modalPrice').textContent = product.price;
+      document.getElementById('modalEcoImpact').textContent = product.ecoImpact;
+      document.getElementById('productModal').style.display = 'flex';
+    }
+
+    // Close Modal
+    function closeModal() {
+      document.getElementById('productModal').style.display = 'none';
+    }
+
+    // Toggle Chatbox
+    function toggleChatbox() {
+      const chatbox = document.getElementById('chatbox');
+      chatbox.style.display = chatbox.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // AI Assistant Responses
+    const responses = {
+      "style": "Try pairing that jacket with high-waisted jeans and a white tee for a classic look! Want more ideas?",
+      "size": "Check the size chart in the product details or ask the seller for measurements. Need help with fit?",
+      "order": "For order issues, check your account or contact support. Want to track a purchase?",
+      "default": "I’m here to help with styling, sizing, or orders! What’s on your mind?"
+    };
+
+    // Send Chat Message
+    function sendMessage() {
+      const input = document.getElementById('chatInput');
+      const message = input.value.toLowerCase().trim();
+      if (!message) return;
+
+      const chatBody = document.getElementById('chatboxBody');
+      chatBody.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
+
+      let reply = responses.default;
+      if (message.includes('style') || message.includes('styling')) reply = responses.style;
+      else if (message.includes('size') || message.includes('fit')) reply = responses.size;
+      else if (message.includes('order') || message.includes('track')) reply = responses.order;
+
+      setTimeout(() => {
+        chatBody.innerHTML += `<p><strong>Loopy AI:</strong> ${reply}</p>`;
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, 500);
+
+      input.value = '';
+    }
+  </script>
+</body>
+</html>
