@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Verification - Loopy Sustainable Fashion</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 50; }
+    .modal-content { background: white; margin: 10% auto; padding: 20px; max-width: 600px; border-radius: 8px; }
+    .chatbox { position: fixed; bottom: 20px; right: 20px; width: 300px; background: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 100; }
+    .chatbox-header { background: #10B981; color: white; padding: 10px; border-radius: 8px 8px 0 0; }
+    .chatbox-body { padding: 10px; max-height: 200px; overflow-y: auto; }
+    .chatbox-input { width: 100%; padding: 10px; border-top: 1px solid #e5e7eb; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <!-- Header -->
+  <header class="bg-white shadow py-4">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <img src="img/logo.jpg" alt="Loopy Logo" class="h-[100px] w-[100px] md:h-[150px] md:w-[150px] lg:h-[200px] lg:w-[200px] object-contain transition-all duration-300">
+      <nav class="flex space-x-4">
+        <a href="index.html" class="text-gray-600 hover:text-green-500">Home</a>
+        <a href="shop.html" class="text-gray-600 hover:text-green-500">Shop</a>
+        <a href="swap.html" class="text-gray-600 hover:text-green-500">Swap</a>
+        <a href="dashboard.html" class="text-gray-600 hover:text-green-500">Digital Wardrobe</a>
+        <a href="stats.html" class="text-gray-600 hover:text-green-500">Stats</a>
+        <a href="about.html" class="text-gray-600 hover:text-green-500">About</a>
+        <a href="signup.html" class="bg-green-500 text-white px-4 py-2 rounded-lg">Sign Up</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Verification Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-6">AI Verification</h2>
+      <p class="text-lg mb-8">Upload your item for AI-powered quality check and authentication.</p>
+      <div class="max-w-md mx-auto bg-gray-100 p-6 rounded-lg">
+        <input type="file" disabled class="mb-4 w-full p-2 border rounded">
+        <button onclick="showVerificationResults()" class="bg-green-500 text-white px-4 py-2 rounded-lg w-full hover:bg-green-600">Scan with AI</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Verification Results Modal -->
+  <div id="verificationModal" class="modal">
+    <div class="modal-content">
+      <h2 class="text-2xl font-bold mb-4">Verification Results</h2>
+      <p><strong>Authenticity:</strong> ✅ Verified</p>
+      <p><strong>Quality:</strong> Excellent</p>
+      <p><strong>Price Suggested:</strong> $35</p>
+      <p><strong>Status:</strong> Listed ✅</p>
+      <a href="shop.html" class="bg-green-500 text-white px-4 py-2 rounded-lg mt-4 inline-block hover:bg-green-600">View in Marketplace</a>
+      <button onclick="closeModal()" class="mt-4 text-gray-600 underline">Close</button>
+    </div>
+  </div>
+
+  <!-- AI Assistant Chatbox -->
+  <div id="chatbox" class="chatbox">
+    <div class="chatbox-header flex justify-between items-center">
+      <span>Chat with Loopy</span>
+      <button onclick="toggleChatbox()" class="text-white">−</button>
+    </div>
+    <div id="chatboxBody" class="chatbox-body">
+      <p><strong>Loopy AI:</strong> Hi! Need help with verification or listing? 😊</p>
+    </div>
+    <input id="chatInput" class="chatbox-input" type="text" placeholder="Ask about verification..." onkeypress="if(event.key === 'Enter') sendMessage()">
+  </div>
+
+  <!-- Footer -->
+  <footer class="py-12 bg-green-500 text-white text-center">
+    <div class="container mx-auto px-4">
+      <p class="mb-6">Shop sustainably with Loopy. Reduce waste, reuse fashion.</p>
+      <p class="mb-4">Supporting SDGs 8, 12, 13, 14, 15</p>
+      <div class="flex justify-center gap-4 mb-4">
+        <span class="text-2xl">💼</span>
+        <span class="text-2xl">♻️</span>
+        <span class="text-2xl">🌍</span>
+        <span class="text-2xl">🌊</span>
+        <span class="text-2xl">🌱</span>
+      </div>
+      <div class="flex justify-center space-x-4">
+        <a href="about.html" class="text-white hover:text-gray-200">About</a>
+        <a href="faq.html" class="text-white hover:text-gray-200">FAQ</a>
+        <a href="contact.html" class="text-white hover:text-gray-200">Contact</a>
+        <a href="https://instagram.com" class="text-white hover:text-gray-200">Instagram</a>
+        <a href="https://tiktok.com" class="text-white hover:text-gray-200">TikTok</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Show Verification Results
+    function showVerificationResults() {
+      document.getElementById('verificationModal').style.display = 'flex';
+    }
+
+    // Close Modal
+    function closeModal() {
+      document.getElementById('verificationModal').style.display = 'none';
+    }
+
+    // Toggle Chatbox
+    function toggleChatbox() {
+      const chatbox = document.getElementById('chatbox');
+      chatbox.style.display = chatbox.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // AI Assistant Responses
+    const responses = {
+      "verify": "Upload your item and our AI will check its authenticity! Need help with the process?",
+      "list": "After verification, you can list your item for sale or swap. Want to list now?",
+      "price": "Our AI suggests a price based on condition and market trends. Check the results!",
+      "default": "I’m here to help with verification or listing! What’s on your mind?"
+    };
+
+    // Send Chat Message
+    function sendMessage() {
+      const input = document.getElementById('chatInput');
+      const message = input.value.toLowerCase().trim();
+      if (!message) return;
+
+      const chatBody = document.getElementById('chatboxBody');
+      chatBody.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
+
+      let reply = responses.default;
+      if (message.includes('verify') || message.includes('scan')) reply = responses.verify;
+      else if (message.includes('list') || message.includes('sell')) reply = responses.list;
+      else if (message.includes('price') || message.includes('cost')) reply = responses.price;
+
+      setTimeout(() => {
+        chatBody.innerHTML += `<p><strong>Loopy AI:</strong> ${reply}</p>`;
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, 500);
+
+      input.value = '';
+    }
+  </script>
+</body>
+</html>

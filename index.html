@@ -1,43 +1,4 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -51,12 +12,28 @@
   </style>
 </head>
 <body class="bg-gray-100">
+  <!-- Header -->
+  <header class="bg-white shadow py-4">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <img src="img/logo.jpg" alt="Loopy Logo" class="h-[100px] w-[100px] md:h-[150px] md:w-[150px] lg:h-[200px] lg:w-[200px] object-contain transition-all duration-300">
+      <nav class="flex space-x-4">
+        <a href="index.html" class="text-gray-600 hover:text-green-500">Home</a>
+        <a href="shop.html" class="text-gray-600 hover:text-green-500">Shop</a>
+        <a href="swap.html" class="text-gray-600 hover:text-green-500">Swap</a>
+        <a href="dashboard.html" class="text-gray-600 hover:text-green-500">Digital Wardrobe</a>
+        <a href="stats.html" class="text-gray-600 hover:text-green-500">Stats</a>
+        <a href="about.html" class="text-gray-600 hover:text-green-500">About</a>
+        <a href="signup.html" class="bg-green-500 text-white px-4 py-2 rounded-lg">Sign Up</a>
+      </nav>
+    </div>
+  </header>
+
   <!-- Hero Section -->
   <section class="hero-bg text-white py-20">
     <div class="container mx-auto px-4 text-center">
       <h1 class="text-4xl md:text-5xl font-bold mb-4">Swap, Sell, Sustain: Redefine Fashion with Loopy</h1>
       <p class="text-lg md:text-xl mb-6">Join the circular fashion revolution. Use AI to resell or swap clothes effortlessly, reduce waste, and track your eco-impact.</p>
-      <a href="#signup" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg">Start Swapping Now</a>
+      <a href="shop.html" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg">Start Swapping Now</a>
     </div>
   </section>
 
@@ -111,7 +88,7 @@
         </div>
       </div>
       <div class="text-center mt-8">
-        <a href="#signup" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg">Join Now</a>
+        <a href="signup.html" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg">Join Now</a>
       </div>
     </div>
   </section>
@@ -190,20 +167,26 @@
     </div>
   </section>
 
-  <!-- Footer CTA -->
-  <section class="py-12 bg-green-500 text-white text-center">
+  <!-- Footer -->
+  <footer class="py-12 bg-green-500 text-white text-center">
     <div class="container mx-auto px-4">
-      <h2 class="text-2xl font-bold mb-4">Ready to Rethink Fashion?</h2>
-      <p class="mb-6">Join Loopy and start your sustainable style journey today.</p>
-      <a href="#signup" class="bg-white text-green-500 font-semibold py-3 px-6 rounded-lg hover:bg-gray-200">Sign Up Free</a>
-      <div class="mt-8 flex justify-center space-x-4">
-        <a href="#" class="text-white hover:text-gray-200">About</a>
-        <a href="#" class="text-white hover:text-gray-200">FAQ</a>
-        <a href="#" class="text-white hover:text-gray-200">Contact</a>
-        <a href="#" class="text-white hover:text-gray-200">Instagram</a>
-        <a href="#" class="text-white hover:text-gray-200">TikTok</a>
+      <p class="mb-6">Shop sustainably with Loopy. Reduce waste, reuse fashion.</p>
+      <p class="mb-4">Supporting SDGs 8, 12, 13, 14, 15</p>
+      <div class="flex justify-center gap-4 mb-4">
+        <span class="text-2xl">💼</span>
+        <span class="text-2xl">♻️</span>
+        <span class="text-2xl">🌍</span>
+        <span class="text-2xl">🌊</span>
+        <span class="text-2xl">🌱</span>
+      </div>
+      <div class="flex justify-center space-x-4">
+        <a href="about.html" class="text-white hover:text-gray-200">About</a>
+        <a href="faq.html" class="text-white hover:text-gray-200">FAQ</a>
+        <a href="contact.html" class="text-white hover:text-gray-200">Contact</a>
+        <a href="https://instagram.com" class="text-white hover:text-gray-200">Instagram</a>
+        <a href="https://tiktok.com" class="text-white hover:text-gray-200">TikTok</a>
       </div>
     </div>
-  </section>
+  </footer>
 </body>
 </html>

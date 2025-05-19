@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swap - Loopy Sustainable Fashion</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 50; }
+    .modal-content { background: white; margin: 10% auto; padding: 20px; max-width: 600px; border-radius: 8px; }
+    .chatbox { position: fixed; bottom: 20px; right: 20px; width: 300px; background: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 100; }
+    .chatbox-header { background: #10B981; color: white; padding: 10px; border-radius: 8px 8px 0 0; }
+    .chatbox-body { padding: 10px; max-height: 200px; overflow-y: auto; }
+    .chatbox-input { width: 100%; padding: 10px; border-top: 1px solid #e5e7eb; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <!-- Header -->
+  <header class="bg-white shadow py-4">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <img src="img/logo.jpg" alt="Loopy Logo" class="h-[100px] w-[100px] md:h-[150px] md:w-[150px] lg:h-[200px] lg:w-[200px] object-contain transition-all duration-300">
+      <nav class="flex space-x-4">
+        <a href="index.html" class="text-gray-600 hover:text-green-500">Home</a>
+        <a href="shop.html" class="text-gray-600 hover:text-green-500">Shop</a>
+        <a href="swap.html" class="text-gray-600 hover:text-green-500">Swap</a>
+        <a href="dashboard.html" class="text-gray-600 hover:text-green-500">Digital Wardrobe</a>
+        <a href="stats.html" class="text-gray-600 hover:text-green-500">Stats</a>
+        <a href="about.html" class="text-gray-600 hover:text-green-500">About</a>
+        <a href="signup.html" class="bg-green-500 text-white px-4 py-2 rounded-lg">Sign Up</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Swap Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-6">Swap Fashion</h2>
+      <p class="text-lg text-center mb-8">Browse other users’ wardrobes and request a swap!</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <!-- Swap Item 1 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Denim Jacket" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <h3 class="text-lg font-semibold">Levi’s Denim Jacket</h3>
+            <p class="text-gray-600">User: Sarah</p>
+            <button onclick="showSwapDetails(1)" class="mt-4 bg-green-500 text-white px-4 py-2 rounded-lg w-full hover:bg-green-600">Request Swap</button>
+          </div>
+        </div>
+        <!-- Swap Item 2 -->
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1608063615781-e2ef1c73d4c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Nike Sneakers" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <h3 class="text-lg font-semibold">Nike Air Max</h3>
+            <p class="text-gray-600">User: Liam</p>
+            <button onclick="showSwapDetails(2)" class="mt-4 bg-green-500 text-white px-4 py-2 rounded-lg w-full hover:bg-green-600">Request Swap</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Swap Details Modal -->
+  <div id="swapModal" class="modal">
+    <div class="modal-content">
+      <div class="flex flex-col md:flex-row gap-6">
+        <img id="modalImage" src="" alt="Swap Item" class="w-full md:w-1/2 h-64 object-cover rounded-lg">
+        <div class="w-full md:w-1/2">
+          <h2 id="modalTitle" class="text-2xl font-bold mb-4"></h2>
+          <p><strong>User:</strong> <span id="modalUser"></span></p>
+          <p><strong>Condition:</strong> <span id="modalCondition"></span></p>
+          <p><strong>Your Item:</strong> <select id="yourItem" class="border rounded p-2 w-full">
+            <option>Zara Dress</option>
+            <option>Nike Sneakers</option>
+          </select></p>
+          <button onclick="requestSwap()" class="bg-green-500 text-white px-4 py-2 rounded-lg mt-4 hover:bg-green-600">Send Swap Request</button>
+          <button onclick="closeModal()" class="mt-4 text-gray-600 underline">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Assistant Chatbox -->
+  <div id="chatbox" class="chatbox">
+    <div class="chatbox-header flex justify-between items-center">
+      <span>Chat with Loopy</span>
+      <button onclick="toggleChatbox()" class="text-white">−</button>
+    </div>
+    <div id="chatboxBody" class="chatbox-body">
+      <p><strong>Loopy AI:</strong> Hi! Need help with swapping or finding items? 😊</p>
+    </div>
+    <input id="chatInput" class="chatbox-input" type="text" placeholder="Ask about swaps..." onkeypress="if(event.key === 'Enter') sendMessage()">
+  </div>
+
+  <!-- Footer -->
+  <footer class="py-12 bg-green-500 text-white text-center">
+    <div class="container mx-auto px-4">
+      <p class="mb-6">Shop sustainably with Loopy. Reduce waste, reuse fashion.</p>
+      <p class="mb-4">Supporting SDGs 8, 12, 13, 14, 15</p>
+      <div class="flex justify-center gap-4 mb-4">
+        <span class="text-2xl">💼</span>
+        <span class="text-2xl">♻️</span>
+        <span class="text-2xl">🌍</span>
+        <span class="text-2xl">🌊</span>
+        <span class="text-2xl">🌱</span>
+      </div>
+      <div class="flex justify-center space-x-4">
+        <a href="about.html" class="text-white hover:text-gray-200">About</a>
+        <a href="faq.html" class="text-white hover:text-gray-200">FAQ</a>
+        <a href="contact.html" class="text-white hover:text-gray-200">Contact</a>
+        <a href="https://instagram.com" class="text-white hover:text-gray-200">Instagram</a>
+        <a href="https://tiktok.com" class="text-white hover:text-gray-200">TikTok</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Swap Items Data
+    const swapItems = {
+      1: {
+        title: "Levi’s Denim Jacket",
+        image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        user: "Sarah",
+        condition: "Gently Used"
+      },
+      2: {
+        title: "Nike Air Max",
+        image: "https://images.unsplash.com/photo-1608063615781-e2ef1c73d4c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+        user: "Liam",
+        condition: "Like New"
+      }
+    };
+
+    // Show Swap Details
+    function showSwapDetails(id) {
+      const item = swapItems[id];
+      document.getElementById('modalImage').src = item.image;
+      document.getElementById('modalTitle').textContent = item.title;
+      document.getElementById('modalUser').textContent = item.user;
+      document.getElementById('modalCondition').textContent = item.condition;
+      document.getElementById('swapModal').style.display = 'flex';
+    }
+
+    // Close Modal
+    function closeModal() {
+      document.getElementById('swapModal').style.display = 'none';
+    }
+
+    // Request Swap
+    function requestSwap() {
+      const selectedItem = document.getElementById('yourItem').value;
+      alert(`Swap request sent for ${selectedItem}!`);
+      closeModal();
+    }
+
+    // Toggle Chatbox
+    function toggleChatbox() {
+      const chatbox = document.getElementById('chatbox');
+      chatbox.style.display = chatbox.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // AI Assistant Responses
+    const responses = {
+      "swap": "Browse wardrobes and request a swap! Choose an item from your wardrobe to offer. Need help?",
+      "item": "Check out Sarah’s Levi’s Jacket or Liam’s Nike Sneakers. Want styling tips for them?",
+      "request": "Select your item and send a swap request. You’ll hear back soon! Need assistance?",
+      "default": "I’m here to help with swapping or finding items! What’s on your mind?"
+    };
+
+    // Send Chat Message
+    function sendMessage() {
+      const input = document.getElementById('chatInput');
+      const message = input.value.toLowerCase().trim();
+      if (!message) return;
+
+      const chatBody = document.getElementById('chatboxBody');
+      chatBody.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
+
+      let reply = responses.default;
+      if (message.includes('swap') || message.includes('trade')) reply = responses.swap;
+      else if (message.includes('item') || message.includes('clothing')) reply = responses.item;
+      else if (message.includes('request') || message.includes('offer')) reply = responses.request;
+
+      setTimeout(() => {
+        chatBody.innerHTML += `<p><strong>Loopy AI:</strong> ${reply}</p>`;
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, 500);
+
+      input.value = '';
+    }
+  </script>
+</body>
+</html>

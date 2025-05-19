@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - Loopy Sustainable Fashion</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .chatbox { position: fixed; bottom: 20px; right: 20px; width: 300px; background: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 100; }
+    .chatbox-header { background: #10B981; color: white; padding: 10px; border-radius: 8px 8px 0 0; }
+    .chatbox-body { padding: 10px; max-height: 200px; overflow-y: auto; }
+    .chatbox-input { width: 100%; padding: 10px; border-top: 1px solid #e5e7eb; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <!-- Header -->
+  <header class="bg-white shadow py-4">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <img src="img/logo.jpg" alt="Loopy Logo" class="h-[100px] w-[100px] md:h-[150px] md:w-[150px] lg:h-[200px] lg:w-[200px] object-contain transition-all duration-300">
+      <nav class="flex space-x-4">
+        <a href="index.html" class="text-gray-600 hover:text-green-500">Home</a>
+        <a href="shop.html" class="text-gray-600 hover:text-green-500">Shop</a>
+        <a href="swap.html" class="text-gray-600 hover:text-green-500">Swap</a>
+        <a href="dashboard.html" class="text-gray-600 hover:text-green-500">Digital Wardrobe</a>
+        <a href="stats.html" class="text-gray-600 hover:text-green-500">Stats</a>
+        <a href="about.html" class="text-gray-600 hover:text-green-500">About</a>
+        <a href="signup.html" class="bg-green-500 text-white px-4 py-2 rounded-lg">Sign Up</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- About Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-6">Meet the Loopy Team</h2>
+      <p class="text-lg text-center mb-12">We’re passionate about sustainable fashion and building a circular economy.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Team Member: Linh -->
+        <div class="bg-gray-100 p-6 rounded-lg text-center">
+          <img src="img/linh.jpg" alt="Linh" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+          <h3 class="text-xl font-semibold mb-2">Linh</h3>
+          <p class="text-gray-600">Postiton</p>
+          <p>Linh leads our vision to make fashion sustainable, with a focus on innovation and community.</p>
+        </div>
+        <!-- Team Member: Khanh -->
+        <div class="bg-gray-100 p-6 rounded-lg text-center">
+          <img src="img/khanh.jpg" alt="Khanh" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+          <h3 class="text-xl font-semibold mb-2">Khanh</h3>
+          <p class="text-gray-600">Position</p>
+          <p>Khanh drives our AI technology, ensuring seamless verification and user experiences.</p>
+        </div>
+        <!-- Team Member: Phuong -->
+        <div class="bg-gray-100 p-6 rounded-lg text-center">
+          <img src="img/phuong.jpg" alt="Phuong" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+          <h3 class="text-xl font-semibold mb-2">Phuong</h3>
+          <p class="text-gray-600">Position</p>
+          <p>Phuong crafts our intuitive UI, making sustainable fashion accessible and stylish.</p>
+        </div>
+        <!-- Team Member: Trang -->
+        <div class="bg-gray-100 p-6 rounded-lg text-center">
+          <img src="img/jacy.jpg" alt="Trang" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+          <h3 class="text-xl font-semibold mb-2">Trang</h3>
+          <p class="text-gray-600">Baby</p>
+          <p>Trang spreads the word about Loopy, connecting with eco-conscious fashion lovers.</p>
+        </div>
+        <!-- Team Member: Naweed -->
+        <div class="bg-gray-100 p-6 rounded-lg text-center">
+          <img src="img/naweed.jpg" alt="Naweed" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover">
+          <h3 class="text-xl font-semibold mb-2">Naweed</h3>
+          <p class="text-gray-600">Position</p>
+          <p>Naweed ensures our platform aligns with global sustainability goals.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Assistant Chatbox -->
+  <div id="chatbox" class="chatbox">
+    <div class="chatbox-header flex justify-between items-center">
+      <span>Chat with Loopy</span>
+      <button onclick="toggleChatbox()" class="text-white">−</button>
+    </div>
+    <div id="chatboxBody" class="chatbox-body">
+      <p><strong>Loopy AI:</strong> Hi! Want to learn more about our team or mission? 😊</p>
+    </div>
+    <input id="chatInput" class="chatbox-input" type="text" placeholder="Ask about our team..." onkeypress="if(event.key === 'Enter') sendMessage()">
+  </div>
+
+  <!-- Footer -->
+  <footer class="py-12 bg-green-500 text-white text-center">
+    <div class="container mx-auto px-4">
+      <p class="mb-6">Shop sustainably with Loopy. Reduce waste, reuse fashion.</p>
+      <p class="mb-4">Supporting SDGs 8, 12, 13, 14, 15</p>
+      <div class="flex justify-center gap-4 mb-4">
+        <span class="text-2xl">💼</span>
+        <span class="text-2xl">♻️</span>
+        <span class="text-2xl">🌍</span>
+        <span class="text-2xl">🌊</span>
+        <span class="text-2xl">🌱</span>
+      </div>
+      <div class="flex justify-center space-x-4">
+        <a href="about.html" class="text-white hover:text-gray-200">About</a>
+        <a href="faq.html" class="text-white hover:text-gray-200">FAQ</a>
+        <a href="contact.html" class="text-white hover:text-gray-200">Contact</a>
+        <a href="https://instagram.com" class="text-white hover:text-gray-200">Instagram</a>
+        <a href="https://tiktok.com" class="text-white hover:text-gray-200">TikTok</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Toggle Chatbox
+    function toggleChatbox() {
+      const chatbox = document.getElementById('chatbox');
+      chatbox.style.display = chatbox.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // AI Assistant Responses
+    const responses = {
+      "team": "Our team is dedicated to sustainable fashion! Linh leads as CEO, Khanh drives tech, and more. Want details?",
+      "mission": "We aim to reduce textile waste and promote circular fashion. Learn more on our About page!",
+      "contact": "Reach us via the Contact page or social media. How can we help?",
+      "default": "I’m here to answer questions about our team or mission! What’s on your mind?"
+    };
+
+    // Send Chat Message
+    function sendMessage() {
+      const input = document.getElementById('chatInput');
+      const message = input.value.toLowerCase().trim();
+      if (!message) return;
+
+      const chatBody = document.getElementById('chatboxBody');
+      chatBody.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
+
+      let reply = responses.default;
+      if (message.includes('team') || message.includes('member')) reply = responses.team;
+      else if (message.includes('mission') || message.includes('goal')) reply = responses.mission;
+      else if (message.includes('contact') || message.includes('reach')) reply = responses.contact;
+
+      setTimeout(() => {
+        chatBody.innerHTML += `<p><strong>Loopy AI:</strong> ${reply}</p>`;
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }, 500);
+
+      input.value = '';
+    }
+  </script>
+</body>
+</html>
