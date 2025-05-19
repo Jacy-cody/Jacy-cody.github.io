@@ -9,10 +9,10 @@
   <style>
     body { font-family: 'Poppins', sans-serif; }
     .fade-section {
-      min-height: 100vh;
+      min-height: 140vh;
       opacity: 0;
-      transform: translateY(40px) scale(0.98);
-      transition: opacity 0.6s cubic-bezier(.4,0,.2,1), transform 0.6s cubic-bezier(.4,0,.2,1);
+      transform: translateY(10px) scale(0.98);
+      transition: opacity 0.1s cubic-bezier(.4,0,.2,1), transform 0.1s cubic-bezier(.4,0,.2,1);
       will-change: opacity, transform;
       background: white;
       display: flex;
@@ -255,7 +255,7 @@
         const visiblePx = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
         const ratio = Math.max(0, Math.min(visiblePx / vh, 1));
         section.style.opacity = ratio;
-        section.style.transform = `translateY(${40 - ratio * 40}px) scale(${0.98 + ratio*0.02})`;
+        section.style.transform = `translateY(${15 - ratio * 15}px) scale(${0.98 + ratio*0.02})`;
       });
     }
     window.addEventListener('scroll', fadeSectionsOnScroll, { passive: true });
