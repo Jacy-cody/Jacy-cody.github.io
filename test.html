@@ -3,114 +3,519 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Loopy - Smooth Fade Scroll Demo</title>
+  <title>Loopy - Sustainable Fashion Platform</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Poppins', sans-serif; }
-    .fade-section-container {
-      position: relative;
-      height: 180vh; /* gives scroll room for the fade effect */
-      margin: 0;
-      padding: 0;
-    }
+    html { scroll-behavior: smooth; }
     .fade-section {
-      position: sticky;
-      top: 0;
-      min-height: 100vh;
+      min-height: 90vh;
+      opacity: 0;
+      transform: translateY(10px) scale(0.98);
+      transition: opacity 0.2s cubic-bezier(.4,0,.2,1), transform 0.2s cubic-bezier(.4,0,.2,1);
+      will-change: opacity, transform;
       display: flex;
       align-items: center;
       justify-content: center;
-      opacity: 0;
-      transform: translateY(40px) scale(0.98);
-      transition: opacity 0.32s cubic-bezier(.4,0,.2,1), transform 0.32s cubic-bezier(.4,0,.2,1);
-      will-change: opacity, transform;
-      background: white;
+      background: transparent;
+      
     }
-    .hero-bg {
-      background-image: linear-gradient(rgba(16,185,129,0.7), rgba(0,0,0,0.25)), url('img/banner.jpg');
-      background-size: cover;
-      background-position: center;
-      color: white;
+
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .scrollleft {
+
     }
+    .scrollright {
+
+    }
+    
+    .partnerships-container {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 1rem;
+    }
+     .hero-bg {
+      background-image: linear-gradient(rgba(16,185,129,0.8), rgba(0,0,0,0.2)), url('img/banner.jpg');
+      background-size: cover; background-position: center;
+    }
+    .feedback {
+      background-image: linear-gradient(rgba(16,185,129,0.6), rgba(0,0,0,0.2)), url('img/banner1.jpg');
+      background-size: cover; background-position: center;
+    }
+    .sdg-bg  {
+      background-image: linear-gradient(rgba(16,185,129,0.4), rgba(0,0,0,0.2)), url('img/banner2.jpg');
+      background-size: cover; background-position: center;
+    }
+    
+    .partnerships-container::-webkit-scrollbar { height: 8px; }
+    .partnerships-container::-webkit-scrollbar-thumb { background: #059669; border-radius: 4px; }
+    .partnerships-container::-webkit-scrollbar-track { background: #d1fae5; }
+    .partnership-item { flex: 0 0 auto; scroll-snap-align: center; margin-right: 2rem; text-align: center; }
+    .partnership-item img { width: 60px; height: 60px; margin-bottom: 0.5rem; }
+    .partnership-item p { font-size: 0.875rem; color: #065f46; }
   </style>
 </head>
-<body class="bg-gray-100">
-  <header class="bg-white shadow py-4 sticky top-0 z-30">
+<body class="bg-gradient-to-tr from-emerald-50 via-green-100 to-emerald-200">
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-emerald-700 to-green-600 shadow-lg py-4 sticky top-0 z-30">
     <div class="container mx-auto px-4 flex flex-wrap justify-between items-center">
       <a href="index.html">
-        <img src="img/logo.jpg" alt="Loopy Logo" class="h-[70px] w-[70px] md:h-[100px] md:w-[100px] object-contain transition-all duration-300 rounded-2xl shadow-lg hover:scale-105">
+        <img src="img/logo.jpg" alt="Loopy Logo" class="h-[70px] w-[70px] md:h-[100px] md:w-[100px] object-contain rounded-2xl shadow-lg hover:scale-105 transition-all duration-300 border-4 border-green-200 bg-white/80">
       </a>
       <nav class="flex flex-wrap space-x-2 md:space-x-4 mt-3 md:mt-0">
-        <!-- nav links... -->
+        <a href="index.html" class="text-green-50 hover:text-lime-200 font-medium transition">Home</a>
+        <a href="shop.html" class="text-green-50 hover:text-lime-200 font-medium transition">Shop</a>
+        <a href="swap.html" class="text-green-50 hover:text-lime-200 font-medium transition">Swap</a>
+        <a href="dashboard.html" class="text-green-50 hover:text-lime-200 font-medium transition">Digital Wardrobe</a>
+        <a href="stats.html" class="text-green-50 hover:text-lime-200 font-medium transition">Stats</a>
+        <a href="chat.html" class="text-green-50 hover:text-lime-200 font-medium transition">Chat</a>
+        <a href="about.html" class="text-green-50 hover:text-lime-200 font-medium transition">About</a>
+        <a href="signup.html" class="bg-white/90 text-green-700 px-4 py-2 rounded-xl shadow hover:bg-lime-100 hover:text-green-900 transition font-semibold border border-green-100">Sign Up</a>
       </nav>
     </div>
   </header>
+
   <main>
-    <div class="fade-section-container">
-      <section class="fade-section hero-bg">
-        <div class="container mx-auto text-center">
-          <h1 class="text-4xl font-extrabold mb-6">Loopy: Where Your Clothes Get a Second Spin.</h1>
-          <p class="text-lg mb-8">Eco-friendly, easy, fun. Try now!</p>
-          <a href="shop.html" class="bg-white text-green-600 py-3 px-8 rounded-2xl shadow-xl text-lg hover:bg-green-500 hover:text-white transition transform hover:scale-105">Start Swapping Now</a>
+    <!-- Hero Section -->
+    <section class="hero-bg relative min-h-[60vh] flex items-center justify-center overflow-hidden ">
+      <img src="img/banner.jpg" alt="" class="absolute inset-0 w-full h-full object-cover opacity-30 z-0" />
+      <div class="absolute inset-0"></div>
+      <div class="container mx-auto px-4 text-center relative z-10">
+        <h1 class="text-4xl md:text-5xl animate-fadeInUp font-extrabold mb-6 drop-shadow-lg text-white">Loopy: Where Your Clothes Get a Second Spin.</h1>
+        <p class="text-lg md:text-2xl animate-fadeInUp mb-8 drop-shadow-md text-green-50">Say goodbye to closet chaos and hello to Loopy—your AI-powered fashion sidekick! Swap or sell your clothes in a snap with instant, secure authentication. Dress smart, waste less, and let your wardrobe do the world some good!</p>
+        <a href="shop.html" class="bg-lime-400 animate-fadeInUp text-green-900 font-semibold py-3 px-8 rounded-2xl shadow-xl text-lg hover:bg-white hover:text-green-600 transition transform hover:scale-105">Start Swapping Now</a>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="fade-section py-16 bg-gradient-to-br from-green-50 via-emerald-100 to-green-100">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12 text-green-800">Why Choose Loopy?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="text-center bg-white/90 p-6 rounded-2xl shadow hover:shadow-lg transition border border-green-100">
+            <div class="text-5xl mb-4">🤖</div>
+            <h3 class="text-xl font-semibold mb-2 text-green-700">AI-Powered Trust</h3>
+            <p class="text-gray-600">Loopy AI delivers tailored experiences while verifying every item for quality, origin, and authenticity—no fakes, no fuss.</p>
+          </div>
+          <div class="text-center bg-white/90 p-6 rounded-2xl shadow hover:shadow-lg transition border border-green-100">
+            <div class="text-5xl mb-4">👗</div>
+            <h3 class="text-xl font-semibold mb-2 text-green-700">Digital Wardrobe</h3>
+            <p class="text-gray-600">Style, swap, and track every wear with your smart virtual closet—then share your looks with the Loopy community!</p>
+          </div>
+          <div class="text-center bg-white/90 p-6 rounded-2xl shadow hover:shadow-lg transition border border-green-100">
+            <div class="text-5xl mb-4">🌍</div>
+            <h3 class="text-xl font-semibold mb-2 text-green-700">Eco-Impact Tracking</h3>
+            <p class="text-gray-600">Track how much CO2 and water you save with every swap, sale, or extra wear—your wardrobe’s impact, made visible!</p>
+          </div>
+          <div class="text-center bg-white/90 p-6 rounded-2xl shadow hover:shadow-lg transition border border-green-100">
+            <div class="text-5xl mb-4">🤝</div>
+            <h3 class="text-xl font-semibold mb-2 text-green-700">Brand Partnerships</h3>
+            <p class="text-gray-600">Shop authenticated pieces from our partner brands. Keep fashion stylish, sustainable, and circular.</p>
+          </div>
         </div>
-      </section>
-    </div>
-    <div class="fade-section-container">
-      <section class="fade-section">
-        <div class="container mx-auto text-center">
-          <h2 class="text-3xl font-bold mb-12">Why Choose Loopy?</h2>
-          <p>Every swap saves CO2, water, and your wallet. AI-verified for peace of mind.</p>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="fade-section py-16 bg-gradient-to-tr from-green-100 via-emerald-50 to-green-200">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12 text-green-800">Get Started in 3 Easy Steps</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="text-center bg-white/90 p-8 rounded-xl shadow-lg hover:shadow-2xl transition border border-green-100">
+            <div class="bg-lime-400 text-green-900 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">1</div>
+            <h3 class="text-xl font-semibold mb-2 text-green-700">Scan & List</h3>
+            <p class="text-gray-600">Scan your item, add details—AI Loopy handles verification and pricing instantly.</p>
+          </div>
+          <div class="text-center bg-white/90 p-8 rounded-xl shadow-lg hover:shadow-2xl transition border border-green-100">
+            <div class="bg-lime-400 text-green-900 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">2</div>
+            <h3 class="text-xl font-semibold mb-2 text-green-700">Swap or Sell</h3>
+            <p class="text-gray-600">Upload items to your digital wardrobe or list them for sale. Loopy ensures safety and the best price.</p>
+          </div>
+          <div class="text-center bg-white/90 p-8 rounded-xl shadow-lg hover:shadow-2xl transition border border-green-100">
+            <div class="bg-lime-400 text-green-900 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-2xl font-bold">3</div>
+            <h3 class="text-xl font-semibold mb-2 text-green-700">Track Your Impact</h3>
+            <p class="text-gray-600">Monitor your wardrobe’s usage and eco-savings in your profile.</p>
+          </div>
         </div>
-      </section>
-    </div>
-    <div class="fade-section-container">
-      <section class="fade-section">
-        <div class="container mx-auto text-center">
-          <h2 class="text-3xl font-bold mb-12">How It Works</h2>
-          <p>Scan. Swap. Track your eco-impact. All with Loopy.</p>
+        <div class="text-center mt-10">
+          <a href="signup.html" class="inline-block bg-gradient-to-r from-lime-400 via-green-300 to-emerald-400 hover:from-green-500 hover:to-lime-600 text-green-900 font-bold py-3 px-8 rounded-xl shadow-lg text-lg transition transform hover:scale-105">Join Now</a>
         </div>
-      </section>
+      </div>
+    </section>
+
+    <!-- Sustainability Impact Section -->
+    <section class="fade-section py-16 bg-gradient-to-bl from-emerald-50 via-green-100 to-emerald-100">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-12 text-green-800">Make a Difference with Every Swap</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+          <div class="bg-white/90 p-8 rounded-xl shadow-md flex flex-col justify-center items-center border border-emerald-100">
+            <p class="text-3xl font-bold text-green-700 mb-2">92M Tons</p>
+            <p class="text-gray-700">Textile waste reduced annually.</p>
+          </div>
+          <div class="bg-white/90 p-8 rounded-xl shadow-md flex flex-col justify-center items-center border border-emerald-100">
+            <p class="text-3xl font-bold text-green-700 mb-2">12.6M L</p>
+            <p class="text-gray-700">Litres of water saved through reuse and resale on Loopy.</p>
+          </div>
+          <div class="bg-white/90 p-8 rounded-xl shadow-md flex flex-col justify-center items-center border border-emerald-100">
+            <p class="text-3xl font-bold text-green-700 mb-2">84,000 kg</p>
+            <p class="text-gray-700">CO₂ emissions prevented by giving clothes a second life.</p>
+          </div>
+          <div class="bg-white/90 p-8 rounded-xl shadow-md flex flex-col justify-center items-center border border-emerald-100">
+            <p class="text-3xl font-bold text-green-700 mb-2">Circular Fashion</p>
+            <p class="text-gray-700">Every swap supports a more sustainable economy.</p>
+          </div>
+        </div>
+        <p class="mt-10 text-lg text-green-700 font-medium">Loopy empowers you to fight fast fashion’s waste, one swap at a time.</p>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="fade-section py-20 bg-gradient-to-tr from-green-600 via-green-700 to-emerald-800 relative overflow-hidden feedback">
+      <div class="absolute inset-0 w-full h-full z-0 opacity-20 bg-center bg-cover" style="background-image: url('img/banner1.jpg');"></div>
+      <div class="container mx-auto px-4 relative z-10">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-12 text-white drop-shadow-[0_3px_10px_#10b981] tracking-wid">What Loopies Are Saying</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-white/90 backdrop-blur-md p-8 rounded-2xl shadow-xl flex flex-col justify-center border border-green-100 hover:scale-105 hover:shadow-2xl transition">
+            <svg class="w-8 h-8 text-green-500 mb-2" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+                 d="M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2h-2m-4 0H7a2 2 0 01-2-2v-8a2 2 0 012-2h2"></path></svg>
+            <p class="italic mb-4 text-lg text-green-800">“Loopy’s AI made selling my old jeans a breeze, and I love seeing my CO2 savings!”</p>
+            <p class="font-semibold text-green-700">– Sarah, Sydney</p>
+          </div>
+          <div class="bg-white/90 backdrop-blur-md p-8 rounded-2xl shadow-xl flex flex-col justify-center border border-green-100 hover:scale-105 hover:shadow-2xl transition">
+            <svg class="w-8 h-8 text-green-500 mb-2" fill="none" stroke="currentColor" stroke-width="2"
+                 viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+                 d="M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2h-2m-4 0H7a2 2 0 01-2-2v-8a2 2 0 012-2h2"></path></svg>
+            <p class="italic mb-4 text-lg text-green-800">“Swapping on Loopy feels like shopping, but guilt-free. My wardrobe’s never been fresher!”</p>
+            <p class="font-semibold text-green-700">– Liam, Melbourne</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Subscription Model Section -->
+    <section class="fade-section py-16 bg-gradient-to-br from-green-50 via-emerald-100 to-green-100">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-12 text-green-800">Loopy Subscription Model</h2>
+        <!-- Part 1: Main Functions and Packages -->
+<div class="w-full max-w-4xl mx-auto py-10 px-4">
+  <h2 class="text-4xl font-extrabold text-center mb-3 text-gray-900">Find your perfect Loopy plan</h2>
+  <p class="text-center mb-10 text-gray-500">Choose the subscription that's right for your sustainable wardrobe journey.</p>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+    <!-- Free Plan -->
+    <div class="bg-white p-8 rounded-3xl shadow-xl border border-green-100 relative flex flex-col">
+      <!-- Plan Badge/Top -->
+      <div class="absolute top-0 right-0 mt-5 mr-6 bg-green-50 rounded-full p-3">
+        <!-- Lightbulb Icon (You can use SVG or Emoji) -->
+        <span class="text-3xl text-green-500">💡</span>
+      </div>
+      <div class="mb-4">
+        <span class="inline-block bg-green-100 text-green-700 font-semibold px-4 py-1 rounded-full text-xs mb-2">Starter</span>
+        <h3 class="text-3xl font-bold text-gray-900 mb-1">Free</h3>
+        <p class="text-green-700 mb-1 font-semibold">For the Casual Swapper</p>
+        <p class="text-gray-500 mb-6">Perfect for those starting their circular fashion journey.</p>
+      </div>
+      <ul class="text-gray-700 space-y-3 mb-8 flex-1">
+        <li class="flex items-center gap-2"><span class="text-green-500">✔️</span> Up to 1 user</li>
+        <li class="flex items-center gap-2"><span class="text-green-500">✔️</span> Access wardrobe & shop</li>
+        <li class="flex items-center gap-2"><span class="text-green-500">✔️</span> 3 AI styling guides/day</li>
+        <li class="flex items-center gap-2"><span class="text-green-500">✔️</span> Community access</li>
+        <li class="flex items-center gap-2"><span class="text-green-500">✔️</span> 30-day free trial</li>
+      </ul>
+      <a href="signup.html"
+         class="block w-full py-3 text-center bg-green-100 hover:bg-green-200 text-green-700 font-bold rounded-2xl text-lg transition-all duration-200">Try for Free</a>
     </div>
-    <!-- Add more fade-section-container as needed -->
+    <!-- Premium Plan -->
+    <div class="bg-green-900 p-8 rounded-3xl shadow-2xl border-2 border-green-500 relative flex flex-col">
+      <!-- Plan Badge/Top -->
+      <div class="absolute top-0 right-0 mt-5 mr-6 bg-green-800 rounded-full p-3">
+        <!-- Wand Icon (You can use SVG or Emoji) -->
+        <span class="text-3xl text-lime-300">🪄</span>
+      </div>
+      <div class="mb-4">
+        <span class="inline-block bg-green-800 text-lime-300 font-semibold px-4 py-1 rounded-full text-xs mb-2">Professional</span>
+        <h3 class="text-3xl font-bold text-white mb-1">$10<span class="text-xl font-medium text-lime-200">/month</span></h3>
+        <p class="text-lime-300 mb-1 font-semibold">For the Power Looper</p>
+        <p class="text-gray-300 mb-6">Unlock advanced features for a richer Loopy experience.</p>
+      </div>
+      <ul class="text-lime-100 space-y-3 mb-8 flex-1">
+        <li class="flex items-center gap-2"><span class="text-lime-300">✔️</span> Unlimited users</li>
+        <li class="flex items-center gap-2"><span class="text-lime-300">✔️</span> Advanced analytics</li>
+        <li class="flex items-center gap-2"><span class="text-lime-300">✔️</span> Unlimited AI styling guides</li>
+        <li class="flex items-center gap-2"><span class="text-lime-300">✔️</span> Purchase incentives & early access</li>
+        <li class="flex items-center gap-2"><span class="text-lime-300">✔️</span> Priority support 24/7</li>
+      </ul>
+      <a href="signup.html"
+         class="block w-full py-3 text-center bg-gradient-to-r from-lime-300 to-green-400 hover:from-green-400 hover:to-lime-300 text-green-900 font-bold rounded-2xl text-lg transition-all duration-200 shadow-lg">Try for Free</a>
+    </div>
+  </div>
+</div>
+
+        <!-- Part 2: Comparison Table -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse bg-green-50/80 rounded-2xl shadow-md">
+            <thead>
+              <tr class="bg-lime-100">
+                <th class="p-4 text-green-700 font-semibold">Feature</th>
+                <th class="p-4 text-green-700 font-semibold">Free Plan</th>
+                <th class="p-4 text-green-700 font-semibold">Premium Plan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-t">
+                <td class="p-4 text-green-700">Wardrobe Tracking & Garment Uploads</td>
+                <td class="p-4 text-green-700">✅</td>
+                <td class="p-4 text-green-700">✅</td>
+              </tr>
+              <tr class="border-t">
+                <td class="p-4 text-green-700">List Items for Resale or Swapping</td>
+                <td class="p-4 text-green-700">✅</td>
+                <td class="p-4 text-green-700">✅</td>
+              </tr>
+              <tr class="border-t">
+                <td class="p-4 text-green-700">Join the Loopy Community</td>
+                <td class="p-4 text-green-700">✅</td>
+                <td class="p-4 text-green-700">✅</td>
+              </tr>
+              <tr class="border-t">
+                <td class="p-4 text-green-700">AI Styling Guides</td>
+                <td class="p-4 text-green-700">3 per day</td>
+                <td class="p-4 text-green-700">Unlimited</td>
+              </tr>
+              <tr class="border-t">
+                <td class="p-4 text-green-700">Advanced Virtual Wardrobe Analytics</td>
+                <td class="p-4 text-green-700">❌</td>
+                <td class="p-4 text-green-700">✅</td>
+              </tr>
+              <tr class="border-t">
+                <td class="p-4 text-green-700">Exclusive Purchase Incentives</td>
+                <td class="p-4 text-green-700">Limited</td>
+                <td class="p-4 text-green-700">Full Access (discounts, free/discounted shipping)</td>
+              </tr>
+              <tr class="border-t">
+                <td class="p-4 text-green-700">First Access to New Collections</td>
+                <td class="p-4 text-green-700">❌</td>
+                <td class="p-4 text-green-700">✅</td>
+              </tr>
+              <tr class="border-t">
+                <td class="p-4 text-green-700">Priority Listing Visibility</td>
+                <td class="p-4 text-green-700">❌</td>
+                <td class="p-4 text-green-700">✅</td>
+              </tr>
+              <tr class="border-t">
+                <td class="p-4 text-green-700">Early Access to Features & Seasonal Drops</td>
+                <td class="p-4 text-green-700">❌</td>
+                <td class="p-4 text-green-700">✅</td>
+              </tr>
+              <tr class="border-t">
+                <td class="p-4 text-green-700">Monthly Sustainability Reports</td>
+                <td class="p-4 text-green-700">❌</td>
+                <td class="p-4 text-green-700">✅</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SDGs Section with Logos -->
+    <section class="sdg-bg fade-section py-16">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-12 text-white drop-shadow-[0_3px_10px_#10b981] tracking-wid">Loopy’s Commitment to Global Goals</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
+          <div class="text-center bg-white/90 p-6 rounded-xl shadow-md border border-green-100">
+            <img src="" alt="SDG 8 Logo" class="mx-auto mb-4 w-16 h-16">
+            <h3 class="text-lg font-semibold mb-2 text-green-700">SDG 8: Decent Work</h3>
+            <p class="text-green-700">Partnering with brands to promote fair labor practices.</p>
+          </div>
+          <div class="text-center bg-white/90 p-6 rounded-xl shadow-md border border-green-100">
+            <img src="" alt="SDG 12 Logo" class="mx-auto mb-4 w-16 h-16">
+            <h3 class="text-lg font-semibold mb-2 text-green-700">SDG 12: Responsible Consumption</h3>
+            <p class="text-green-700">Encouraging reuse to reduce overconsumption.</p>
+          </div>
+          <div class="text-center bg-white/90 p-6 rounded-xl shadow-md border border-green-100">
+            <img src="" alt="SDG 13 Logo" class="mx-auto mb-4 w-16 h-16">
+            <h3 class="text-lg font-semibold mb-2 text-green-700">SDG 13: Climate Action</h3>
+            <p class="text-green-700">Cutting CO2 emissions by extending garment lifespans.</p>
+          </div>
+          <div class="text-center bg-white/90 p-6 rounded-xl shadow-md border border-green-100">
+            <img src="" alt="SDG 14 Logo" class="mx-auto mb-4 w-16 h-16">
+            <h3 class="text-lg font-semibold mb-2 text-green-700">SDG 14: Life Below Water</h3>
+            <p class="text-green-700">Less clothes produced means less water, microplastic, and chemical pollution.</p>
+          </div>
+          <div class="text-center bg-white/90 p-6 rounded-xl shadow-md border border-green-100">
+            <img src="" alt="SDG 15 Logo" class="mx-auto mb-4 w-16 h-16">
+            <h3 class="text-lg font-semibold mb-2 text-green-700">SDG 15: Life on Land</h3>
+            <p class="text-green-700">Every reused item reduces textile waste and protects biodiversity.</p>
+          </div>
+        </div>
+        <p class="mt-8 text-lg text-white drop-shadow-[0_3px_10px_#10b981] tracking-wid">Together, we’re building a sustainable future for fashion.</p>
+      </div>
+    </section>
+
+ <section class=" bg-white h-80 flex items-center relative overflow-hidden">
+  <div class="container mx-auto px-4 text-center relative">
+    <h2 class="text-3xl font-bold mb-12 text-green-800">Our Partnerships</h2>
+    <!-- Fading edges for scroll hint -->
+    <div class="absolute left-0 top-1/2 -translate-y-1/2 h-36 w-10 pointer-events-none z-20"
+      style="background: linear-gradient(to right, #d1fae5 90%, transparent);"></div>
+    <div class="absolute right-0 top-1/2 -translate-y-1/2 h-36 w-10 pointer-events-none z-20"
+      style="background: linear-gradient(to left, #d1fae5 90%, transparent);"></div>
+    <!-- Arrow Buttons -->
+    <button id="scrollLeftBtn" class="scrollleft absolute left-2 top-1/2 -translate-y-1/2 z-30 bg-white rounded-full shadow p-2 border border-green-200 hover:bg-green-100 transition">
+      <svg class="w-6 h-6 text-green-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+      </svg>
+    </button>
+    <button id="scrollRightBtn" class="scollright absolute right-2 top-1/2 -translate-y-1/2 z-30 bg-white rounded-full shadow p-2 border border-green-200 hover:bg-green-100 transition">
+      <svg class="w-6 h-6 text-green-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+      </svg>
+    </button>
+    <div id="brands-carousel" class="flex gap-8 overflow-x-auto no-scrollbar px-12 scroll-smooth partnerships-container snap-x snap-mandatory relative z-10" style="scroll-behavior: smooth;">
+      <!-- 19 Brand Items -->
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Levi's Logo"><p>Levi’s</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Nike Logo"><p>Nike</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Gucci Logo"><p>Gucci</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Zara Logo"><p>Zara</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="H&M Logo"><p>H&M</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Uniqlo Logo"><p>Uniqlo</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Adidas Logo"><p>Adidas</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Patagonia Logo"><p>Patagonia</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Prada Logo"><p>Prada</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Mango Logo"><p>Mango</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="The North Face Logo"><p>The North Face</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Balenciaga Logo"><p>Balenciaga</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="COS Logo"><p>COS</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Burberry Logo"><p>Burberry</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Tommy Hilfiger Logo"><p>Tommy Hilfiger</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Monki Logo"><p>Monki</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Puma Logo"><p>Puma</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Hermès Logo"><p>Hermès</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="New Balance Logo"><p>New Balance</p></div>
+    </div>
+  </div>
+</section>
+
+
+
+
   </main>
-  <footer class="py-12 bg-gradient-to-tr from-green-700 to-emerald-900 text-white text-center mt-16 rounded-t-3xl shadow-inner">
+
+  <!-- Footer -->
+  <footer class="py-12 bg-gradient-to-tr from-green-700 to-emerald-900 text-white text-center mt-24 rounded-t-3xl shadow-inner">
     <div class="container mx-auto px-4">
       <p class="mb-6 text-lg font-semibold">Don't toss it. Loop it!</p>
+      <p class="mb-4 text-base">Supporting SDGs 8, 12, 13, 14, 15</p>
+      <div class="flex justify-center gap-4 mb-4">
+        <span class="text-2xl">💼</span>
+        <span class="text-2xl">♻️</span>
+        <span class="text-2xl">🌍</span>
+        <span class="text-2xl">🌊</span>
+        <span class="text-2xl">🌱</span>
+      </div>
+      <div class="flex justify-center space-x-4 mb-8 mt-8">
+        <a href="https://apps.apple.com/" target="_blank" rel="noopener" class="inline-flex items-center bg-black text-white px-6 py-3 rounded-xl shadow hover:bg-gray-800 transition">
+          <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M17.564 13.217c.014-2.385 1.948-3.52 2.033-3.572-1.109-1.62-2.838-1.843-3.444-1.87-1.47-.148-2.87.87-3.617.87-.749 0-1.895-.846-3.12-.822-1.606.023-3.099.936-3.93 2.387-1.692 2.928-.433 7.246 1.212 9.621.8 1.163 1.744 2.466 2.993 2.419 1.206-.048 1.663-.783 3.126-.783 1.464 0 1.867.783 3.129.758 1.296-.025 2.108-1.186 2.903-2.352.924-1.366 1.306-2.692 1.319-2.76-.029-.014-2.523-.969-2.54-3.846zm-3.012-7.184c.658-.797 1.104-1.91.982-3.033-.95.04-2.097.632-2.782 1.427-.611.707-1.148 1.837-.946 2.922 1.044.08 2.112-.53 2.746-1.316z"/></svg>
+          <span class="flex flex-col items-start leading-tight text-left">
+            <span class="text-xs">Download on the</span>
+            <span class="text-base font-semibold">App Store</span>
+          </span>
+        </a>
+        <a href="https://play.google.com/store" target="_blank" rel="noopener" class="inline-flex items-center bg-white text-gray-800 border border-gray-300 px-6 py-3 rounded-xl shadow hover:bg-gray-200 transition">
+          <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="none"><g><path fill="#34A853" d="M1.79 0l11.19 12L1.79 24z"/><path fill="#4285F4" d="M23 12l-2.21-2.36-5.43 4.23 5.43 4.13z"/><path fill="#FBBC05" d="M1.79 0l14.58 12-2.37 2.36z"/><path fill="#EA4335" d="M1.79 24l14.58-12 2.36 2.35z"/></g></svg>
+          <span class="flex flex-col items-start leading-tight text-left">
+            <span class="text-xs">Get it on</span>
+            <span class="text-base font-semibold">Google Play</span>
+          </span>
+        </a>
+      </div>
+      <div class="flex justify-center space-x-4 text-base">
+        <a href="about.html" class="text-white hover:text-lime-200 transition">About</a>
+        <a href="faq.html" class="text-white hover:text-lime-200 transition">FAQ</a>
+        <a href="contact.html" class="text-white hover:text-lime-200 transition">Contact</a>
+        <a href="https://instagram.com" class="text-white hover:text-lime-200 transition">Instagram</a>
+        <a href="https://tiktok.com" class="text-white hover:text-lime-200 transition">TikTok</a>
+      </div>
+      <p class="mt-10 text-sm opacity-80">© 2025 Loopy Circular Fashion. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- Fade/slide effect on scroll for each section -->
   <script>
     function fadeSectionsOnScroll() {
-      const containers = document.querySelectorAll('.fade-section-container');
+      const sections = document.querySelectorAll('.fade-section');
       const vh = window.innerHeight;
-
-      containers.forEach(container => {
-        const section = container.querySelector('.fade-section');
-        const rect = container.getBoundingClientRect();
-        const fadeZone = vh * 0.45; // How much space to use for fading
-
-        let ratio = 1;
-        // Fade in at top
-        if (rect.top > fadeZone) {
-          ratio = 0;
-        } else if (rect.top > 0) {
-          ratio = 1 - rect.top / fadeZone;
-        }
-        // Fade out at bottom
-        else if (rect.bottom < vh - fadeZone) {
-          ratio = 0;
-        } else if (rect.bottom < vh) {
-          ratio = (rect.bottom - (vh - fadeZone)) / fadeZone;
-        }
-        ratio = Math.max(0, Math.min(1, ratio));
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        const visiblePx = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
+        const ratio = Math.max(0, Math.min(visiblePx / vh, 1));
         section.style.opacity = ratio;
-        section.style.transform = `translateY(${40 - ratio * 40}px) scale(${0.98 + ratio * 0.02})`;
+        section.style.transform = `translateY(${15 - ratio * 15}px) scale(${0.98 + ratio*0.02})`;
       });
     }
-
     window.addEventListener('scroll', fadeSectionsOnScroll, { passive: true });
     window.addEventListener('resize', fadeSectionsOnScroll);
     window.addEventListener('DOMContentLoaded', fadeSectionsOnScroll);
+    document.querySelectorAll('.animate-fadeInUp').forEach((el, i) => {
+      setTimeout(() => {
+        el.classList.add('opacity-100', 'translate-y-0');
+      }, 250 + i * 150);
+      el.classList.add('opacity-0', 'translate-y-8', 'transition', 'duration-1000');
+    });
+
+  
+    const carousel = document.getElementById('brands-carousel');
+    const leftBtn = document.getElementById('scrollLeftBtn');
+    const rightBtn = document.getElementById('scrollRightBtn');
+    const items = Array.from(carousel.children);
+
+    // Duplicate items for infinite scroll
+    items.forEach(item => {
+      carousel.appendChild(item.cloneNode(true));
+    });
+    items.forEach(item => {
+      carousel.insertBefore(item.cloneNode(true), carousel.firstChild);
+    });
+
+    let itemWidth = items[0].offsetWidth + 32; // 32 = gap-8
+
+    function centerCarousel() {
+      carousel.scrollLeft = carousel.scrollWidth / 3; // Center on the "real" first item set
+    }
+    window.addEventListener('load', centerCarousel);
+    window.addEventListener('resize', () => { itemWidth = items[0].offsetWidth + 32; });
+
+    // Infinite looping logic
+    carousel.addEventListener('scroll', () => {
+      if (carousel.scrollLeft < carousel.scrollWidth / 6) {
+        carousel.scrollLeft += carousel.scrollWidth / 3;
+      } else if (carousel.scrollLeft > carousel.scrollWidth * 2 / 3) {
+        carousel.scrollLeft -= carousel.scrollWidth / 3;
+      }
+    });
+
+    // Left/right button handlers
+    leftBtn.onclick = () => {
+      carousel.scrollBy({ left: -itemWidth, behavior: 'smooth' });
+    };
+    rightBtn.onclick = () => {
+      carousel.scrollBy({ left: itemWidth, behavior: 'smooth' });
+    };
+
+     document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        document.querySelectorAll('.animate-fadeInUp').forEach(el => {
+          el.classList.add('visible');
+        });
+      }, 100);
+    });
+
   </script>
 </body>
 </html>
