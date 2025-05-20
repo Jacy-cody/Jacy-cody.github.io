@@ -24,12 +24,9 @@
 
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    .scrollleft {
+   
+   
 
-    }
-    .scrollright {
-
-    }
     
     .partnerships-container {
       display: flex;
@@ -54,9 +51,43 @@
     .partnerships-container::-webkit-scrollbar { height: 8px; }
     .partnerships-container::-webkit-scrollbar-thumb { background: #059669; border-radius: 4px; }
     .partnerships-container::-webkit-scrollbar-track { background: #d1fae5; }
-    .partnership-item { flex: 0 0 auto; scroll-snap-align: center; margin-right: 2rem; text-align: center; }
-    .partnership-item img { width: 60px; height: 60px; margin-bottom: 0.5rem; }
-    .partnership-item p { font-size: 0.875rem; color: #065f46; }
+   .partnership-item {
+  flex: 0 0 auto;
+  min-width: 120px;
+  height: 144px; /* h-36 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo-box {
+  width: 80px;     /* w-20 */
+  height: 60px;    /* fixed height box */
+  display: flex;
+  align-items: center;   /* center logo vertically in box */
+  justify-content: center;
+  background: transparent;  /* invisible box */
+  margin-bottom: 0.5rem;
+  /* Optional: border, shadow, etc, for visual style */
+}
+
+.partnership-item img {
+  max-width: 76px;
+  max-height: 48px; /* Make sure logo fits nicely, tweak as needed */
+  object-fit: contain;
+  display: block;
+}
+
+.partnership-item p {
+  font-size: 0.9rem;
+  color: #065f46;
+  margin-top: auto;   /* Ensures name always at bottom of card */
+  line-height: 1.1;
+  text-align: center;
+  font-weight: 500;
+}
+
+
   </style>
 </head>
 <body class="bg-gradient-to-tr from-emerald-50 via-green-100 to-emerald-200">
@@ -372,32 +403,32 @@
         <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
       </svg>
     </button>
-    <button id="scrollRightBtn" class="scollright absolute right-2 top-1/2 -translate-y-1/2 z-30 bg-white rounded-full shadow p-2 border border-green-200 hover:bg-green-100 transition">
+    <button id="scrollRightBtn" class="scrollright absolute right-2 top-1/2 -translate-y-1/2 z-30 bg-white rounded-full shadow p-2 border border-green-200 hover:bg-green-100 transition">
       <svg class="w-6 h-6 text-green-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
       </svg>
     </button>
     <div id="brands-carousel" class="flex gap-8 overflow-x-auto no-scrollbar px-12 scroll-smooth partnerships-container snap-x snap-mandatory relative z-10" style="scroll-behavior: smooth;">
       <!-- 19 Brand Items -->
-      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Levi's Logo"><p>Levi’s</p></div>
-      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Nike Logo"><p>Nike</p></div>
-      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Gucci Logo"><p>Gucci</p></div>
-      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Zara Logo"><p>Zara</p></div>
-      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="H&M Logo"><p>H&M</p></div>
-      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Uniqlo Logo"><p>Uniqlo</p></div>
-      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Adidas Logo"><p>Adidas</p></div>
-      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Patagonia Logo"><p>Patagonia</p></div>
-      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Prada Logo"><p>Prada</p></div>
-      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Mango Logo"><p>Mango</p></div>
-      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="The North Face Logo"><p>The North Face</p></div>
-      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Balenciaga Logo"><p>Balenciaga</p></div>
-      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="COS Logo"><p>COS</p></div>
-      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Burberry Logo"><p>Burberry</p></div>
-      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Tommy Hilfiger Logo"><p>Tommy Hilfiger</p></div>
-      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Monki Logo"><p>Monki</p></div>
-      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Puma Logo"><p>Puma</p></div>
-      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="Hermès Logo"><p>Hermès</p></div>
-      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"><img src="" alt="New Balance Logo"><p>New Balance</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"> <div class="logo-box"><img src="img/levi.png" alt="Levi's Logo"></div><p>Levi’s</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"> <div class="logo-box"><img src="img/nike.svg" alt="Nike Logo"></div><p>Nike</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"> <div class="logo-box"><img src="img/gucci.png" alt="Gucci Logo"></div><p>Gucci</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"> <div class="logo-box"><img src="img/zara.svg" alt="Zara Logo"></div><p>Zara</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"> <div class="logo-box"><img src="img/hm.png" alt="H&M Logo"></div><p>H&M</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"> <div class="logo-box"><img src="img/uniqlo.png" alt="Uniqlo Logo"></div><p>Uniqlo</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"> <div class="logo-box"><img src="img/adidas.svg" alt="Adidas Logo"></div><p>Adidas</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"> <div class="logo-box"><img src="img/patagonia.jpg" alt="Patagonia Logo"></div><p>Patagonia</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"> <div class="logo-box"><img src="img/prada.png" alt="Prada Logo"></div><p>Prada</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"> <div class="logo-box"><img src="img/mango.jpg" alt="Mango Logo"></div><p>Mango</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"> <div class="logo-box"><img src="img/northlogo.png" alt="The North Face Logo"></div><p>The North Face</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"> <div class="logo-box"><img src="img/balenciaga.png" alt="Balenciaga Logo"></div><p>Balenciaga</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"> <div class="logo-box"><img src="img/cos.png" alt="COS Logo"></div><p>COS</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"> <div class="logo-box"><img src="img/bubbery.avif" alt="Burberry Logo"></div><p>Burberry</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"> <div class="logo-box"><img src="img/tommy.jpg" alt="Tommy Hilfiger Logo"></div><p>Tommy Hilfiger</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"> <div class="logo-box"><img src="img/monki.png" alt="Monki Logo"></div><p>Monki</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"> <div class="logo-box"><img src="img/puma.png" alt="Puma Logo"></div><p>Puma</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"> <div class="logo-box"><img src="img/hermes.png" alt="Hermès Logo"></div><p>Hermès</p></div>
+      <div class="partnership-item snap-center min-w-[120px] flex-shrink-0"> <div class="logo-box"><img src="img/newbalanace.png" alt="New Balance Logo"></div><p>New Balance</p></div>
     </div>
   </div>
 </section>

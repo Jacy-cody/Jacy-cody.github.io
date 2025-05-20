@@ -38,6 +38,14 @@
     </div>
   </header>
 
+  <!-- Success Message (if applicable) -->
+  <div id="successMessage" class="hidden container mx-auto px-4 py-4">
+    <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-lg shadow-md flex items-center gap-2">
+      <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+      <p class="font-semibold">Upgrade Successful! You’re now on the Premium Plan. Enjoy unlimited AI styling guides, advanced analytics, and more!</p>
+    </div>
+  </div>
+
   <!-- Dashboard Section -->
   <section class="py-16 bg-white fade-in">
     <div class="container mx-auto px-4">
@@ -104,6 +112,12 @@
           <div class="flex">
             <a href="stats.html" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 shadow transition">View Detailed Stats</a>
           </div>
+        </div>
+        <!-- Upgrade Plan Section -->
+        <div class="bg-gradient-to-br from-green-50 to-white p-7 rounded-2xl shadow-md card-animate transition duration-200 col-span-1 md:col-span-2">
+          <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">🚀 Upgrade Your Plan</h3>
+          <p class="mb-4 text-gray-600">You’re currently on the Free Plan. Unlock more features like unlimited AI styling guides, advanced analytics, and exclusive discounts with our Premium Plan!</p>
+          <a href="subscription.html" class="bg-gradient-to-r from-lime-400 to-green-500 text-green-900 px-6 py-3 rounded-xl shadow-lg hover:from-green-500 hover:to-lime-400 transition font-semibold">Upgrade to Premium</a>
         </div>
       </div>
     </div>
@@ -196,6 +210,17 @@
 
       input.value = '';
     }
+
+    // Check for upgrade success query parameter
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('upgrade') === 'success') {
+        const successMessage = document.getElementById('successMessage');
+        successMessage.classList.remove('hidden');
+        // Optionally, scroll to the top to ensure the message is visible
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
   </script>
 </body>
 </html>

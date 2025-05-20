@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subscription Plans - Loopy Sustainable Fashion</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .fade-in { animation: fadeIn 1s ease; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-green-50 to-gray-100 min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-white shadow py-4">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <a href="index.html">
+        <img src="img/logo.jpg" alt="Loopy Logo" class="h-[80px] w-[80px] md:h-[110px] md:w-[110px] object-contain transition-all duration-300 rounded-2xl shadow-lg hover:scale-105">
+      </a>
+      <nav class="flex space-x-3 md:space-x-5">
+        <a href="index.html" class="text-gray-600 hover:text-green-500 font-medium transition">Home</a>
+        <a href="shop.html" class="text-gray-600 hover:text-green-500 font-medium transition">Shop</a>
+        <a href="swap.html" class="text-gray-600 hover:text-green-500 font-medium transition">Swap</a>
+        <a href="dashboard.html" class="text-green-600 font-semibold underline transition">Digital Wardrobe</a>
+        <a href="stats.html" class="text-gray-600 hover:text-green-500 font-medium transition">Stats</a>
+        <a href="chat.html" class="text-gray-600 hover:text-green-600 font-medium transition">Chat</a>
+        <a href="about.html" class="text-gray-600 hover:text-green-500 font-medium transition">About</a>
+        <a href="signup.html" class="bg-green-500 text-white px-4 py-2 rounded-xl shadow hover:bg-green-600 transition font-semibold">Sign Up</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Subscription Section -->
+  <section class="py-16 bg-white fade-in">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-4xl font-bold mb-12 text-green-700 flex items-center justify-center gap-2">
+        <svg class="inline w-8 h-8 text-green-400 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M15 12H9m6 0a6 6 0 11-12 0 6 6 0 0112 0z"></path></svg>
+        Loopy Subscription Plans
+      </h2>
+      <!-- Part 1: Main Functions and Packages -->
+      <div class="w-full max-w-4xl mx-auto py-10 px-4">
+        <h2 class="text-3xl font-extrabold text-center mb-3 text-gray-900">Find Your Perfect Loopy Plan</h2>
+        <p class="text-center mb-10 text-gray-500">Choose the subscription that's right for your sustainable wardrobe journey.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          <!-- Free Plan -->
+          <div class="bg-white p-8 rounded-3xl shadow-xl border border-green-100 relative flex flex-col">
+            <div class="absolute top-0 right-0 mt-5 mr-6 bg-green-50 rounded-full p-3">
+              <span class="text-3xl text-green-500">💡</span>
+            </div>
+            <div class="mb-4">
+              <span class="inline-block bg-green-100 text-green-700 font-semibold px-4 py-1 rounded-full text-xs mb-2">Starter</span>
+              <h3 class="text-3xl font-bold text-gray-900 mb-1">Free</h3>
+              <p class="text-green-700 mb-1 font-semibold">For the Casual Swapper</p>
+              <p class="text-gray-500 mb-6">Perfect for those starting their circular fashion journey.</p>
+            </div>
+            <ul class="text-gray-700 space-y-3 mb-8 flex-1">
+              <li class="flex items-center gap-2"><span class="text-green-500">✔️</span> Up to 1 user</li>
+              <li class="flex items-center gap-2"><span class="text-green-500">✔️</span> Access wardrobe & shop</li>
+              <li class="flex items-center gap-2"><span class="text-green-500">✔️</span> 3 AI styling guides/day</li>
+              <li class="flex items-center gap-2"><span class="text-green-500">✔️</span> Community access</li>
+              <li class="flex items-center gap-2"><span class="text-green-500">✔️</span> 30-day free trial</li>
+            </ul>
+            <a href="signup.html" class="block w-full py-3 text-center bg-green-100 hover:bg-green-200 text-green-700 font-bold rounded-2xl text-lg transition-all duration-200">Try for Free</a>
+          </div>
+          <!-- Premium Plan -->
+          <div class="bg-green-900 p-8 rounded-3xl shadow-2xl border-2 border-green-500 relative flex flex-col">
+            <div class="absolute top-0 right-0 mt-5 mr-6 bg-green-800 rounded-full p-3">
+              <span class="text-3xl text-lime-300">🪄</span>
+            </div>
+            <div class="mb-4">
+              <span class="inline-block bg-green-800 text-lime-300 font-semibold px-4 py-1 rounded-full text-xs mb-2">Professional</span>
+              <h3 class="text-3xl font-bold text-white mb-1">$10<span class="text-xl font-medium text-lime-200">/month</span></h3>
+              <p class="text-lime-300 mb-1 font-semibold">For the Power Looper</p>
+              <p class="text-gray-300 mb-6">Unlock advanced features for a richer Loopy experience.</p>
+            </div>
+            <ul class="text-lime-100 space-y-3 mb-8 flex-1">
+              <li class="flex items-center gap-2"><span class="text-lime-300">✔️</span> Unlimited users</li>
+              <li class="flex items-center gap-2"><span class="text-lime-300">✔️</span> Advanced analytics</li>
+              <li class="flex items-center gap-2"><span class="text-lime-300">✔️</span> Unlimited AI styling guides</li>
+              <li class="flex items-center gap-2"><span class="text-lime-300">✔️</span> Purchase incentives & early access</li>
+              <li class="flex items-center gap-2"><span class="text-lime-300">✔️</span> Priority support 24/7</li>
+            </ul>
+            <a href="payout.html" class="block w-full py-3 text-center bg-gradient-to-r from-lime-300 to-green-400 hover:from-green-400 hover:to-lime-300 text-green-900 font-bold rounded-2xl text-lg transition-all duration-200 shadow-lg">Upgrade Now</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Part 2: Comparison Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse bg-green-50/80 rounded-2xl shadow-md">
+          <thead>
+            <tr class="bg-lime-100">
+              <th class="p-4 text-green-700 font-semibold">Feature</th>
+              <th class="p-4 text-green-700 font-semibold">Free Plan</th>
+              <th class="p-4 text-green-700 font-semibold">Premium Plan</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-t">
+              <td class="p-4 text-green-700">Wardrobe Tracking & Garment Uploads</td>
+              <td class="p-4 text-green-700">✅</td>
+              <td class="p-4 text-green-700">✅</td>
+            </tr>
+            <tr class="border-t">
+              <td class="p-4 text-green-700">List Items for Resale or Swapping</td>
+              <td class="p-4 text-green-700">✅</td>
+              <td class="p-4 text-green-700">✅</td>
+            </tr>
+            <tr class="border-t">
+              <td class="p-4 text-green-700">Join the Loopy Community</td>
+              <td class="p-4 text-green-700">✅</td>
+              <td class="p-4 text-green-700">✅</td>
+            </tr>
+            <tr class="border-t">
+              <td class="p-4 text-green-700">AI Styling Guides</td>
+              <td class="p-4 text-green-700">3 per day</td>
+              <td class="p-4 text-green-700">Unlimited</td>
+            </tr>
+            <tr class="border-t">
+              <td class="p-4 text-green-700">Advanced Virtual Wardrobe Analytics</td>
+              <td class="p-4 text-green-700">❌</td>
+              <td class="p-4 text-green-700">✅</td>
+            </tr>
+            <tr class="border-t">
+              <td class="p-4 text-green-700">Exclusive Purchase Incentives</td>
+              <td class="p-4 text-green-700">Limited</td>
+              <td class="p-4 text-green-700">Full Access (discounts, free/discounted shipping)</td>
+            </tr>
+            <tr class="border-t">
+              <td class="p-4 text-green-700">First Access to New Collections</td>
+              <td class="p-4 text-green-700">❌</td>
+              <td class="p-4 text-green-700">✅</td>
+            </tr>
+            <tr class="border-t">
+              <td class="p-4 text-green-700">Priority Listing Visibility</td>
+              <td class="p-4 text-green-700">❌</td>
+              <td class="p-4 text-green-700">✅</td>
+            </tr>
+            <tr class="border-t">
+              <td class="p-4 text-green-700">Early Access to Features & Seasonal Drops</td>
+              <td class="p-4 text-green-700">❌</td>
+              <td class="p-4 text-green-700">✅</td>
+            </tr>
+            <tr class="border-t">
+              <td class="p-4 text-green-700">Monthly Sustainability Reports</td>
+              <td class="p-4 text-green-700">❌</td>
+              <td class="p-4 text-green-700">✅</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 bg-gradient-to-tr from-green-700 to-emerald-900 text-white text-center mt-16 rounded-t-3xl shadow-inner">
+    <div class="container mx-auto px-4">
+      <p class="mb-6 text-lg font-semibold">Don't toss it. Loop it!</p>
+      <p class="mb-4 text-base">Supporting SDGs 8, 12, 13, 14, 15</p>
+      <div class="flex justify-center gap-4 mb-4">
+        <span class="text-2xl">💼</span>
+        <span class="text-2xl">♻️</span>
+        <span class="text-2xl">🌍</span>
+        <span class="text-2xl">🌊</span>
+        <span class="text-2xl">🌱</span>
+      </div>
+      <div class="flex justify-center space-x-4 mb-8 mt-8">
+        <a href="https://apps.apple.com/" target="_blank" rel="noopener" class="inline-flex items-center bg-black text-white px-6 py-3 rounded-xl shadow hover:bg-gray-800 transition">
+          <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M17.564 13.217c.014-2.385 1.948-3.52 2.033-3.572-1.109-1.62-2.838-1.843-3.444-1.87-1.47-.148-2.87.87-3.617.87-.749 0-1.895-.846-3.12-.822-1.606.023-3.099.936-3.93 2.387-1.692 2.928-.433 7.246 1.212 9.621.8 1.163 1.744 2.466 2.993 2.419 1.206-.048 1.663-.783 3.126-.783 1.464 0 1.867.783 3.129.758 1.296-.025 2.108-1.186 2.903-2.352.924-1.366 1.306-2.692 1.319-2.76-.029-.014-2.523-.969-2.54-3.846zm-3.012-7.184c.658-.797 1.104-1.91.982-3.033-.95.04-2.097.632-2.782 1.427-.611.707-1.148 1.837-.946 2.922 1.044.08 2.112-.53 2.746-1.316z"/></svg>
+          <span class="flex flex-col items-start leading-tight text-left">
+            <span class="text-xs">Download on the</span>
+            <span class="text-base font-semibold">App Store</span>
+          </span>
+        </a>
+        <a href="https://play.google.com/store" target="_blank" rel="noopener" class="inline-flex items-center bg-white text-gray-800 border border-gray-300 px-6 py-3 rounded-xl shadow hover:bg-gray-200 transition">
+          <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="none"><g><path fill="#34A853" d="M1.79 0l11.19 12L1.79 24z"/><path fill="#4285F4" d="M23 12l-2.21-2.36-5.43 4.23 5.43 4.13z"/><path fill="#FBBC05" d```javascript
+            <span class="text-xs">Get it on</span>
+            <span class="text-base font-semibold">Google Play</span>
+          </span>
+        </a>
+      </div>
+      <div class="flex justify-center space-x-4 text-base">
+        <a href="about.html" class="text-white hover:text-gray-200 transition">About</a>
+        <a href="faq.html" class="text-white hover:text-gray-200 transition">FAQ</a>
+        <a href="contact.html" class="text-white hover:text-gray-200 transition">Contact</a>
+        <a href="https://instagram.com" class="text-white hover:text-gray-200 transition">Instagram</a>
+        <a href="https://tiktok.com" class="text-white hover:text-gray-200 transition">TikTok</a>
+      </div>
+      <p class="mt-10 text-sm opacity-80">© 2025 Loopy Circular Fashion. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
